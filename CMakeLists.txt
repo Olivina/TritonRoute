@@ -39,11 +39,12 @@ add_subdirectory(${LEFLIB_HOME})
 
 
 ## configure settings
-find_package(ZLIB REQUIRED)
-find_package(BISON REQUIRED)
+cmake_policy(SET CMP0074 NEW)
+find_package(ZLIB 1.2.7 REQUIRED)
+find_package(BISON 3.0.4 REQUIRED)
 
-find_package(Boost 1.68.0 COMPONENTS unit_test_framework)
-find_package(OpenMP REQUIRED)
+find_package(Boost 1.68.0...1.72.0 REQUIRED COMPONENTS unit_test_framework)
+find_package(OpenMP 4.5 REQUIRED)
 find_package(Threads REQUIRED)
 find_package(VTune)
 

@@ -9,6 +9,7 @@ set(LEFLIB_HOME ${CMAKE_CURRENT_SOURCE_DIR})
 message(STATUS "leflib_home: ${LEFLIB_HOME}")
 
 # BISON and ZLIB are required to compile LEF/LEF Parsers.
+cmake_policy(SET CMP0074 NEW)
 find_package(BISON)
 find_package(ZLIB)
 
