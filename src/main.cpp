@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
   using namespace std::chrono;
   high_resolution_clock::time_point t1 = high_resolution_clock::now();
   if (argc == 1) {
-    cout <<"Error: usage ./TritonRoute -lef <LEF_FILE> -def <DEF_FILE> -guide <GUIDE_FILE> -output <OUTPUT_DEF>" <<endl;
+    cout <<"usage:\n ./TritonRoute \n  -lef <LEF_FILE> \n  -def <DEF_FILE> \n  -guide <GUIDE_FILE> \n  -output <OUTPUT_DEF> \n  [optional]-threads <NUM_THREADS>\n  [optional]-verbose" <<endl;
     return 2;
   }
 
