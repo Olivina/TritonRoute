@@ -35,7 +35,7 @@ void io::Parser::instAnalysis() {
   bool enableOutput = false;
   //bool enableOutput = true;
   if (VERBOSE > 0) {
-    cout <<endl <<"libcell analysis ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"libcell analysis ..." <<endl;
   }
   trackOffsetMap.clear();
   prefTrackPatterns.clear();
@@ -67,7 +67,7 @@ void io::Parser::instAnalysis() {
             minLayerNum = min(minLayerNum, lNum);
             maxLayerNum = max(maxLayerNum, lNum);
           } else {
-            cout <<"Error: instAnalysis unsupported pinFig" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: instAnalysis unsupported pinFig" <<endl;
           }
         }
       }
@@ -75,15 +75,15 @@ void io::Parser::instAnalysis() {
     maxLayerNum = min(maxLayerNum + 2, numLayers);
     refBlockPinLayerRange[refBlock] = make_tuple(minLayerNum, maxLayerNum);
     if (enableOutput) {
-      cout <<"  " <<refBlock->getName() <<" PIN layer ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  " <<refBlock->getName() <<" PIN layer ("
            <<design->getTech()->getLayer(minLayerNum)->getName() <<", "
            <<design->getTech()->getLayer(maxLayerNum)->getName() <<")" <<endl;
     }
   }
-  //cout <<"  refBlock pin layer range done" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"  refBlock pin layer range done" <<endl;
 
   if (VERBOSE > 0) {
-    cout <<endl <<"instance analysis ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"instance analysis ..." <<endl;
   }
 
   vector<frCoord> offset;
@@ -99,11 +99,11 @@ void io::Parser::instAnalysis() {
         // vertical track
         if (tp->isHorizontal()) {
           offset.push_back(origin.x() % tp->getTrackSpacing());
-          //cout <<"inst/offset/layer " <<inst->getName() <<" " <<origin.y() % tp->getTrackSpacing() 
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"inst/offset/layer " <<inst->getName() <<" " <<origin.y() % tp->getTrackSpacing() 
           //     <<" " <<design->getTech()->getLayer(tp->getLayerNum())->getName() <<endl;
         } else {
           offset.push_back(origin.y() % tp->getTrackSpacing());
-          //cout <<"inst/offset/layer " <<inst->getName() <<" " <<origin.x() % tp->getTrackSpacing()
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"inst/offset/layer " <<inst->getName() <<" " <<origin.x() % tp->getTrackSpacing()
           //     <<" " <<design->getTech()->getLayer(tp->getLayerNum())->getName() <<endl;
         }
       }
@@ -113,40 +113,40 @@ void io::Parser::instAnalysis() {
     if (VERBOSE > 0) {
       if (cnt < 100000) {
         if (cnt % 10000 == 0) {
-          cout <<"  complete " <<cnt <<" instances" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" instances" <<endl;
         }
       } else {
         if (cnt % 100000 == 0) {
-          cout <<"  complete " <<cnt <<" instances" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" instances" <<endl;
         }
       }
     }
   }
 
   if (enableOutput) {
-    cout <<endl <<"summary: " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"summary: " <<endl;
   }
   cnt = 0;
   frString orientName;
   for (auto &[refBlock, orientMap]: trackOffsetMap) {
     if (enableOutput) {
-      cout <<"  " <<refBlock->getName() <<" (ORIENT/#diff patterns)";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  " <<refBlock->getName() <<" (ORIENT/#diff patterns)";
     }
     for (auto &[orient, offsetMap]: orientMap) {
       cnt += offsetMap.size();
       if (enableOutput) {
         orient.getName(orientName);
-        cout <<" (" <<orientName <<", " <<offsetMap.size() <<")";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<orientName <<", " <<offsetMap.size() <<")";
         for (auto &[vec, inst]: offsetMap) {
-          cout <<" " <<(*inst.begin())->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<(*inst.begin())->getName();
         }
       }
     }
     if (enableOutput) {
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
   if (VERBOSE > 0) {
-    cout <<"#unique instances = " <<cnt <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#unique instances = " <<cnt <<endl;
   }
 }

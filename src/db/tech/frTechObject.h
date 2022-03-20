@@ -55,7 +55,7 @@ namespace fr {
     }
     frLayer* getLayer(const frString &name) const {
       if (name2layer.find(name) == name2layer.end()) {
-        // std::cout <<"Error: cannot find layer" <<std::endl;
+        // std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: cannot find layer" <<std::endl;
         // exit(1);
         return nullptr;
       } else {
@@ -64,7 +64,7 @@ namespace fr {
     }
     frLayer* getLayer(frLayerNum in) const {
       if ((int)in < 0 || in >= (int)layers.size()) {
-        std::cout <<"Error: cannot find layer" <<std::endl;
+        std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: cannot find layer" <<std::endl;
         exit(1);
       } else {
         return layers.at(in).get();
@@ -111,7 +111,7 @@ namespace fr {
     }
     void addVia(std::unique_ptr<frViaDef> in) {
       if (name2via.find(in->getName()) != name2via.end()) {
-        std::cout << "Error: duplicated via definition for " << in->getName() << "\n";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "Error: duplicated via definition for " << in->getName() << "\n";
       }
       name2via[in->getName()] = in.get();
       vias.push_back(std::move(in));
@@ -160,26 +160,26 @@ namespace fr {
 
     // debug
     void printAllConstraints() {
-      std::cout << "List of Constraints:\n";
+      std::cout << __FILE__ << ":" << __LINE__ << ": " << "List of Constraints:\n";
       for (auto &layer: layers) {
-        std::cout << "  Layer " << layer->getName() << "\n";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "  Layer " << layer->getName() << "\n";
         for (auto &constraint: layer->getConstraints()) {
           if (std::dynamic_pointer_cast<frCutSpacingConstraint>(constraint)) {
-            std::cout << "    CUT SPACING " << std::dynamic_pointer_cast<frCutSpacingConstraint>(constraint)->getCutSpacing() * 1.0 / dbUnit << "\n";
+            std::cout << __FILE__ << ":" << __LINE__ << ": " << "    CUT SPACING " << std::dynamic_pointer_cast<frCutSpacingConstraint>(constraint)->getCutSpacing() * 1.0 / dbUnit << "\n";
           }
           if (std::dynamic_pointer_cast<frSpacingConstraint>(constraint)) {
-            std::cout << "    ROUTING SPACING " << std::dynamic_pointer_cast<frSpacingConstraint>(constraint)->getMinSpacing() * 1.0 / dbUnit << "\n"; 
+            std::cout << __FILE__ << ":" << __LINE__ << ": " << "    ROUTING SPACING " << std::dynamic_pointer_cast<frSpacingConstraint>(constraint)->getMinSpacing() * 1.0 / dbUnit << "\n"; 
           }
         }
       }
     }
 
     void printDefaultVias() {
-      std::cout << "List of default vias:\n";
+      std::cout << __FILE__ << ":" << __LINE__ << ": " << "List of default vias:\n";
       for (auto &layer: layers) {
         if (layer->getType() == frLayerTypeEnum::CUT && layer->getLayerNum() >= 2/*BOTTOM_ROUTING_LAYER*/) {
-          std::cout << "  Layer " << layer->getName() << "\n" << std::flush;
-          std::cout << "    default via: " << layer->getDefaultViaDef()->getName() << "\n";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " << "  Layer " << layer->getName() << "\n" << std::flush;
+          std::cout << __FILE__ << ":" << __LINE__ << ": " << "    default via: " << layer->getDefaultViaDef()->getName() << "\n";
         }
       }
     }     

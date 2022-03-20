@@ -96,7 +96,7 @@ namespace fr{
       if (layer1Figs.size()) {
         return (layer1Figs.at(0))->getLayerNum();
       } else {
-        std::cout <<"Error: via does not have shape on layer 1" <<std::endl;
+        std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: via does not have shape on layer 1" <<std::endl;
         exit(1);
       }
     }
@@ -104,7 +104,7 @@ namespace fr{
       if (layer2Figs.size()) {
         return (layer2Figs.at(0))->getLayerNum();
       } else {
-        std::cout <<"Error: via does not have shape on layer 2" <<std::endl;
+        std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: via does not have shape on layer 2" <<std::endl;
         exit(1);
       }
     }
@@ -112,7 +112,7 @@ namespace fr{
       if (cutFigs.size()) {
         return (cutFigs.at(0))->getLayerNum();
       } else {
-        std::cout <<"Error: via does not have shape on layer cut" <<std::endl;
+        std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: via does not have shape on layer cut" <<std::endl;
         exit(1);
       }
     }

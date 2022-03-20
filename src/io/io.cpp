@@ -73,7 +73,7 @@ int io::Parser::Callbacks::getDefBlockages(defrCallbackType_e type, defiBlockage
   // bool enableOutput = true;
   bool enableOutput = false;
   if ((type != defrBlockageCbkType)) {
-    cout << "Type is not defrBlockageCbkType!" << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Type is not defrBlockageCbkType!" << endl;
     exit(1);
   }
 
@@ -93,44 +93,44 @@ int io::Parser::Callbacks::getDefBlockages(defrCallbackType_e type, defiBlockage
     if (parser->tech->name2layer.find(layerName) != parser->tech->name2layer.end()) {
       layerNum = parser->tech->name2layer[layerName]->getLayerNum();
     } else {
-        cout << "Warning: DEF OBS on layer " << layerName <<" is skipped..." << endl; 
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: DEF OBS on layer " << layerName <<" is skipped..." << endl; 
       // }
       return 0;
     }
     if (blockage->hasComponent()) {
-      cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
       return 0;
     }
     if (blockage->hasSlots()) {
-      cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
       return 0;
     }
     if (blockage->hasFills()) {
-      cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
       return 0;
     }
     if (blockage->hasPushdown()) {
-      cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
       return 0;
     }
     if (blockage->hasExceptpgnet()) {
-      cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
       return 0;
     }
     if (blockage->hasMask()) {
-      cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
       return 0;
     }
     if (blockage->hasSpacing()) {
-      cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
       return 0;
     }
     if (blockage->hasDesignRuleWidth()) {
-      cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
       return 0;
     }
   } else if (blockage->hasPlacement()) {
-    cout << "Warning: DEF placement OBS is skipped..." << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: DEF placement OBS is skipped..." << endl;
     return 0;
   }
 
@@ -150,12 +150,12 @@ int io::Parser::Callbacks::getDefBlockages(defrCallbackType_e type, defiBlockage
     pinIn->addPinFig(std::move(uptr));
     // pin completed
     if (enableOutput) {
-      cout <<"      RECT " <<blockage->xl(i) <<" " <<blockage->yl(i) <<" " <<blockage->xh(i) <<" " <<blockage->yh(i) <<" ;" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"      RECT " <<blockage->xl(i) <<" " <<blockage->yl(i) <<" " <<blockage->xh(i) <<" " <<blockage->yh(i) <<" ;" <<endl;
     }
   }
 
   for (int i = 0; i < blockage->numPolygons(); i++) {
-    cout << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Unsupported syntax in DEF BLOCKAGE, skipped...\n";
     continue;
   }
 
@@ -170,13 +170,13 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
   //bool enableOutput = true;
   bool enableOutput = false;
   if ((type != defrViaCbkType)) {
-    cout <<"Type is not defrViaCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not defrViaCbkType!" <<endl;
     exit(1);
   }
 
   if (enableOutput) {
-    cout <<"- " <<via->name() <<endl;
-    //cout <<"  numLayers = " <<via->numLayers() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"- " <<via->name() <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"  numLayers = " <<via->numLayers() <<endl;
   }
   io::Parser* parser = (io::Parser*) data;
 
@@ -207,38 +207,38 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
       via->rowCol(&numCutRows, &numCutCols);
     }
     if (enableOutput) {
-      cout <<" + VIARULE "    <<viaRuleName <<endl;
-      //cout <<" + CUTSIZE " <<xSize * 1.0 / parser->tmpBlock->getDBUPerUU() <<" " 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" + VIARULE "    <<viaRuleName <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<" + CUTSIZE " <<xSize * 1.0 / parser->tmpBlock->getDBUPerUU() <<" " 
       //                     <<ySize * 1.0 / parser->tmpBlock->getDBUPerUU() <<endl;
-      cout <<" + CUTSIZE "    <<xSize       <<" " <<ySize       <<endl;
-      cout <<" + LAYERS "     <<botLayer    <<" " <<cutLayer    <<" "   <<topLayer <<endl;
-      cout <<" + CUTSPACING " <<xCutSpacing <<" " <<yCutSpacing <<endl;
-      cout <<" + ENCLOSURE "  <<xBotEnc     <<" " <<yBotEnc     <<" "
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" + CUTSIZE "    <<xSize       <<" " <<ySize       <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" + LAYERS "     <<botLayer    <<" " <<cutLayer    <<" "   <<topLayer <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" + CUTSPACING " <<xCutSpacing <<" " <<yCutSpacing <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" + ENCLOSURE "  <<xBotEnc     <<" " <<yBotEnc     <<" "
                               <<xTopEnc     <<" " <<yTopEnc     <<endl;
       if (via->hasRowCol()) {
-        cout <<" + ROWCOL " <<numCutRows <<" " <<numCutCols <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" + ROWCOL " <<numCutRows <<" " <<numCutCols <<endl;
       }
       if (via->hasOrigin()) {
-        cout <<" + ORIGIN " <<xOffset <<" " <<yOffset <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" + ORIGIN " <<xOffset <<" " <<yOffset <<endl;
       }
       if (via->hasOffset()) {
-        cout <<" + OFFSET " <<xBotOffset <<" " <<yBotOffset <<" " <<xTopOffset <<" " <<yTopOffset <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" + OFFSET " <<xBotOffset <<" " <<yBotOffset <<" " <<xTopOffset <<" " <<yTopOffset <<endl;
       }
-      cout <<" ;" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
 
     }
 
     // create cut figs
     frLayerNum cutLayerNum = 0;
     if (parser->tech->name2layer.find(cutLayer) == parser->tech->name2layer.end()) {
-      cout <<"Error: cannot find cut layer" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: cannot find cut layer" <<endl;
       exit(1);
     } else {
       cutLayerNum = parser->tech->name2layer.find(cutLayer)->second->getLayerNum();
     }
     frLayerNum botLayerNum = 0;
     if (parser->tech->name2layer.find(botLayer) == parser->tech->name2layer.end()) {
-      cout <<"Error: cannot find bot layer" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: cannot find bot layer" <<endl;
       exit(1);
     } else {
       botLayerNum = parser->tech->name2layer.find(botLayer)->second->getLayerNum();
@@ -246,7 +246,7 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
     // create cut figs
     frLayerNum topLayerNum = 0;
     if (parser->tech->name2layer.find(topLayer) == parser->tech->name2layer.end()) {
-      cout <<"Error: cannot find top layer" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: cannot find top layer" <<endl;
       exit(1);
     } else {
       topLayerNum = parser->tech->name2layer.find(topLayer)->second->getLayerNum();
@@ -262,7 +262,7 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
         frBox tmpBox(currX, currY, currX + xSize, currY + ySize);
         rect->setBBox(tmpBox);
         rect->setLayerNum(cutLayerNum);
-        //cout <<"cutFig (" <<currX <<", " <<currY <<") (" <<currX+xSize <<"," <<currY+ySize <<") " <<cutLayer <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"cutFig (" <<currX <<", " <<currY <<") (" <<currX+xSize <<"," <<currY+ySize <<") " <<cutLayer <<endl;
 
         cutFigs.push_back(std::move(rect));
 
@@ -272,14 +272,14 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
     }
     currX -= xCutSpacing; // max cut X
     currY -= yCutSpacing; // max cut Y
-    //cout <<"max x/y " <<currX <<" " <<currY <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"max x/y " <<currX <<" " <<currY <<endl;
 
     frTransform cutXform(-currX / 2 + xOffset, -currY / 2 + yOffset);
     for (auto &uShape: cutFigs) {
       auto rect = static_cast<frRect*>(uShape.get());
-      //cout <<"orig " <<*rect <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"orig " <<*rect <<endl;
       rect->move(cutXform);
-      //cout <<"move " <<*rect <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"move " <<*rect <<endl;
     }
 
     unique_ptr<frShape> uBotFig = make_unique<frRect>();
@@ -311,7 +311,7 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
   // RECT defined via
   } else {
     if (via->numPolygons()) {
-      cout <<"Error: unsupport polygon in def via" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupport polygon in def via" <<endl;
       exit(1);
     }
     char* layerName;
@@ -324,23 +324,23 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
       via->layer(i, &layerName, &xl, &yl, &xh, &yh);
       if (parser->tech->name2layer.find(layerName) == parser->tech->name2layer.end()) {
         if (VERBOSE > -1) {
-          cout <<"Warning: layer " <<layerName <<" is skipiped for " <<via->name() <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: layer " <<layerName <<" is skipiped for " <<via->name() <<endl;
         }
         return 0;
       }
       auto layerNum = parser->tech->name2layer.at(layerName)->getLayerNum();
       lNum2Int[layerNum].insert(i);
-      //cout <<"layerNum " <<layerNum <<" i " <<i <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"layerNum " <<layerNum <<" i " <<i <<endl;
     }
     if ((int)lNum2Int.size() != 3) {
       if (VERBOSE > -1) {
-        cout <<"Error: unsupported via" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported via" <<endl;
       }
       exit(1);
     }
     if (lNum2Int.begin()->first + 2 != (--lNum2Int.end())->first) {
       if (VERBOSE > -1) {
-        cout <<"Error: non-consecutive layers" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: non-consecutive layers" <<endl;
       }
       exit(1);
     }
@@ -350,7 +350,7 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
       for (auto i: intS) {
         via->layer(i, &layerName, &xl, &yl, &xh, &yh);
         if (enableOutput) {
-          cout <<" + RECT " <<layerName <<" ( " <<xl <<" " <<yl <<" ) ( " <<xh <<" " <<yh <<" )" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" + RECT " <<layerName <<" ( " <<xl <<" " <<yl <<" ) ( " <<xh <<" " <<yh <<" )" <<endl;
         }
         unique_ptr<frRect> pinFig = make_unique<frRect>();
         pinFig->setBBox(frBox(xl, yl, xh, yh));
@@ -369,7 +369,7 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
       }
       //for (int j = 0; j < via->numPolygons(i); ++j) {
       //  if (enableOutput) {
-      //    cout <<"    POLYGON"; 
+      //    cout << __FILE__ << ":" << __LINE__ << ": " <<"    POLYGON"; 
       //  }
       //  vector<frPoint> tmpPoints;
       //  for (int k = 0; k < via->getPolygon(i, j).numPoints; k++) {
@@ -377,7 +377,7 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
       //    frCoord y = round(via->getPolygon(i, j).y[k] * parser->tech->getDBUPerUU());
       //    tmpPoints.push_back(frPoint(x, y));
       //    if (enableOutput) {
-      //       cout <<" " <<x * 1.0 / parser->tech->getDBUPerUU() <<" " 
+      //       cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<x * 1.0 / parser->tech->getDBUPerUU() <<" " 
       //                  <<y * 1.0 / parser->tech->getDBUPerUU();
       //    }
       //  }
@@ -385,7 +385,7 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
       //  pinFig->setPoints(tmpPoints);
       //  pinFig->setLayerNum(layerNum);
       //  if (enableOutput) {
-      //    cout <<" ;" <<endl;
+      //    cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
       //  }
       //  switch(cnt) {
       //    case 0 :
@@ -402,7 +402,7 @@ int io::Parser::Callbacks::getDefVias(defrCallbackType_e type, defiVia* via, def
       cnt++;
     }
     if (enableOutput) {
-      cout <<" ;" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
     }
     parser->tech->addVia(std::move(viaDef));
   }
@@ -414,20 +414,20 @@ int io::Parser::Callbacks::getDefComponents(defrCallbackType_e type, defiCompone
   //bool enableOutput = true;
   bool enableOutput = false;
   if ((type != defrComponentCbkType)) {
-    cout <<"Type is not defrComponentCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not defrComponentCbkType!" <<endl;
     exit(1);
   }
 
   io::Parser* parser = (io::Parser*) data;
   if (parser->design->name2refBlock.find(comp->name()) == parser->design->name2refBlock.end()) {
     if (VERBOSE > -1) {
-      cout <<"Error: library cell not found!" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: library cell not found!" <<endl;
     }
     exit(1);
   }
   
   if (enableOutput) {
-    cout <<"- " <<comp->id() <<" " <<comp->name() <<" + STATUS ( " <<comp->placementX()
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"- " <<comp->id() <<" " <<comp->name() <<" + STATUS ( " <<comp->placementX()
          <<" " <<comp->placementY() <<" ) " <<comp->placementOrient() <<endl;
   }
 
@@ -458,18 +458,18 @@ int io::Parser::Callbacks::getDefComponents(defrCallbackType_e type, defiCompone
 
   if (parser->tmpBlock->name2inst.find(comp->id()) != parser->tmpBlock->name2inst.end()) {
     if (VERBOSE > -1) {
-      cout <<"Error: same cell name!" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: same cell name!" <<endl;
     }
     exit(1);
   }
   parser->tmpBlock->addInst(std::move(uInst));
   if (parser->tmpBlock->insts.size() < 100000) {
     if (parser->tmpBlock->insts.size() % 10000 == 0) {
-      cout <<"defIn read " <<parser->tmpBlock->insts.size() <<" components" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"defIn read " <<parser->tmpBlock->insts.size() <<" components" <<endl;
     }
   } else {
     if (parser->tmpBlock->insts.size() % 100000 == 0) {
-      cout <<"defIn read " <<parser->tmpBlock->insts.size() <<" components" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"defIn read " <<parser->tmpBlock->insts.size() <<" components" <<endl;
     }
   }
 
@@ -486,7 +486,7 @@ int io::Parser::Callbacks::getDefString(defrCallbackType_e type, const char* str
     tmpBlock->trackPatterns.clear();
     tmpBlock->trackPatterns.resize(parser->tech->layers.size());
     if (enableOutput) {
-      cout <<"DESIGN " <<tmpBlock->getName() <<" ;" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"DESIGN " <<tmpBlock->getName() <<" ;" <<endl;
     }
   }
   return 0;
@@ -501,7 +501,7 @@ int io::Parser::Callbacks::getDefVoid(defrCallbackType_e type, void* variable, d
     parser->design->setTopBlock(
                      std::move(parser->tmpBlock));
     if (enableOutput) {
-      cout <<"END DESIGN" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"END DESIGN" <<endl;
     }
   }
   return 0;
@@ -511,7 +511,7 @@ int io::Parser::Callbacks::getDefDieArea(defrCallbackType_e type, defiBox* box, 
   //bool enableOutput = true;
   bool enableOutput = false;
   if (type != defrDieAreaCbkType) {
-    cout <<"Type is not defrDieAreaCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not defrDieAreaCbkType!" <<endl;
     exit(1);
   }
   vector<frBoundary> bounds;
@@ -526,7 +526,7 @@ int io::Parser::Callbacks::getDefDieArea(defrCallbackType_e type, defiBox* box, 
   io::Parser* parser = (io::Parser*) data;
   parser->tmpBlock->setBoundaries(bounds);
   if (enableOutput) {
-    cout <<"DIEAREA ( " <<box->xl() <<" " <<box->yl() <<" ) ( " <<box->xh() <<" " <<box->yh() <<" ) ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"DIEAREA ( " <<box->xl() <<" " <<box->yl() <<" ) ( " <<box->xh() <<" " <<box->yh() <<" ) ;" <<endl;
   }
   return 0;
 }
@@ -537,12 +537,12 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
   bool isSNet = false;
 
   if (type != defrNetCbkType && type != defrSNetCbkType) {
-    cout <<"Type is not defr(S)NetCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not defr(S)NetCbkType!" <<endl;
     exit(1);
   }
 
   if (type == defrSNetCbkType) {
-    //cout <<"Type is Special Net: " <<net->name() <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is Special Net: " <<net->name() <<endl;
     //exit(1);
     isSNet = true;
   }
@@ -553,21 +553,21 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
   netIn->setId(parser->numNets);
   parser->numNets++;
   if (enableOutput) {
-    cout <<"- " <<net->name();
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"- " <<net->name();
   }
   for (int i = 0; i < net->numConnections(); i++) {
     if (enableOutput) {
       if (i % 4 == 0) {
-        cout <<endl <<" ";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<" ";
       }
-      cout <<" ( " <<net->instance(i) <<" " <<net->pin(i) <<" )";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ( " <<net->instance(i) <<" " <<net->pin(i) <<" )";
     }
     
     if (!strcmp(net->instance(i), "PIN")) {
       // IOs
       if (parser->tmpBlock->name2term.find(net->pin(i)) == parser->tmpBlock->name2term.end()) {
         if (VERBOSE > -1) {
-          cout <<"Error: term not found!" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: term not found!" <<endl;
         }
         exit(1);
       }
@@ -591,7 +591,7 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
       } else {
         if (parser->tmpBlock->name2inst.find(net->instance(i)) == parser->tmpBlock->name2inst.end()) {
           if (VERBOSE > -1) {
-            cout <<"Error: component not found!" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: component not found!" <<endl;
           }
           exit(1);
         }
@@ -609,7 +609,7 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
         }
         if (!flag) {
           if (VERBOSE > -1) {
-            cout <<"Error: component pin not found!" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: component pin not found!" <<endl;
           }
           exit(1);
         }
@@ -617,9 +617,9 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
     }
   }
   // read pre-route
-  //cout << "Net " << net->name() << " has " << net->numWires() << " wires\n";
-  //cout << "Net " << net->name() << " has " << net->numPaths() << " paths\n"; // no paths
-  //cout << "Net " << net->name() << " has " << net->numVpins() << " vpins\n"; // no vpins
+  //cout << __FILE__ << ":" << __LINE__ << ": " << "Net " << net->name() << " has " << net->numWires() << " wires\n";
+  //cout << __FILE__ << ":" << __LINE__ << ": " << "Net " << net->name() << " has " << net->numPaths() << " paths\n"; // no paths
+  //cout << __FILE__ << ":" << __LINE__ << ": " << "Net " << net->name() << " has " << net->numVpins() << " vpins\n"; // no vpins
   
   // initialize
   string layerName   = "";
@@ -641,12 +641,12 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
   frCoord width      = 0;
   for (int i = 0; i < (int)net->numWires(); i++) {
     defiWire* tmpWire = net->wire(i);
-    //cout << "Wire " << i << "\n";
-    //cout << "  Type: " << tmpWire->wireType() << endl;
-    //cout << "  has " << tmpWire->numPaths() << " paths\n";
+    //cout << __FILE__ << ":" << __LINE__ << ": " << "Wire " << i << "\n";
+    //cout << __FILE__ << ":" << __LINE__ << ": " << "  Type: " << tmpWire->wireType() << endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " << "  has " << tmpWire->numPaths() << " paths\n";
     
     if (enableOutput) {
-       cout <<endl <<"  + " <<tmpWire->wireType();
+       cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  + " <<tmpWire->wireType();
     }
     // each path is a def line
     for (int j = 0; j < (int)tmpWire->numPaths(); j++) {
@@ -670,51 +670,51 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
       right         = -1;
       top           = -1;
       width         = 0;
-      //cout <<"path here" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"path here" <<endl;
       
       int pathId;
       while ((pathId = path->next()) != DEFIPATH_DONE) {
-        //cout << "  pathId = " << pathId << endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " << "  pathId = " << pathId << endl;
         switch(pathId) {
           case DEFIPATH_LAYER:
             layerName = string(path->getLayer());
             if (parser->tech->name2layer.find(layerName) == parser->tech->name2layer.end()) {
               if (VERBOSE > -1) {
-                cout <<"Error: unsupported layer: " <<layerName <<endl;
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported layer: " <<layerName <<endl;
               }
               exit(1);
             }
             if (enableOutput) {
               if (!j) {
-                cout <<" " <<layerName;
+                cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<layerName;
               } else {
-                cout <<endl <<"    NEW " <<layerName;
+                cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    NEW " <<layerName;
               }
             }
             break;
           case DEFIPATH_VIA:
             viaName = string(path->getVia());
             if (enableOutput) {
-              cout <<" " <<viaName;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<viaName;
             }
             break;
           case DEFIPATH_WIDTH:
             width = path->getWidth();
             if (enableOutput) {
-              cout <<" " <<width;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<width;
             }
             break;
           case DEFIPATH_POINT:
             if (!hasBeginPoint) {
               path->getPoint(&beginX, &beginY);
               if (enableOutput) {
-                cout <<" ( " <<beginX <<" " <<beginY <<" )";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<" ( " <<beginX <<" " <<beginY <<" )";
               }
               hasBeginPoint = true;
             } else {
               path->getPoint(&endX, &endY);
               if (enableOutput) {
-                cout <<" ( " <<endX <<" " <<endY <<" )";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<" ( " <<endX <<" " <<endY <<" )";
               }
               hasEndPoint = true;
             }
@@ -723,13 +723,13 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
             if (!hasBeginPoint) {
               path->getFlushPoint(&beginX, &beginY, &beginExt);
               if (enableOutput) {
-                cout <<" ( " <<beginX <<" " <<beginY <<" " <<beginExt <<" )";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<" ( " <<beginX <<" " <<beginY <<" " <<beginExt <<" )";
               }
               hasBeginPoint = true;
             } else {
               path->getFlushPoint(&endX, &endY, &endExt);
               if (enableOutput) {
-                cout <<" ( " <<endX <<" " <<endY <<" " <<endExt <<" )";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<" ( " <<endX <<" " <<endY <<" " <<endExt <<" )";
               }
               hasEndPoint = true;
             }
@@ -739,13 +739,13 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
             beginExt = 0;
             endExt = 0;
             if (enableOutput) {
-              cout <<" + SHAPE " <<shape;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" + SHAPE " <<shape;
             }
             break;
           case DEFIPATH_RECT:
             path->getViaRect(&left, &bottom, &right, &top);
             if (enableOutput) {
-              cout <<" RECT ( " <<left <<" " <<bottom <<" " <<right <<" " <<top <<" )";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" RECT ( " <<left <<" " <<bottom <<" " <<right <<" " <<top <<" )";
             }
             hasRect = true;
             break;
@@ -753,18 +753,18 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
             if (!hasBeginPoint) {
               path->getVirtualPoint(&beginX, &beginY);
               if (enableOutput) {
-                cout <<" ( " <<beginX <<" " <<beginY <<" )";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<" ( " <<beginX <<" " <<beginY <<" )";
               }
               hasBeginPoint = true;
             } else {
               path->getVirtualPoint(&endX, &endY);
               if (enableOutput) {
-                cout <<" ( " <<endX <<" " <<endY <<" )";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<" ( " <<endX <<" " <<endY <<" )";
               }
               hasEndPoint = true;
             }
             break;
-          default : cout <<" net " <<net->name() <<" unknown pathId " <<pathId <<endl; break;
+          default : cout << __FILE__ << ":" << __LINE__ << ": " <<" net " <<net->name() <<" unknown pathId " <<pathId <<endl; break;
         }
       }
 
@@ -826,7 +826,7 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
       if (viaName != "") {
         if (parser->tech->name2via.find(viaName) == parser->tech->name2via.end()) {
           if (VERBOSE > -1) {
-            cout <<"Error: unsupported via: " <<viaName <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported via: " <<viaName <<endl;
           }
         } else {
           frPoint p;
@@ -857,39 +857,39 @@ int io::Parser::Callbacks::getDefNets(defrCallbackType_e type, defiNet* net, def
     } else if (str == "GROUND") {
       netType = frNetEnum::frcGroundNet;
     } else {
-      cout <<"Error: unsupported NET USE in def" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported NET USE in def" <<endl;
       exit(1);
     }
     if (enableOutput) {
-      cout <<" + USE " <<str <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" + USE " <<str <<endl;
     }
   }
   netIn->setType(netType);
 
   if (enableOutput) {
-    cout <<endl <<" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<" ;" <<endl;
   }
 
   if (isSNet) {
     parser->tmpBlock->addSNet(std::move(uNetIn)); 
     if (parser->tmpBlock->snets.size() < 100000) {
       if (parser->tmpBlock->snets.size() % 10000 == 0) {
-        cout <<"defIn read " <<parser->tmpBlock->snets.size() <<" snets" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"defIn read " <<parser->tmpBlock->snets.size() <<" snets" <<endl;
       }
     } else {
       if (parser->tmpBlock->snets.size() % 10000 == 0) {
-        cout <<"defIn read " <<parser->tmpBlock->snets.size() <<" snets" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"defIn read " <<parser->tmpBlock->snets.size() <<" snets" <<endl;
       }
     }
   } else {
     parser->tmpBlock->addNet(std::move(uNetIn)); 
     if (parser->tmpBlock->nets.size() < 100000) {
       if (parser->tmpBlock->nets.size() % 10000 == 0) {
-        cout <<"defIn read " <<parser->tmpBlock->nets.size() <<" nets" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"defIn read " <<parser->tmpBlock->nets.size() <<" nets" <<endl;
       }
     } else {
       if (parser->tmpBlock->nets.size() % 100000 == 0) {
-        cout <<"defIn read " <<parser->tmpBlock->nets.size() <<" nets" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"defIn read " <<parser->tmpBlock->nets.size() <<" nets" <<endl;
       }
     }
   }
@@ -901,7 +901,7 @@ int io::Parser::Callbacks::getDefTerminals(defrCallbackType_e type, defiPin* ter
   bool enableOutput = false;
   //bool enableOutput = true;
   if (type != defrPinCbkType) {
-    cout <<"Type is not defrPinCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not defrPinCbkType!" <<endl;
     exit(1);
   }
 
@@ -918,17 +918,17 @@ int io::Parser::Callbacks::getDefTerminals(defrCallbackType_e type, defiPin* ter
     } else if (str == "GROUND") {
       termType = frTermEnum::frcGroundTerm;
     } else {
-      cout <<"Error: unsupported PIN USE in lef" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported PIN USE in lef" <<endl;
       exit(1);
     }
     if (enableOutput) {
-      cout <<"    USE " <<str <<" ;" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"    USE " <<str <<" ;" <<endl;
     }
   }
 
   io::Parser* parser = (io::Parser*) data;
   if (term->hasPort()) {
-    cout <<"Error: multiple pin ports existing in DEF" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: multiple pin ports existing in DEF" <<endl;
     exit(1);
   } else {
     // term
@@ -942,11 +942,11 @@ int io::Parser::Callbacks::getDefTerminals(defrCallbackType_e type, defiPin* ter
     auto pinIn  = make_unique<frPin>();
     pinIn->setId(0);
     for (int i = 0; i < term->numLayer(); ++i) {
-      //cout <<"  layerName= " <<term->layer(i) <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"  layerName= " <<term->layer(i) <<endl;
       string layer = term->layer(i);
       if (parser->tech->name2layer.find(layer) == parser->tech->name2layer.end()) {
         if (VERBOSE > -1) {
-          cout <<"Error: unsupported layer: " <<layer <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported layer: " <<layer <<endl;
         }
         //continue;
         exit(1);
@@ -964,7 +964,7 @@ int io::Parser::Callbacks::getDefTerminals(defrCallbackType_e type, defiPin* ter
       pinFig->addToPin(pinIn.get());
       pinFig->setLayerNum(layerNum);
       pinFig->move(frTransform(term->placementX(), term->placementY(), frOrientEnum(term->orient())));
-      //cout <<"move" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"move" <<endl;
       frBox transformedBBox;
       pinFig->getBBox(transformedBBox);
       // pinFig completed
@@ -975,11 +975,11 @@ int io::Parser::Callbacks::getDefTerminals(defrCallbackType_e type, defiPin* ter
     }
     // polygon
     for (int i = 0; i < term->numPolygons(); ++i) {
-      //cout <<"  polyName= " <<term->polygonName(i) <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"  polyName= " <<term->polygonName(i) <<endl;
       string layer = term->polygonName(i);
       if (parser->tech->name2layer.find(layer) == parser->tech->name2layer.end()) {
         if (VERBOSE > -1) {
-          cout <<"Error: unsupported layer: " <<layer <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported layer: " <<layer <<endl;
         }
         //continue;
         exit(1);
@@ -1005,12 +1005,12 @@ int io::Parser::Callbacks::getDefTerminals(defrCallbackType_e type, defiPin* ter
       // pin completed
     }
     termIn->addPin(std::move(pinIn));
-    //cout <<"  placeXY  = (" <<term->placementX() <<"," <<term->placementY() <<")" <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"  placeXY  = (" <<term->placementX() <<"," <<term->placementY() <<")" <<endl;
     parser->tmpBlock->addTerm(std::move(uTermIn));
   }
 
   if (parser->tmpBlock->terms.size() % 1000 == 0) {
-    cout <<"defIn read " <<parser->tmpBlock->terms.size() <<" pins" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"defIn read " <<parser->tmpBlock->terms.size() <<" pins" <<endl;
   }
 
   return 0;
@@ -1021,12 +1021,12 @@ int io::Parser::Callbacks::getDefTracks(defrCallbackType_e type, defiTrack* trac
   bool enableOutput = false;
   //bool enableOutput = true;
   if (type != defrTrackCbkType) {
-    cout <<"Type is not defrTrackCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not defrTrackCbkType!" <<endl;
     exit(1);
   }
 
   if (enableOutput) {
-    cout <<"TRACKS " <<track->macro() <<" " <<track->x() 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"TRACKS " <<track->macro() <<" " <<track->x() 
          <<" DO " <<track->xNum() <<" STEP " <<track->xStep() 
          <<" LAYER " <<track->layer(0) <<endl;
   }
@@ -1034,7 +1034,7 @@ int io::Parser::Callbacks::getDefTracks(defrCallbackType_e type, defiTrack* trac
   io::Parser* parser = (io::Parser*) data;
   unique_ptr<frTrackPattern> tmpTrackPattern = make_unique<frTrackPattern>();
   if (parser->tech->name2layer.find(track->layer(0)) == parser->tech->name2layer.end()) {
-    cout <<"Error: cannot find layer: " <<track->layer(0) <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: cannot find layer: " <<track->layer(0) <<endl;
     exit(2);
   }
   tmpTrackPattern->setLayerNum(parser->tech->name2layer.at(track->layer(0))->getLayerNum());
@@ -1043,14 +1043,14 @@ int io::Parser::Callbacks::getDefTracks(defrCallbackType_e type, defiTrack* trac
   } else if (!strcmp(track->macro(), "Y")) {
     tmpTrackPattern->setHorizontal(false);
   } else {
-    cout <<"Error: unsupporterd direction: " <<track->macro() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupporterd direction: " <<track->macro() <<endl;
     exit(2);
   }
   tmpTrackPattern->setStartCoord(track->x());
   tmpTrackPattern->setNumTracks(track->xNum());
   tmpTrackPattern->setTrackSpacing(track->xStep());
   parser->tmpBlock->trackPatterns.at(tmpTrackPattern->getLayerNum()).push_back(std::move(tmpTrackPattern));
-  //cout <<"here" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"here" <<endl;
 
   return 0;
 }
@@ -1061,7 +1061,7 @@ int io::Parser::Callbacks::getDefUnits(defrCallbackType_e type, double number, d
   io::Parser* parser = (io::Parser*) data;
   parser->tmpBlock->setDBUPerUU(static_cast<frUInt4>(number));
   if (enableOutput) {
-    cout <<"UNITS DISTANCE MICRONS " <<parser->tmpBlock->getDBUPerUU() <<" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"UNITS DISTANCE MICRONS " <<parser->tmpBlock->getDBUPerUU() <<" ;" <<endl;
   }
   return 0;
 }
@@ -1092,13 +1092,13 @@ void io::Parser::readDef() {
   defrSetBlockageCbk(Callbacks::getDefBlockages);
 
   if ((f = fopen(DEF_FILE.c_str(),"r")) == 0) {
-    cout <<"Couldn't open def file" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Couldn't open def file" <<endl;
     exit(2);
   }
 
   res = defrRead(f, DEF_FILE.c_str(), (defiUserData)this, 1);
   if (res != 0) {
-    cout <<"DEF parser returns an error!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"DEF parser returns an error!" <<endl;
     exit(2);
   }
   fclose(f);
@@ -1126,8 +1126,8 @@ int io::Parser::getLef58SpacingTable_parallelRunLength(void *data, frLayer* tmpL
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl <<"  SPACINGTABLE" <<endl;
-    cout <<"  PARALLELRUNLENGTH";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  SPACINGTABLE" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  PARALLELRUNLENGTH";
   }
 
   bool    isWrongDirection    = false;
@@ -1156,42 +1156,42 @@ int io::Parser::getLef58SpacingTable_parallelRunLength(void *data, frLayer* tmpL
     if (word == string("WRONGDIRECTION")) {
       //isWrongDirection = true;
       if (enableOutput) {
-        cout <<" WRONGDIRECTION";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" WRONGDIRECTION";
       }
     } else if (word == string("SAMEMASK")) {
       isSameMask = true;
       if (enableOutput) {
-        cout <<" SAMEMASK";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" SAMEMASK";
       }
     } else if (word == string("EXCEPTEOL")) {
       double tmp;
       if (istr >> tmp) {
         if (enableOutput) {
-          cout <<" EXCEPTEOL " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" EXCEPTEOL " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58SpacingTable_parallelRunLength" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58SpacingTable_parallelRunLength" <<endl;
       }
     } else if (word == string("EXCEPTWITHIN")) {
       if (enableOutput) {
-        cout <<" EXCEPTWITHIN";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" EXCEPTWITHIN";
       }
       double tmp;
       if (istr >> tmp) {
         lowExcludeSpacing = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58SpacingTable_parallelRunLength" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58SpacingTable_parallelRunLength" <<endl;
       }
       if (istr >> tmp) {
         highExcludeSpacing = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58SpacingTable_parallelRunLength" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58SpacingTable_parallelRunLength" <<endl;
       }
       ewVals[rowVals.size()-1] = make_pair(lowExcludeSpacing, highExcludeSpacing);
     } else if (word == string("WIDTH")) {
@@ -1204,10 +1204,10 @@ int io::Parser::getLef58SpacingTable_parallelRunLength(void *data, frLayer* tmpL
       if (istr >> tmp) {
         rowVals.push_back(frCoord(round(tmp * parser->tech->getDBUPerUU())));
         if (enableOutput) {
-          cout <<endl <<"  WIDTH " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  WIDTH " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58SpacingTable_parallelRunLength" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58SpacingTable_parallelRunLength" <<endl;
       }
     } else if (word == string(";")) {
       if (stage == 1 && tblRowVals.size()) {
@@ -1215,20 +1215,20 @@ int io::Parser::getLef58SpacingTable_parallelRunLength(void *data, frLayer* tmpL
         tblRowVals.clear();
       }
       if (enableOutput) {
-        cout <<" ;";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" ;";
       }
     } else {
       // get length
       if (stage == 0) {
         colVals.push_back(frCoord(round(stod(word) * parser->tech->getDBUPerUU())));
         if (enableOutput) {
-          cout <<" " <<word;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<word;
         }
       }
       if (stage == 1) {
         tblRowVals.push_back(frCoord(round(stod(word) * parser->tech->getDBUPerUU())));
         if (enableOutput) {
-          cout <<" " <<word;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<word;
         }
       }
     }
@@ -1255,7 +1255,7 @@ int io::Parser::getLef58SpacingTable(void *data, frLayer* tmpLayer, const string
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl <<"  PROPERTY LEF58_SPACINGTABLE \"";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  PROPERTY LEF58_SPACINGTABLE \"";
   }
   istringstream istr(sIn);
   string word;
@@ -1266,22 +1266,22 @@ int io::Parser::getLef58SpacingTable(void *data, frLayer* tmpLayer, const string
     if (word == string("SPACINGTABLE")) {
       ss.str("");
     } else if (word == string("PARALLELRUNLENGTH")) {
-      //cout <<"found PARALLELRUNLENGTH" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"found PARALLELRUNLENGTH" <<endl;
       keyword = "PARALLELRUNLENGTH";
     } else if (word == string(";")) {
       ss <<" " <<word;
       if (keyword == string("PARALLELRUNLENGTH")) {
         getLef58SpacingTable_parallelRunLength(data, tmpLayer, ss.str());
       }
-      //cout <<"found ;" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"found ;" <<endl;
     } else {
-      //cout <<"found " <<word <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"found " <<word <<endl;
       ss <<" " <<word;
     }
   }
-  //cout <<ss.str() <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str() <<endl;
   if (enableOutput) {
-    cout <<"\" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"\" ;" <<endl;
   }
 
   return 0;
@@ -1355,10 +1355,10 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         eolSpace = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<endl <<"  SPACING " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  SPACING " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       stage = 0;
     } else if (word == string("ENDOFLINE")) {
@@ -1366,16 +1366,16 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         eolWidth = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" ENDOFLINE " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ENDOFLINE " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       stage = 0;
     } else if (word == string("EXACTWIDTH")) {
       hasExactWidth = true;
       if (enableOutput) {
-        cout <<" EXACTWIDTH";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" EXACTWIDTH";
       }
       stage = 0;
     } else if (word == string("WRONGDIRSPACING")) {
@@ -1384,10 +1384,10 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         wrongDirSpace = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" WRONGDIRSPACING " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" WRONGDIRSPACING " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       stage = 0;
     } else if (word == string("OPPOSITEWIDTH")) {
@@ -1396,10 +1396,10 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         oppositeWidth = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" OPPOSITEWIDTH " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" OPPOSITEWIDTH " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       stage = 0;
     } else if (word == string("WITHIN")) {
@@ -1407,38 +1407,38 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         eolWithin = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" WITHIN " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" WITHIN " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       stage = 1;
     } else if (word == string("SAMEMASK")) {
       hasSameMask = true;
       if (enableOutput) {
-        cout <<" SAMEMASK";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" SAMEMASK";
       }
       stage = 0;
     } else if (word == string("EXCEPTEXACTWIDTH")) {
       if (enableOutput) {
-        cout <<" EXCEPTEXACTWIDTH(SKIP)";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" EXCEPTEXACTWIDTH(SKIP)";
       }
       stage = 0;
       skip = true;
     } else if (word == string("FILLCONCAVECORNER")) {
       if (enableOutput) {
-        cout <<" FILLCONCAVECORNER(SKIP)";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" FILLCONCAVECORNER(SKIP)";
       }
       stage = 0;
       skip = true;
     } else if (word == string("WITHCUT")) {
       if (enableOutput) {
-        cout <<" WITHCUT(SKIP)";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" WITHCUT(SKIP)";
       }
       stage = 0;
     } else if (word == string("ENDPRLSPACING")) {
       if (enableOutput) {
-        cout <<" ENDPRLSPACING(SKIP)";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" ENDPRLSPACING(SKIP)";
       }
       stage = 0;
       skip = true;
@@ -1448,10 +1448,10 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         endToEndSpace = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" ENDTOEND " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ENDTOEND " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       stage = 2;
     } else if (word == string("MAXLENGTH")) {
@@ -1461,10 +1461,10 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         length = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" MAXLENGTH " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" MAXLENGTH " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       stage = 0;
     } else if (stage != 3 && word == string("MINLENGTH")) {
@@ -1474,21 +1474,21 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         length = frCoord(round(tmp * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" MINLENGTH " <<tmp;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" MINLENGTH " <<tmp;
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       stage = 0;
     } else if (word == string("TWOSIDES")) {
       hasTwoSides = true;
       if (enableOutput) {
-        cout <<" TWOSIDES";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" TWOSIDES";
       }
       stage = 0;
     } else if (word == string("EQUALRECTWIDTH")) {
       if (enableOutput) {
-        cout <<" EQUALRECTWIDTH(SKIP)";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" EQUALRECTWIDTH(SKIP)";
       }
       stage = 0;
       skip = true;
@@ -1503,19 +1503,19 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
           if (istr >> tmp2) {
             parSpace = frCoord(round(tmp2 * parser->tech->getDBUPerUU()));
             if (enableOutput) {
-              cout <<" PARALLELEDGE SUBTRACTEOLWIDTH " <<tmp2;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" PARALLELEDGE SUBTRACTEOLWIDTH " <<tmp2;
             }
           } else {
-            cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
           }
         } else {
           parSpace = frCoord(round(stod(tmp) * parser->tech->getDBUPerUU()));
           if (enableOutput) {
-            cout <<" PARALLELEDGE " <<tmp;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" PARALLELEDGE " <<tmp;
           }
         }
       } else {
-        cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
       }
       // read to parWithin
       if (istr >> tmp) {
@@ -1524,35 +1524,35 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
           if (istr >> tmp2) {
             parWithin = frCoord(round(tmp2 * parser->tech->getDBUPerUU()));
             if (enableOutput) {
-              cout <<" (PE)WITHIN " <<tmp2;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" (PE)WITHIN " <<tmp2;
             }
           } else {
-            cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
           }
         } else {
-          cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
         }
       }
       stage = 3;
     } else if (word == string("ENCLOSECUT")) {
       if (enableOutput) {
-        cout <<" ENCLOSECUT(SKIP)";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" ENCLOSECUT(SKIP)";
       }
       stage = 0;
       skip = true;
     } else if (word == string(";")) {
       if (enableOutput) {
-        cout <<" ;";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" ;";
       }
       stage = 0;
     } else {
       // stage = 1, read wrongDirWithin
       if (stage == 1) {
         hasWrongDirWithin = true;
-        cout <<flush;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<flush;
         wrongDirWithin = frCoord(round(stod(word) * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" " <<word;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<word;
         }
         stage = 0;
       // stage = 2, read end to end from onecutspace
@@ -1564,10 +1564,10 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
           if (istr >> tmp2) {
             extension = frCoord(round(tmp2 * parser->tech->getDBUPerUU()));
             if (enableOutput) {
-              cout <<" EXTENSION " <<tmp2;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" EXTENSION " <<tmp2;
             }
           } else {
-            cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
           }
           stage = 20;
         } else if (tmp == string("OTHERENDWIDTH")) {
@@ -1576,25 +1576,25 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
           if (istr >> tmp2) {
             otherEndWidth = frCoord(round(tmp2 * parser->tech->getDBUPerUU()));
             if (enableOutput) {
-              cout <<" OTHERENDWIDTH " <<tmp2;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" OTHERENDWIDTH " <<tmp2;
             }
           } else {
-            cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
           }
         } else {
           hasCutSpace = true;
           oneCutSpace = frCoord(round(stod(tmp) * parser->tech->getDBUPerUU()));
           if (enableOutput) {
-            cout <<" " <<tmp;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<tmp;
           }
           double tmp2;
           if (istr >> tmp2) {
             twoCutSpace = frCoord(round(tmp2 * parser->tech->getDBUPerUU()));
             if (enableOutput) {
-              cout <<" " <<tmp2;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<tmp2;
             }
           } else {
-            cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
           }
         }
       // stage = 20, read end to end wrongDirExtension
@@ -1602,7 +1602,7 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
         hasWrongDirExtension = true;
         wrongDirExtension = frCoord(round(stod(word) * parser->tech->getDBUPerUU()));
         if (enableOutput) {
-          cout <<" " <<word;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<word;
         }
         stage = 2;
       // stage = 3, read paralleledge from prl
@@ -1613,10 +1613,10 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
           if (istr >> tmp2) {
             prl = frCoord(round(tmp2 * parser->tech->getDBUPerUU()));
             if (enableOutput) {
-              cout <<" PRL " <<tmp2;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" PRL " <<tmp2;
             }
           } else {
-            cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
           }
         } else if (word == string("MINLENGTH")) {
           hasParallelEdgeMinLength = true;
@@ -1624,10 +1624,10 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
           if (istr >> tmp2) {
             parallelEdgeMinLength = frCoord(round(tmp2 * parser->tech->getDBUPerUU()));
             if (enableOutput) {
-              cout <<" (PE)MINLENGTH " <<tmp2;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" (PE)MINLENGTH " <<tmp2;
             }
           } else {
-            cout <<"Error: getLef58Spacing_eolSpace" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58Spacing_eolSpace" <<endl;
           }
         } else if (word == string("TWOEDGES")) {
           hasTwoEdges = true;
@@ -1722,7 +1722,7 @@ int io::Parser::getLef58Spacing_endOfLineWithin(void *data, frLayer* tmpLayer, c
   }
 
   //if (enableOutput) {
-  //  cout <<endl;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   //}
 
   return 0;
@@ -1733,9 +1733,9 @@ int io::Parser::getLef58Spacing(void *data, frLayer* tmpLayer, const string &sIn
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl <<"  PROPERTY LEF58_SPACING \"";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  PROPERTY LEF58_SPACING \"";
   }
-  //cout <<sIn <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<sIn <<endl;
   istringstream istr(sIn);
   string word;
   stringstream ss;
@@ -1794,7 +1794,7 @@ int io::Parser::getLef58Spacing(void *data, frLayer* tmpLayer, const string &sIn
     }
   }
   if (enableOutput) {
-    cout <<"\" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"\" ;" <<endl;
   }
   return 0;
 }
@@ -1803,7 +1803,7 @@ int io::Parser::getLef58Spacing(void *data, frLayer* tmpLayer, const string &sIn
 int io::Parser::getLef58MinStep(void *data, frLayer* tmpLayer, const string &sIn) {
   bool enableOutput = true;
   if (enableOutput) {
-    cout << endl << "  PROPERTY LEF58_MINSTEP \n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << endl << "  PROPERTY LEF58_MINSTEP \n";
   }
 
   bool isSkip = false;
@@ -1855,10 +1855,10 @@ int io::Parser::getLef58MinStep(void *data, frLayer* tmpLayer, const string &sIn
         con->setEolWidth(eolWidth);
         tmpLayer->addLef58MinStepConstraint(con.get());
         parser->tech->addUConstraint(std::move(con));
-        // cout << "Adding lef58MinStep con for layer " << tmpLayer->getName() << "\n";
+        // cout << __FILE__ << ":" << __LINE__ << ": " << "Adding lef58MinStep con for layer " << tmpLayer->getName() << "\n";
       } else {
-        cout << "Warning: unsupported LEF58_MINSTEP rule branch...\n";
-        cout << sIn << endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported LEF58_MINSTEP rule branch...\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << sIn << endl;
       }
     } else {
       isSkip = true;
@@ -1873,7 +1873,7 @@ int io::Parser::getLef58CutClass(void *data, frLayer* tmpLayer, const string &sI
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl <<"  PROPERTY LEF58_CUTCLASS \"";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  PROPERTY LEF58_CUTCLASS \"";
   }
   istringstream istr(sIn);
   string word;
@@ -1898,20 +1898,20 @@ int io::Parser::getLef58CutClass(void *data, frLayer* tmpLayer, const string &sI
       if (istr >> name) {
         ;
       } else {
-        cout <<"Error: getLef58CutClass" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58CutClass" <<endl;
       }
       if (enableOutput) {
-        cout <<endl <<"  CUTCLASS " <<name;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  CUTCLASS " <<name;
       }
     } else if (word == "WIDTH") {
       double tmp;
       if (istr >> tmp) {
         viaWidth = frCoord(round(tmp * parser->tech->getDBUPerUU()));
       } else {
-        cout <<"Error: getLef58CutClass" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58CutClass" <<endl;
       }
       if (enableOutput) {
-        cout <<" WIDTH " <<tmp;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" WIDTH " <<tmp;
       }
     } else if (word == "LENGTH") {
       double tmp;
@@ -1919,23 +1919,23 @@ int io::Parser::getLef58CutClass(void *data, frLayer* tmpLayer, const string &sI
         hViaLength = true;
         viaLength = frCoord(round(tmp * parser->tech->getDBUPerUU()));
       } else {
-        cout <<"Error: getLef58CutClass" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58CutClass" <<endl;
       }
       if (enableOutput) {
-        cout <<" LENGTH " <<tmp;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" LENGTH " <<tmp;
       }
     } else if (word == "CUTS") {
       if (istr >> numCut) {
         hNumCut = true;
       } else {
-        cout <<"Error: getLef58CutClass" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58CutClass" <<endl;
       }
       if (enableOutput) {
-        cout <<" CUTS " <<numCut;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" CUTS " <<numCut;
       }
     } else if (word == ";") {
       if (enableOutput) {
-        cout <<" ;";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" ;";
       }
       // push rule here;
       auto cutClass = make_unique<frLef58CutClass>();
@@ -1955,7 +1955,7 @@ int io::Parser::getLef58CutClass(void *data, frLayer* tmpLayer, const string &sI
     }
   }
   if (enableOutput) {
-    cout <<"\" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"\" ;" <<endl;
   }
   return 0;
 }
@@ -2008,8 +2008,8 @@ int io::Parser::getLef58CutSpacing_helper(void *data, frLayer* tmpLayer, const s
   } else if (keyword == "ADJACENTCUTS") {
     getLef58CutSpacing_adjacentCuts(data, tmpLayer, ss.str());
   } else {
-    cout << "Warning: unsupported LEF58_SPACING branch" << keyword << ", skipped...\n"; //skip unsupported rules
-    cout << sIn << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported LEF58_SPACING branch" << keyword << ", skipped...\n"; //skip unsupported rules
+    cout << __FILE__ << ":" << __LINE__ << ": " << sIn << endl;
   }
   
   return 0;
@@ -2020,7 +2020,7 @@ int io::Parser::getLef58CutSpacing(void *data, frLayer* tmpLayer, const string &
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl <<"  PROPERTY LEF58_SPACING \"";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  PROPERTY LEF58_SPACING \"";
   }
   istringstream istr(sIn);
   string word;
@@ -2037,7 +2037,7 @@ int io::Parser::getLef58CutSpacing(void *data, frLayer* tmpLayer, const string &
     }
   }
   if (enableOutput) {
-    cout <<"\" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"\" ;" <<endl;
   }
   return 0;
 }
@@ -2091,7 +2091,7 @@ int io::Parser::getLef58CutSpacing_layer(void *data, frLayer* tmpLayer, const st
         isSkip = true;
       }
       if (enableOutput) {
-        cout <<endl <<"  SPACING " <<tmp;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  SPACING " <<tmp;
       }
     } else if (word == string("CENTERTOCENTER")) {
       isCenterToCenter = true;
@@ -2112,7 +2112,7 @@ int io::Parser::getLef58CutSpacing_layer(void *data, frLayer* tmpLayer, const st
         isSkip = true;
       }
       if (enableOutput) {
-        cout <<" LAYER " <<secondLayerName;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" LAYER " <<secondLayerName;
       }
       if (istr >> word) {
         if (word == string("STACK")) {
@@ -2131,7 +2131,7 @@ int io::Parser::getLef58CutSpacing_layer(void *data, frLayer* tmpLayer, const st
             con->setCutClassName(className);
             auto cutClassIdx = tmpLayer->getCutClassIdx(className);
             if (cutClassIdx != -1) {
-              // cout << "cutClassIdx = " << cutClassIdx << endl;
+              // cout << __FILE__ << ":" << __LINE__ << ": " << "cutClassIdx = " << cutClassIdx << endl;
               con->setCutClassIdx(cutClassIdx);
             } else {
               isSkip = true;
@@ -2140,7 +2140,7 @@ int io::Parser::getLef58CutSpacing_layer(void *data, frLayer* tmpLayer, const st
             isSkip = true;
           }
           if (enableOutput) {
-            cout <<" CUTCLASS " <<className;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" CUTCLASS " <<className;
           }
           // cut class branch
           if (istr >> word) {
@@ -2162,7 +2162,7 @@ int io::Parser::getLef58CutSpacing_layer(void *data, frLayer* tmpLayer, const st
               isConcaveCorner = true;
               con->setConcaveCorner(isConcaveCorner);
               if (enableOutput) {
-                cout << " CONCAVECORNER";
+                cout << __FILE__ << ":" << __LINE__ << ": " << " CONCAVECORNER";
               }
               if (istr >> word) {
                 if (word == string("WIDTH")) {
@@ -2281,7 +2281,7 @@ int io::Parser::getLef58CutSpacing_layer(void *data, frLayer* tmpLayer, const st
               double tmp;
               if (istr >> tmp) {
                 if (enableOutput) {
-                  cout << " NONEOLCONVEXCORNER " << tmp;
+                  cout << __FILE__ << ":" << __LINE__ << ": " << " NONEOLCONVEXCORNER " << tmp;
                 }
                 eolWidth = frCoord(round(tmp * parser->tech->getDBUPerUU()));
                 con->setEolWidth(eolWidth);
@@ -2289,7 +2289,7 @@ int io::Parser::getLef58CutSpacing_layer(void *data, frLayer* tmpLayer, const st
                   if (word == string("MINLENGTH")) {
                     if (istr >> tmp) {
                       if (enableOutput) {
-                        cout << " MINLENGTH " << tmp;
+                        cout << __FILE__ << ":" << __LINE__ << ": " << " MINLENGTH " << tmp;
                       }
                       minLength = frCoord(round(tmp * parser->tech->getDBUPerUU()));
                       con->setMinLength(minLength);
@@ -2337,10 +2337,10 @@ int io::Parser::getLef58CutSpacing_layer(void *data, frLayer* tmpLayer, const st
   }
 
   if (isSkip) {
-    cout << "Error: getLef58CutSpacing_layer" << endl;
-    cout << sIn << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: getLef58CutSpacing_layer" << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << sIn << endl;
   } else {
-    // cout << "addLef58CutSpacingConstraint\n";
+    // cout << __FILE__ << ":" << __LINE__ << ": " << "addLef58CutSpacingConstraint\n";
     tmpLayer->addLef58CutSpacingConstraint(con.get());
     parser->tech->addUConstraint(std::move(con));
 
@@ -2399,7 +2399,7 @@ int io::Parser::getLef58CutSpacing_adjacentCuts(void *data, frLayer* tmpLayer, c
         isSkip = true;
       }
       if (enableOutput) {
-        cout <<endl <<"  SPACING " <<tmp;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  SPACING " <<tmp;
       }
     } else if (word == string("CENTERTOCENTER")) {
       isCenterToCenter = true;
@@ -2417,7 +2417,7 @@ int io::Parser::getLef58CutSpacing_adjacentCuts(void *data, frLayer* tmpLayer, c
       if (istr >> numAdjCuts) {
         con->setAdjacentCuts(numAdjCuts);
         if (enableOutput) {
-          cout << " ADJACENTCUTS " << numAdjCuts;
+          cout << __FILE__ << ":" << __LINE__ << ": " << " ADJACENTCUTS " << numAdjCuts;
         }
       } else {
         isSkip = true;
@@ -2433,7 +2433,7 @@ int io::Parser::getLef58CutSpacing_adjacentCuts(void *data, frLayer* tmpLayer, c
           if (istr >> twoCuts) {
             con->setTwoCuts(twoCuts);
             if (enableOutput) {
-              cout << " TWOCUTS " << twoCuts;
+              cout << __FILE__ << ":" << __LINE__ << ": " << " TWOCUTS " << twoCuts;
             }
             streampos pos = istr.tellg();
             bool done = false;
@@ -2481,7 +2481,7 @@ int io::Parser::getLef58CutSpacing_adjacentCuts(void *data, frLayer* tmpLayer, c
             con->setCutWithin(cutWithin2);
             // istr.seekg(pos);
             if (enableOutput) {
-              cout << " WITHIN " << tmp1;
+              cout << __FILE__ << ":" << __LINE__ << ": " << " WITHIN " << tmp1;
             }
           // }
         } else if (word == string("EXCEPTSAMEPGNET")) {
@@ -2520,13 +2520,13 @@ int io::Parser::getLef58CutSpacing_adjacentCuts(void *data, frLayer* tmpLayer, c
             con->setCutClassName(cutClassName);
             auto cutClassIdx = tmpLayer->getCutClassIdx(cutClassName);
             if (cutClassIdx != -1) {
-              // cout << "cutClassIdx = " << cutClassIdx << endl;
+              // cout << __FILE__ << ":" << __LINE__ << ": " << "cutClassIdx = " << cutClassIdx << endl;
               con->setCutClassIdx(cutClassIdx);
             } else {
               isSkip = true;
             }
             if (enableOutput) {
-              cout << " CUTCLASS " << cutClassName;
+              cout << __FILE__ << ":" << __LINE__ << ": " << " CUTCLASS " << cutClassName;
             }
           } else {
             isSkip = true;
@@ -2558,13 +2558,13 @@ int io::Parser::getLef58CutSpacing_adjacentCuts(void *data, frLayer* tmpLayer, c
   }
 
   if (enableOutput) {
-    cout << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << endl;
   }
 
   if (isSkip) {
-    cout << "Error: getLef58CutSpacing_adjacentCuts" << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: getLef58CutSpacing_adjacentCuts" << endl;
   } else {
-    // cout << "addLef58CutSpacingConstraint\n";
+    // cout << __FILE__ << ":" << __LINE__ << ": " << "addLef58CutSpacingConstraint\n";
     tmpLayer->addLef58CutSpacingConstraint(con.get());
     parser->tech->addUConstraint(std::move(con));
   }
@@ -2575,7 +2575,7 @@ int io::Parser::getLef58CutSpacingTable(void *data, frLayer* tmpLayer, const str
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl <<"  PROPERTY LEF58_SPACINGTABLE \"";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  PROPERTY LEF58_SPACINGTABLE \"";
   }
   istringstream istr(sIn);
   string word;
@@ -2592,7 +2592,7 @@ int io::Parser::getLef58CutSpacingTable(void *data, frLayer* tmpLayer, const str
     }
   }
   if (enableOutput) {
-    cout <<"\" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"\" ;" <<endl;
   }
   return 0;
 }
@@ -2601,7 +2601,7 @@ int io::Parser::getLef58CutSpacingTable_helper(void *data, frLayer* tmpLayer, co
   //bool enableOutput = true;
   //bool enableOutput = false;
   //if (enableOutput) {
-  //  cout <<endl <<"  PROPERTY LEF58_SPACINGTABLE \"" <<endl;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  PROPERTY LEF58_SPACINGTABLE \"" <<endl;
   //}
 
   string keyword = "";
@@ -2615,17 +2615,17 @@ int io::Parser::getLef58CutSpacingTable_helper(void *data, frLayer* tmpLayer, co
       ss.str("");
       ss <<word;
       //if (enableOutput) {
-      //  cout <<"  SPACINGTABLE";
+      //  cout << __FILE__ << ":" << __LINE__ << ": " <<"  SPACINGTABLE";
       //}
     } else if (word == string("CENTERSPACING")) {
       //if (enableOutput) {
-      //  cout <<" CENTERSPACING";
+      //  cout << __FILE__ << ":" << __LINE__ << ": " <<" CENTERSPACING";
       //}
       keyword = "CENTERSPACING";
       ss <<" " <<word;
     } else if (word == string("ORTHOGONAL")) {
       //if (enableOutput) {
-      //  cout <<" CENTERSPACING";
+      //  cout << __FILE__ << ":" << __LINE__ << ": " <<" CENTERSPACING";
       //}
       keyword = "ORTHOGONAL";
       ss <<" " <<word;
@@ -2643,7 +2643,7 @@ int io::Parser::getLef58CutSpacingTable_helper(void *data, frLayer* tmpLayer, co
   }
   
   //if (enableOutput) {
-  //  cout <<"\" ;" <<endl;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"\" ;" <<endl;
   //}
 
   return 0;
@@ -2652,7 +2652,7 @@ int io::Parser::getLef58CutSpacingTable_helper(void *data, frLayer* tmpLayer, co
 
 int io::Parser::getLef58CutSpacingTable_default(void *data, frLayer* tmpLayer, const string &sIn, 
   const shared_ptr<frLef58CutSpacingTableConstraint> &con) {
-  //cout <<sIn <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<sIn <<endl;
   //bool enableOutput = true;
   bool enableOutput = false;
   
@@ -2668,10 +2668,10 @@ int io::Parser::getLef58CutSpacingTable_default(void *data, frLayer* tmpLayer, c
       if (istr >> tmp) {
         defaultCutSpacing = frCoord(round(tmp * parser->tech->getDBUPerUU()));
       } else {
-        cout <<"Error: getLef58CutSpacingTable_default" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58CutSpacingTable_default" <<endl;
       }
       if (enableOutput) {
-        cout <<endl <<"  DEFAULT " <<tmp;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  DEFAULT " <<tmp;
       }
     } else {
       ; // skip unknown rules
@@ -2684,7 +2684,7 @@ int io::Parser::getLef58CutSpacingTable_default(void *data, frLayer* tmpLayer, c
 
 int io::Parser::getLef58CutSpacingTable_prl(void *data, frLayer* tmpLayer, const string &sIn, 
     const shared_ptr<frLef58CutSpacingTableConstraint> &con) {
-  //cout <<sIn <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<sIn <<endl;
   //bool enableOutput = true;
   bool enableOutput = false;
   
@@ -2703,25 +2703,25 @@ int io::Parser::getLef58CutSpacingTable_prl(void *data, frLayer* tmpLayer, const
       if (istr >> tmp) {
         prl = frCoord(round(tmp * parser->tech->getDBUPerUU()));
       } else {
-        cout <<"Error: getLef58CutSpacingTable_prl" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58CutSpacingTable_prl" <<endl;
       }
       if (enableOutput) {
-        cout <<" PRL " <<tmp;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" PRL " <<tmp;
       }
     } else if (word == string("HORIZONTAL")) {
       isHorizontal = true;
       if (enableOutput) {
-        cout <<" HORIZONTAL";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" HORIZONTAL";
       }
     } else if (word == string("VERTICAL")) {
       isVertical = true;
       if (enableOutput) {
-        cout <<" VERTICAL";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" VERTICAL";
       }
     } else if (word == string("MAXXY")) {
       isMaxXY = true;
       if (enableOutput) {
-        cout <<" MAXXY";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" MAXXY";
       }
     } else {
       ; // skip unknown rules
@@ -2755,15 +2755,15 @@ int io::Parser::getLef58CutSpacingTable_layer(void *data, frLayer* tmpLayer, con
       if (istr >> secondLayerName) {
         ;
       } else {
-        cout <<"Error: getLef58CutSpacingTable_layer" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58CutSpacingTable_layer" <<endl;
       }
       if (enableOutput) {
-        cout <<" LAYER " <<secondLayerName;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" LAYER " <<secondLayerName;
       }
     } else if (word == string("NONZEROENCLOSURE")) {
       isNonZeroEnclosure = true;
       if (enableOutput) {
-        cout <<endl <<"  NONZEROENCLOSURE";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  NONZEROENCLOSURE";
       }
     } else {
       ; // skip unknown rules
@@ -2772,7 +2772,7 @@ int io::Parser::getLef58CutSpacingTable_layer(void *data, frLayer* tmpLayer, con
 
   io::Parser* parser = (io::Parser*) data;
   auto ptr = make_shared<frLef58CutSpacingTableLayerConstraint>();
-  //cout <<secondLayerName <<endl <<flush;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<secondLayerName <<endl <<flush;
   secondLayerNum = parser->tech->name2layer.at(secondLayerName)->getLayerNum();
   ptr->setSecondLayerNum(secondLayerNum);
   ptr->setNonZeroEnc(isNonZeroEnclosure);
@@ -2791,7 +2791,7 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
   // 2d spacing table
   frCollection<frCollection<pair<frCoord, frCoord> > > tblVals;
 
-  //cout <<endl <<sIn <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<sIn <<endl;
   // check numRows and numCols
   istringstream istr1(sIn);
   string word;
@@ -2822,7 +2822,7 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
   }
 
   numCols /= 2;
-  //cout <<endl <<"#rows/cols = " <<numRows <<"/" <<numCols <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"#rows/cols = " <<numRows <<"/" <<numCols <<endl;
   
   vector<frString> colNames;
   vector<int>      dupColNames; //duplicate side and all
@@ -2841,14 +2841,14 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
   while (istr2 >> word) {
     // "-" is treated as number 0
     //if (word == ";") {
-    //  cout <<"found ;" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"found ;" <<endl;
     //}
     if (word == "-") {
       word = to_string(defaultCutSpacing * 1.0 / parser->tech->getDBUPerUU());
     }
     if (word == "CUTCLASS") {
       if (enableOutput) {
-        cout <<endl <<"  CUTCLASS";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  CUTCLASS";
       }
     // read numCols times
     } else if ((int)colNames.size() < numCols) {
@@ -2860,44 +2860,44 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
         dupColNames.push_back(2);
       }
       if (enableOutput) {
-        cout <<" " <<word;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<word;
       }
-      //cout <<"testX" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"testX" <<endl;
     } else if (stage == 0 && (int)colNames.size() == numCols) {
       // last word of column
       if (word == "SIDE" || word == "END") {
         *(--colNames.end()) = *(--colNames.end()) + word;
         *(--dupColNames.end()) = 1;
         if (enableOutput) {
-          cout <<" " <<word;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<word;
         }
       // first word of row
       } else {
         rowNames.push_back(word);
         dupRowNames.push_back(2);
         if (enableOutput) {
-          cout <<endl <<"  " <<word;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  " <<word;
         }
       }
       stage = 1;
-      //cout <<"testXX" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"testXX" <<endl;
     } else if (word == ";") {
       if (enableOutput) {
-        cout <<" ;";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" ;";
       }
       tmpTbl.push_back(tmpTblRow);
-      //cout <<"testXXX" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"testXXX" <<endl;
     } else if (stage == 1) {
       if (word == "SIDE" || word == "END") {
         *(--rowNames.end()) = *(--rowNames.end()) + word;
         *(--dupRowNames.end()) = 1;
         if (enableOutput) {
-          cout <<" " <<word;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<word;
         }
       } else {
         stringstream ss(word);
         double firstNum;
-        //cout <<"test: " <<word <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"test: " <<word <<endl;
         // number
         if (ss >> firstNum) {
           frCoord val1 = frCoord(round(firstNum * parser->tech->getDBUPerUU()));
@@ -2905,7 +2905,7 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
           if (istr2 >> tmpS) {
             ;
           } else {
-            cout <<"Error: getLef58CutSpacingTable_cutClass" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLef58CutSpacingTable_cutClass" <<endl;
           }
           stringstream tmpSS(tmpS);
           double secondNum;
@@ -2913,14 +2913,14 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
             frCoord val2 = frCoord(round(secondNum * parser->tech->getDBUPerUU()));
             tmpTblRow.push_back(make_pair(val1, val2));
             if (enableOutput) {
-              cout <<" " <<firstNum <<" " <<secondNum;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<firstNum <<" " <<secondNum;
             }
           } else {
             // the number is "-", use default spacing
             frCoord val2 = defaultCutSpacing;
             tmpTblRow.push_back(make_pair(val1, val2));
             if (enableOutput) {
-              cout <<" " <<firstNum <<" " <<defaultCutSpacing * 1.0 / parser->tech->getDBUPerUU();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<firstNum <<" " <<defaultCutSpacing * 1.0 / parser->tech->getDBUPerUU();
             }
           }
           readNum += 1;
@@ -2929,7 +2929,7 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
           rowNames.push_back(word);
           dupRowNames.push_back(2);
           if (enableOutput) {
-            cout <<endl <<"  " <<word;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  " <<word;
           }
           if (readNum) {
             tmpTbl.push_back(tmpTblRow);
@@ -2938,60 +2938,60 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
           readNum = 0;
         }
       }
-      //cout <<"testXXXX" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"testXXXX" <<endl;
     }
   }
 
-  //cout <<endl <<"column:";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"column:";
   //for (auto &str: colNames) {
-  //  cout <<" " <<str;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<str;
   //}
   //
-  //cout <<endl <<"row:";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"row:";
   //for (auto &str: rowNames) {
-  //  cout <<" " <<str;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<str;
   //}
 
-  //cout <<endl <<"table: ";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"table: ";
   //for (auto &v1: tmpTbl) {
-  //  cout <<"test here";
-  //  cout <<endl <<"    ";
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"test here";
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    ";
   //  for (auto &v2: v1) {
-  //    cout <<"test here";
-  //    cout <<" " <<v2.first <<" " <<v2.second;
+  //    cout << __FILE__ << ":" << __LINE__ << ": " <<"test here";
+  //    cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<v2.first <<" " <<v2.second;
   //  }
   //}
-  //cout <<flush;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<flush;
 
   vector<frString> expColNames;
-  //cout <<endl <<"new expand column:";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"new expand column:";
   for (int i = 0; i < (int)colNames.size(); i++) {
     if (dupColNames.at(i) == 2) {
       string name1 = colNames.at(i) + "SIDE";
       string name2 = colNames.at(i) + "END";
       expColNames.push_back(name1);
       expColNames.push_back(name2);
-      //cout <<" " <<name1 <<" " <<name2;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<name1 <<" " <<name2;
     } else {
       string name = colNames.at(i);
       expColNames.push_back(name);
-      //cout <<" " <<name;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<name;
     };
   }
   
   vector<frString> expRowNames;
-  //cout <<endl <<"new expand rows:";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"new expand rows:";
   for (int i = 0; i < (int)rowNames.size(); i++) {
     if (dupRowNames.at(i) == 2) {
       string name1 = rowNames.at(i) + "SIDE";
       string name2 = rowNames.at(i) + "END";
       expRowNames.push_back(name1);
       expRowNames.push_back(name2);
-      //cout <<" " <<name1 <<" " <<name2;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<name1 <<" " <<name2;
     } else {
       string name = rowNames.at(i);
       expRowNames.push_back(name);
-      //cout <<" " <<name;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<name;
     };
   }
 
@@ -3009,11 +3009,11 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
       expTmpTbl.push_back(expTmpTblRow);
     }
   }
-  //cout <<"new expand table: ";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"new expand table: ";
   //for (auto &v1: expTmpTbl) {
-  //  cout <<endl <<"    ";
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    ";
   //  for (auto &v2: v1) {
-  //    cout <<" " <<v2.first <<" " <<v2.second;
+  //    cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<v2.first <<" " <<v2.second;
   //  }
   //}
 
@@ -3026,9 +3026,9 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
        {return a.first < b.first;});
   sort(expColNames.begin(), expColNames.end());
 
-  //cout <<endl <<"sorted expand column:";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"sorted expand column:";
   //for (auto &it: expColNames_helper) {
-  //  cout <<" " <<it.first;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<it.first;
   //}
 
   vector<pair<frString, int> > expRowNames_helper;
@@ -3040,20 +3040,20 @@ int io::Parser::getLef58CutSpacingTable_cutClass(void *data, frLayer* tmpLayer, 
        {return a.first < b.first;});
   sort(expRowNames.begin(), expRowNames.end());
 
-  //cout <<endl <<"sorted expand row:";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"sorted expand row:";
   //for (auto &it: expRowNames_helper) {
-  //  cout <<" " <<it.first;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<it.first;
   //}
 
   tblVals = expTmpTbl;
-  //cout <<endl <<"sorted tbl:";
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"sorted tbl:";
   for (int i = 0; i < (int)expRowNames_helper.size(); i++) {
-    //cout <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     for (int j = 0; j < (int)expColNames_helper.size(); j++) {
       int orig_i = expRowNames_helper.at(i).second;
       int orig_j = expColNames_helper.at(j).second;
       tblVals.at(i).at(j) = expTmpTbl.at(orig_i).at(orig_j);
-      //cout <<" " <<tblVals.at(i).at(j).first <<" " <<tblVals.at(i).at(j).second;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<tblVals.at(i).at(j).first <<" " <<tblVals.at(i).at(j).second;
     }
   }
 
@@ -3083,7 +3083,7 @@ int io::Parser::getLef58CutSpacingTable_others(void *data, frLayer* tmpLayer, co
   while (istr >> word) {
     if (word == string("SPACINGTABLE")) {
       if (enableOutput) {
-        cout <<endl <<"  SPACINGTABLE";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  SPACINGTABLE";
       }
     } else if (word == string("DEFAULT")) {
       keyword = "DEFAULT";
@@ -3170,28 +3170,28 @@ int io::Parser::getLef58RightWayOnGridOnly(void *data, frLayer* tmpLayer, const 
   bool enableOutput = false;
   bool checkMask = false;
   if (enableOutput) {
-    cout << endl << "  PROPERTY LEF58_RIGHTWAYONGRIDONLY \"";
+    cout << __FILE__ << ":" << __LINE__ << ": " << endl << "  PROPERTY LEF58_RIGHTWAYONGRIDONLY \"";
   }
   istringstream istr(sIn);
   string word;
   while (istr >> word) {
     if (word == string("RIGHTWAYONGRIDONLY")) {
       if (enableOutput) {
-        cout << "RIGHTWAYONGRIDONLY ";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "RIGHTWAYONGRIDONLY ";
       }
     } else if (word == string("CHECKMASK")) {
       if (enableOutput) {
-        cout << "CHECKMASK ";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "CHECKMASK ";
       }
       checkMask = true;
     } else if (word == string(";")) {
       if (enableOutput) {
-        cout << " ;";
+        cout << __FILE__ << ":" << __LINE__ << ": " << " ;";
       }
     }
   }
   if (enableOutput) {
-    cout << "\" ;" << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "\" ;" << endl;
   }
   auto rightWayOnGridOnlyConstraint = make_unique<frLef58RightWayOnGridOnlyConstraint>(checkMask);
   tmpLayer->setLef58RightWayOnGridOnlyConstraint(rightWayOnGridOnlyConstraint.get());
@@ -3205,28 +3205,28 @@ int io::Parser::getLef58RectOnly(void *data, frLayer* tmpLayer, const string &sI
   bool enableOutput = false;
   bool exceptNonCorePins = false;
   if (enableOutput) {
-    cout << endl << "  PROPERTY LEF58_RECTONLY \"";
+    cout << __FILE__ << ":" << __LINE__ << ": " << endl << "  PROPERTY LEF58_RECTONLY \"";
   }
   istringstream istr(sIn);
   string word;
   while (istr >> word) {
     if (word == string("RECTONLY")) {
       if (enableOutput) {
-        cout << "RECTONLY ";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "RECTONLY ";
       }
     } else if (word == string("EXCEPTNONCOREPINS")) {
       if (enableOutput) {
-        cout << "EXCEPTNONCOREPINS ";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "EXCEPTNONCOREPINS ";
       }
       exceptNonCorePins = true;
     } else if (word == string(";")) {
       if (enableOutput) {
-        cout << " ;";
+        cout << __FILE__ << ":" << __LINE__ << ": " << " ;";
       }
     }
   }
   if (enableOutput) {
-    cout << "\" ;" << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "\" ;" << endl;
   }
   auto rectOnlyConstraint = make_unique<frLef58RectOnlyConstraint>(exceptNonCorePins);
   tmpLayer->setLef58RectOnlyConstraint(rectOnlyConstraint.get());
@@ -3291,7 +3291,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
   }
 
   while (istr >> word) {
-    //cout <<" " <<word;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<word;
  
     if (word == ";") {
       doCornerSpacing = false;
@@ -3303,7 +3303,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
  
     if (!doCornerSpacing && word == "CORNERSPACING") {
       doCornerSpacing = true;
-      // cout <<"CORNERSPACING";
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<"CORNERSPACING";
       continue;
     }
     if (doCornerSpacing &&  word == "CONVEXCORNER") {
@@ -3311,7 +3311,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
       hasConvexCorner = true;
       doConcaveCorner = false;
       doWidthSpacing  = false;
-      // cout <<endl <<"  CONVEXCORNER";
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  CONVEXCORNER";
       continue;
     }
     if (doCornerSpacing &&  word == "CONCAVECORNER") {
@@ -3319,7 +3319,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
       doConcaveCorner = true;
       hasConcaveCorner = true;
       doWidthSpacing  = false;
-      // cout <<endl <<"  CONCAVECORNER";
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  CONCAVECORNER";
       continue;
     }
  
@@ -3328,7 +3328,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
       doConcaveCorner = false;
       doWidthSpacing  = false;
       hasExceptSameNet   = true;
-      // cout <<endl <<"  EXCEPTSAMENET";
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  EXCEPTSAMENET";
       continue;
     }
     
@@ -3337,7 +3337,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
       doConcaveCorner = false;
       doWidthSpacing  = false;
       hasExceptSameMetal = true;
-      // cout <<endl <<"  EXCEPTSAMEMETAL";
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  EXCEPTSAMEMETAL";
       continue;
     }
  
@@ -3351,26 +3351,26 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
           numSpacingEntry = std::min(int(tmpWidthSpacing.size()), 3);
         } else {
           if (numSpacingEntry != (int)tmpWidthSpacing.size()) {
-            cout << "Error: LEF58_CORNERSPACING rule not well defined, please check..." << endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " << "Error: LEF58_CORNERSPACING rule not well defined, please check..." << endl;
             return 1;
           }
         }
       }
       tmpWidthSpacing.clear();
-      // cout <<endl <<"  WIDTH";
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  WIDTH";
       continue;
     }
     
     if (doConvexCorner && word == "SAMEMASK") {
       hasSameMask = true;
-      // cout <<" SAMEMASK";
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<" SAMEMASK";
     }
     if (doConvexCorner && word == "CORNERONLY") {
       hasCornerOnly = true;
       double tmpWithin;
       istr >> tmpWithin;
       within = round(tmpWithin * parser->tech->getDBUPerUU());
-      // cout <<endl <<"    CORNERONLY " <<within * 1.0 / parser->tech->getDBUPerUU();
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    CORNERONLY " <<within * 1.0 / parser->tech->getDBUPerUU();
     }
 
     if (doConvexCorner && word == "EXCEPTEOL") {
@@ -3378,7 +3378,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
       double tmpEolWidth;
       istr >> tmpEolWidth;
       eolWidth = round(tmpEolWidth * parser->tech->getDBUPerUU());
-      // cout <<endl <<"    EXCEPTEOL " <<eolWidth * 1.0 / parser->tech->getDBUPerUU();
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    EXCEPTEOL " <<eolWidth * 1.0 / parser->tech->getDBUPerUU();
     }
 
     if (doConcaveCorner && hasExceptEol && word == "EXCEPTJOGLENGTH") {
@@ -3386,17 +3386,17 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
       double tmpLength;
       istr >> tmpLength;
       length = round(tmpLength * parser->tech->getDBUPerUU());
-      // cout << " EXCEPTJOGLENGTH " << length * 1.0 / parser->tech->getDBUPerUU();
+      // cout << __FILE__ << ":" << __LINE__ << ": " << " EXCEPTJOGLENGTH " << length * 1.0 / parser->tech->getDBUPerUU();
     }
 
     if (doConcaveCorner && hasExceptEol && hasExceptJogLength && word == "EDGELENGTH") {
       hasEdgeLength = true;
-      // cout << " EDGELENGTH" << endl;
+      // cout << __FILE__ << ":" << __LINE__ << ": " << " EDGELENGTH" << endl;
     }
 
     if (doConcaveCorner && hasExceptEol && hasExceptJogLength && word == "INCLUDELSHAPE") {
       hasIncludeLShape = true;
-      // cout << " INCLUDELSHAPE"  << endl;
+      // cout << __FILE__ << ":" << __LINE__ << ": " << " INCLUDELSHAPE"  << endl;
     }
     
     if (doConcaveCorner && word == "MINLENGTH") {
@@ -3404,7 +3404,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
       double tmpMinLength;
       istr >> tmpMinLength;
       minLength = round(tmpMinLength * parser->tech->getDBUPerUU());
-      // cout <<endl <<"    MINLENGTH " <<minLength * 1.0 / parser->tech->getDBUPerUU();
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    MINLENGTH " <<minLength * 1.0 / parser->tech->getDBUPerUU();
     }
     if (doConcaveCorner && word == "EXCEPTNOTCH") {
       hasExceptNotch = true;
@@ -3412,21 +3412,21 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
         double tmpNotchLength;
         istr >> tmpNotchLength;
         notchLength = round(tmpNotchLength * parser->tech->getDBUPerUU());
-        // cout <<endl <<"    EXCEPTNOTCH " <<notchLength * 1.0 / parser->tech->getDBUPerUU();
+        // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    EXCEPTNOTCH " <<notchLength * 1.0 / parser->tech->getDBUPerUU();
       } else {
-        // cout <<endl <<"    EXCEPTNOTCH ";
+        // cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    EXCEPTNOTCH ";
       }
     }
  
     if (doWidthSpacing &&  word == "SPACING") {
-      // cout <<" SPACING";
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<" SPACING";
       continue;
     }
  
     if (doWidthSpacing &&  word != "SPACING") {
       frUInt4 tmp = round(stod(word) * parser->tech->getDBUPerUU());
       tmpWidthSpacing.push_back(tmp);
-      // cout <<" " <<tmp * 1.0 / parser->tech->getDBUPerUU();
+      // cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<tmp * 1.0 / parser->tech->getDBUPerUU();
       continue;
     }
  
@@ -3440,7 +3440,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
     hasSameXY = false;
   }
 
-  // cout << endl << " numSpacingEntry = " << numSpacingEntry << endl;
+  // cout << __FILE__ << ":" << __LINE__ << ": " << endl << " numSpacingEntry = " << numSpacingEntry << endl;
 
   // create 1D lookup table
   std::string widthName("WIDTH");
@@ -3455,7 +3455,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
     }
   }
   fr1DLookupTbl<frCoord, std::pair<frCoord, frCoord> > cornerSpacingTbl(widthName, widths, spacings);
-  // cout << std::min(cornerSpacingTbl.findMin().first, cornerSpacingTbl.findMin().second) 
+  // cout << __FILE__ << ":" << __LINE__ << ": " << std::min(cornerSpacingTbl.findMin().first, cornerSpacingTbl.findMin().second) 
   //      << " " << std::max(cornerSpacingTbl.findMax().first, cornerSpacingTbl.findMax().second) << "\n";
 
   unique_ptr<frConstraint> uCon = make_unique<frLef58CornerSpacingConstraint>(cornerSpacingTbl);
@@ -3490,7 +3490,7 @@ int io::Parser::getLef58CornerSpacing(void *data, frLayer *tmpLayer, const strin
     rptr->setExceptSameMetal(hasExceptSameMetal);
     rptr->setSameXY(hasSameXY);
   } else {
-    cout << "Error: getLef58CornerSpacing rule is not well defined, please check...\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: getLef58CornerSpacing rule is not well defined, please check...\n";
     return 1;
   }
   
@@ -3508,7 +3508,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
   std::string masterSliceLayerName("FR_MASTERSLICE"); // default masterslice
   std::string viaLayerName("FR_VIA"); // default via above masterslice
   if (type != lefrLayerCbkType) {
-    cout <<"Type is not lefrLayerCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not lefrLayerCbkType!" <<endl;
     exit(1);
   }
   unique_ptr<frLayer> uLayer = make_unique<frLayer>();
@@ -3525,10 +3525,10 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       parser->tech->addLayer(std::move(uMSLayer));
       tmpMSLayer->setType(frLayerTypeEnum::MASTERSLICE);
       if (enableOutput) {
-        cout <<"\n";
-        cout <<"LAYER     " <<tmpMSLayer->getName() <<endl;
-        cout <<"  TYPE      " <<"MASTERSLICE" <<endl;
-        cout <<"  layerNum  " <<tmpMSLayer->getLayerNum() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"LAYER     " <<tmpMSLayer->getName() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  TYPE      " <<"MASTERSLICE" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  layerNum  " <<tmpMSLayer->getLayerNum() <<endl;
       }
 
       unique_ptr<frLayer> uCutLayer = make_unique<frLayer>();
@@ -3538,21 +3538,21 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       parser->tech->addLayer(std::move(uCutLayer));
       tmpCutLayer->setType(frLayerTypeEnum::CUT);
       if (enableOutput) {
-        cout <<"\n";
-        cout <<"LAYER     " <<tmpCutLayer->getName() <<endl;
-        cout <<"  TYPE      " <<"CUT" <<endl;
-        cout <<"  layerNum  " <<tmpCutLayer->getLayerNum() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"LAYER     " <<tmpCutLayer->getName() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  TYPE      " <<"CUT" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  layerNum  " <<tmpCutLayer->getLayerNum() <<endl;
       }
     }
     if (enableOutput) {
-        cout <<"\n";
-      cout <<"LAYER "       <<layer->name() <<endl;
-      cout <<"  TYPE      " <<layer->type() <<endl;
-      cout <<"  DIRECTION " <<layer->direction() <<endl;
-      //cout <<"  MINWIDTH  " <<layer->minwidth() <<endl;
-      cout <<"  AREA      " <<layer->area() <<endl;
-      cout <<"  WIDTH     " <<layer->width() <<endl;
-      cout <<"  layerNum  " <<parser->readLayerCnt <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"LAYER "       <<layer->name() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  TYPE      " <<layer->type() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  DIRECTION " <<layer->direction() <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"  MINWIDTH  " <<layer->minwidth() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  AREA      " <<layer->area() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  WIDTH     " <<layer->width() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  layerNum  " <<parser->readLayerCnt <<endl;
     }
     tmpLayer->setLayerNum(parser->readLayerCnt++);
     tmpLayer->setName(layer->name());
@@ -3562,7 +3562,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
     if (layer->hasMinwidth()) {
       tmpLayer->setMinWidth(round(layer->minwidth() * parser->tech->getDBUPerUU()));
       if (tmpLayer->getMinWidth() > tmpLayer->getWidth()) {
-        cout << "Warning: minWidth on layer " << layer->name() << " is larger than width, setting minWidth to width\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: minWidth on layer " << layer->name() << " is larger than width, setting minWidth to width\n";
         tmpLayer->setMinWidth(tmpLayer->getWidth());
       }
     } else {
@@ -3602,7 +3602,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
 
     parser->tech->addUConstraint(std::move(nsmetalConstraint));
 
-    //cout <<"number of props " <<layer->numProps() <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"number of props " <<layer->numProps() <<endl;
     for (int i = 0; i < layer->numProps(); i++) {
       if (string(layer->propName(i)) == string("LEF58_PROTRUSIONWIDTH") ||
           // string(layer->propName(i)) == string("LEF58_MINSTEP") ||
@@ -3615,36 +3615,36 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
          ) {
         ;
       } else {
-        //cout <<"name:     " <<layer->propName(i) <<endl;
-        //cout <<"value:    " <<layer->propValue(i) <<endl;
-        //cout <<"number:   " <<layer->propNumber(i) <<endl;
-        //cout <<"type:     " <<layer->propType(i) <<endl;
-        //cout <<"isNumber: " <<layer->propIsNumber(i) <<endl;
-        //cout <<"isString: " <<layer->propIsString(i) <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"name:     " <<layer->propName(i) <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"value:    " <<layer->propValue(i) <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"number:   " <<layer->propNumber(i) <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"type:     " <<layer->propType(i) <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"isNumber: " <<layer->propIsNumber(i) <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"isString: " <<layer->propIsString(i) <<endl;
         if (!strcmp(layer->propName(i), "LEF58_CORNERSPACING") && layer->propIsString(i)) {
-         //cout <<"start parsing LEF58_CORNERSPACING" <<endl;
+         //cout << __FILE__ << ":" << __LINE__ << ": " <<"start parsing LEF58_CORNERSPACING" <<endl;
          getLef58CornerSpacing(data, tmpLayer, layer->propValue(i));
         }
         if (!strcmp(layer->propName(i), "LEF58_SPACING") && layer->propIsString(i)) {
-          //cout <<"name:     " <<layer->propName(i) <<endl;
-          //cout <<"value:    " <<layer->propValue(i) <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"name:     " <<layer->propName(i) <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"value:    " <<layer->propValue(i) <<endl;
           getLef58Spacing(data, tmpLayer, layer->propValue(i));
         } else if (!strcmp(layer->propName(i), "LEF57_SPACING") && layer->propIsString(i)) {
           getLef58Spacing(data, tmpLayer, layer->propValue(i));
         } else if (!strcmp(layer->propName(i), "LEF58_SPACINGTABLE") && layer->propIsString(i)) {
-          //cout <<"name:     " <<layer->propName(i) <<endl;
-          //cout <<"value:    " <<layer->propValue(i) <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"name:     " <<layer->propName(i) <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"value:    " <<layer->propValue(i) <<endl;
           getLef58SpacingTable(data, tmpLayer, layer->propValue(i));
         } else if (!strcmp(layer->propName(i), "LEF58_RIGHTWAYONGRIDONLY") && layer->propIsString(i)) {
           getLef58RightWayOnGridOnly(data, tmpLayer, layer->propValue(i));
         } else if (!strcmp(layer->propName(i), "LEF58_RECTONLY") && layer->propIsString(i)) {
           getLef58RectOnly(data, tmpLayer, layer->propValue(i));
         } else if (!strcmp(layer->propName(i), "LEF58_MINSTEP") && layer->propIsString(i)) {
-          // cout <<"name:     " <<layer->propName(i) <<endl;
-          // cout <<"value:    " <<layer->propValue(i) <<endl;
+          // cout << __FILE__ << ":" << __LINE__ << ": " <<"name:     " <<layer->propName(i) <<endl;
+          // cout << __FILE__ << ":" << __LINE__ << ": " <<"value:    " <<layer->propValue(i) <<endl;
           getLef58MinStep(data, tmpLayer, layer->propValue(i));
         } else {
-          //cout <<"  name:     " <<layer->propName(i) <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"  name:     " <<layer->propName(i) <<endl;
         }
       }
     }
@@ -3655,13 +3655,13 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       unique_ptr<frConstraint> uCon = make_unique<frAreaConstraint>(minArea);
       auto rptr = static_cast<frAreaConstraint*>(uCon.get());
       parser->tech->addUConstraint(std::move(uCon));
-      //std::cout << "Add minArea constraint to " << tmpLayer->getName() << "\n";
+      //std::cout << __FILE__ << ":" << __LINE__ << ": " << "Add minArea constraint to " << tmpLayer->getName() << "\n";
       tmpLayer->setAreaConstraint(rptr);
     }
 
     if (layer->hasMinstep()) {
       if (layer->numMinstep() > 1) {
-        std::cout << "ERROR: only one minStep rule should be defined for a given layer. Only the last one is checked\n";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "ERROR: only one minStep rule should be defined for a given layer. Only the last one is checked\n";
       }
       for (int i = 0; i < layer->numMinstep(); ++i) {
         unique_ptr<frConstraint> uCon = make_unique<frMinStepConstraint>();
@@ -3698,7 +3698,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
         }
         rptr->setMinStepLength(layer->minstep(i) * parser->tech->getDBUPerUU());
         parser->tech->addUConstraint(std::move(uCon));
-        //std::cout << "Add minStep constraint to " << tmpLayer->getName() << "\n";
+        //std::cout << __FILE__ << ":" << __LINE__ << ": " << "Add minStep constraint to " << tmpLayer->getName() << "\n";
         tmpLayer->setMinStepConstraint(rptr);
       }
     }
@@ -3709,7 +3709,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       frCoord minEnclosedWidth = -1;
       if (layer->hasMinenclosedareaWidth(i)) {
         minEnclosedWidth = frCoord(round(layer->minenclosedareaWidth(i) * parser->tech->getDBUPerUU()));
-        cout << "Warning: minEnclosedArea constraint with width is not supported, skipped\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: minEnclosedArea constraint with width is not supported, skipped\n";
         continue;
       }
       auto minEnclosedAreaConstraint = make_unique<frMinEnclosedAreaConstraint>(minEnclosedArea);
@@ -3725,15 +3725,15 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       //std::shared_ptr<frSpacingConstraint> minSpacingCosntraint;
       frCoord minSpacing = frCoord(round(layer->spacing(i) * parser->tech->getDBUPerUU()));
       if (layer->hasSpacingRange(i)) {
-        cout <<" WARNING: hasSpacing Range unsupported" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" WARNING: hasSpacing Range unsupported" <<endl;
       } else if (layer->hasSpacingLengthThreshold(i)) {
-        cout <<" WARNING: hasSpacingLengthThreshold unsupported" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" WARNING: hasSpacingLengthThreshold unsupported" <<endl;
       } else if (layer->hasSpacingEndOfLine(i)) {
         // new
         unique_ptr<frConstraint> uCon = make_unique<frSpacingEndOfLineConstraint>();
         auto rptr = static_cast<frSpacingEndOfLineConstraint*>(uCon.get());
         if (enableOutput) {
-          cout <<"  SPACING " <<layer->spacing(i) <<" ENDOFLINE " <<layer->spacingEolWidth(i)
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  SPACING " <<layer->spacing(i) <<" ENDOFLINE " <<layer->spacingEolWidth(i)
                <<" WITHIN " <<layer->spacingEolWithin(i);
         }
         frCoord eolWidth = frCoord(round(layer->spacingEolWidth(i) * parser->tech->getDBUPerUU()));
@@ -3743,9 +3743,9 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
         rptr->setEolWithin(eolWithin);
         if (layer->hasSpacingParellelEdge(i)) {
           if (enableOutput) {
-            cout <<" PARALLELEDGE " <<layer->spacingParSpace(i) <<" WITHIN " <<layer->spacingParWithin(i);
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" PARALLELEDGE " <<layer->spacingParSpace(i) <<" WITHIN " <<layer->spacingParWithin(i);
             if (layer->hasSpacingTwoEdges(i)) {
-              cout <<" TWOEDGES";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" TWOEDGES";
             }
           }
           frCoord parSpace = frCoord(round(layer->spacingParSpace(i) * parser->tech->getDBUPerUU()));
@@ -3755,33 +3755,33 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
           rptr->setTwoEdges(layer->hasSpacingTwoEdges(i));
         }
         if (enableOutput) {
-          cout <<" ;" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
         }
         parser->tech->addUConstraint(std::move(uCon));
         tmpLayer->addEolSpacing(rptr);
       } else if (layer->hasSpacingSamenet(i)) {
         bool pgOnly = layer->hasSpacingSamenetPGonly(i);
         if (enableOutput) {
-          cout <<"  SPACING " <<layer->spacing(i) <<" SAMENET ";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  SPACING " <<layer->spacing(i) <<" SAMENET ";
           if (pgOnly) {
-            cout <<"PGONLY ";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"PGONLY ";
           }
-          cout <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
         }
         unique_ptr<frConstraint> uCon = make_unique<frSpacingSamenetConstraint>(minSpacing, pgOnly);
         auto rptr = uCon.get();
         parser->tech->addUConstraint(std::move(uCon));
         if (tmpLayer->hasSpacingSamenet()) {
-          cout <<"Warning: new SPACING SAMENET overrides old SPACING SAMENET rule" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: new SPACING SAMENET overrides old SPACING SAMENET rule" <<endl;
         }
         tmpLayer->setSpacingSamenet(static_cast<frSpacingSamenetConstraint*>(rptr));
       } else if (layer->hasSpacingNotchLength(i)) {
-        cout <<" WARNING: hasSpacingNotchLength unsupported" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" WARNING: hasSpacingNotchLength unsupported" <<endl;
       } else if (layer->hasSpacingEndOfNotchWidth(i)) {
-        cout <<" WARNING: hasSpacingEndOfNotchWidth unsupported" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" WARNING: hasSpacingEndOfNotchWidth unsupported" <<endl;
       } else { // min spacing
         if (enableOutput) {
-          cout <<"  SPACING " <<layer->spacing(i) <<" ;" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  SPACING " <<layer->spacing(i) <<" ;" <<endl;
         }
         
         frCollection<frCoord> rowVals(1, 0), colVals(1, 0);
@@ -3791,7 +3791,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
         auto rptr = static_cast<frSpacingTablePrlConstraint*>(uCon.get());
         parser->tech->addUConstraint(std::move(uCon));
         if (tmpLayer->getMinSpacing()) {
-          cout <<"Warning: new SPACING overrides old SPACING rule" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: new SPACING overrides old SPACING rule" <<endl;
         }
         tmpLayer->setMinSpacing(rptr);
       }
@@ -3803,7 +3803,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       std::shared_ptr<frSpacingTableConstraint> spacingTableConstraint;
       auto spTable = layer->spacingTable(i);
       if (spTable->isInfluence()) {
-        cout <<" WARNING: SPACINGTABLE INFLUENCE unsupported" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" WARNING: SPACINGTABLE INFLUENCE unsupported" <<endl;
       } else if (spTable->isParallel()) {
         // old
         shared_ptr<fr2DLookupTbl<frCoord, frCoord, frCoord> > prlTbl;
@@ -3813,13 +3813,13 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
         frCollection<frCoord> tblRowVals;
         frString rowName("WIDTH"), colName("PARALLELRUNLENGTH");
         if (enableOutput) {
-          cout <<"  SPACINGTABLE" <<endl;
-          cout <<"  PARALLELRUNLENGTH";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  SPACINGTABLE" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  PARALLELRUNLENGTH";
         }
         for (int j = 0; j < parallel->numLength(); ++j) {
           frCoord prl = frCoord(round(parallel->length(j) * parser->tech->getDBUPerUU()));
           if (enableOutput) {
-            cout <<" " <<prl * 1.0 / parser->tech->getDBUPerUU();
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<prl * 1.0 / parser->tech->getDBUPerUU();
           }
           colVals.push_back(prl);
         }
@@ -3827,20 +3827,20 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
           frCoord width = frCoord(round(parallel->width(j) * parser->tech->getDBUPerUU()));
           rowVals.push_back(width);
           if (enableOutput) {
-            cout <<endl <<"  WIDTH " <<width * 1.0 / parser->tech->getDBUPerUU();
+            cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"  WIDTH " <<width * 1.0 / parser->tech->getDBUPerUU();
           }
           tblRowVals.clear();
           for (int k = 0; k < parallel->numLength(); ++k) {
             frCoord spacing = frCoord(round(parallel->widthSpacing(j, k) * parser->tech->getDBUPerUU()));
             tblRowVals.push_back(spacing);
             if (enableOutput) {
-              cout <<" " <<spacing * 1.0 / parser->tech->getDBUPerUU();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<spacing * 1.0 / parser->tech->getDBUPerUU();
             }
           }
           tblVals.push_back(tblRowVals);
         }
         if (enableOutput) {
-          cout <<" ;" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
         }
         // old
         prlTbl = make_shared<fr2DLookupTbl<frCoord, frCoord, frCoord> >(rowName, rowVals, colName, colVals, tblVals);
@@ -3853,29 +3853,29 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
         auto rptr = static_cast<frSpacingTablePrlConstraint*>(uCon.get());
         parser->tech->addUConstraint(std::move(uCon));
         if (tmpLayer->getMinSpacing()) {
-          cout <<"Warning: new SPACINGTABLE PARALLELRUNLENGTH overrides old SPACING rule" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: new SPACINGTABLE PARALLELRUNLENGTH overrides old SPACING rule" <<endl;
         }
         tmpLayer->setMinSpacing(rptr);
       } else { // two width spacing rule
         auto tw = spTable->twoWidths();
         frCoord defaultPrl = -abs(frCoord(round(tw->widthSpacing(0,0) * parser->tech->getDBUPerUU())));
-        //cout <<"default prl: " <<defaultPrl <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"default prl: " <<defaultPrl <<endl;
         frCollection<frSpacingTableTwRowType> rowVals, colVals;
         frCollection<frCollection<frCoord> > tblVals;
         frCollection<frCoord> tblRowVals;
         frString rowName("WIDTH1PRL"), colName("WIDTH2PRL");
         if (enableOutput) {
-          cout <<"  SPACINGTABLE TWOWIDTHS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  SPACINGTABLE TWOWIDTHS";
         }
         for (int j = 0; j < tw->numWidth(); ++j) {
           frCoord width = frCoord(round(tw->width(j) * parser->tech->getDBUPerUU()));
           frCoord prl   = defaultPrl;
           if (enableOutput) {
-            cout <<endl <<"    WIDTH " <<tw->width(j);
+            cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"    WIDTH " <<tw->width(j);
           }
           if (tw->hasWidthPRL(j)) {
             if (enableOutput) {
-              cout <<" PRL " <<tw->widthPRL(j);
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" PRL " <<tw->widthPRL(j);
             }
             prl = frCoord(round(tw->widthPRL(j) * parser->tech->getDBUPerUU()));
             defaultPrl = prl;
@@ -3891,7 +3891,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
           tblRowVals.clear();
           for (int k = 0; k < tw->numWidthSpacing(j); k++) {
             if (enableOutput) {
-              cout <<" " <<tw->widthSpacing(j, k);
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<tw->widthSpacing(j, k);
             }
             frCoord spacing = frCoord(round(tw->widthSpacing(j, k) * parser->tech->getDBUPerUU()));
             tblRowVals.push_back(spacing);
@@ -3899,13 +3899,13 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
           tblVals.push_back(tblRowVals);
         }
         if (enableOutput) {
-          cout <<" ;" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
         }
         unique_ptr<frConstraint> uCon = make_unique<frSpacingTableTwConstraint>(fr2DLookupTbl(rowName, rowVals, colName, colVals, tblVals));
         auto rptr = static_cast<frSpacingTableTwConstraint*>(uCon.get());
         parser->tech->addUConstraint(std::move(uCon));
         if (tmpLayer->getMinSpacing()) {
-          cout <<"Warning: new SPACINGTABLE TWOWIDTHS overrides old SPACING rule" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: new SPACINGTABLE TWOWIDTHS overrides old SPACING rule" <<endl;
         }
         tmpLayer->setMinSpacing(rptr);
       }
@@ -3917,28 +3917,28 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       auto rptr = static_cast<frMinimumcutConstraint*>(uCon.get());
       
       //if (enableOutput) {
-      //  cout <<"  MINIMUMCUT " <<layer->minimumcut(i) <<" WIDTH " <<layer->minimumcutWidth(i);
+      //  cout << __FILE__ << ":" << __LINE__ << ": " <<"  MINIMUMCUT " <<layer->minimumcut(i) <<" WIDTH " <<layer->minimumcutWidth(i);
       //}
       rptr->setNumCuts(layer->minimumcut(i));
       rptr->setWidth(frCoord(round(layer->minimumcutWidth(i) * dbu)));
 
       if (layer->hasMinimumcutWithin(i)) {
         //if (enableOutput) {
-        //  cout <<" WITHIN " <<layer->minimumcutWithin(i);
+        //  cout << __FILE__ << ":" << __LINE__ << ": " <<" WITHIN " <<layer->minimumcutWithin(i);
         //}
         rptr->setWithin(frCoord(round(layer->minimumcutWithin(i) * dbu)));
       }
 
       if (layer->hasMinimumcutConnection(i)) {
         //if (enableOutput) {
-        //  cout <<" " <<layer->minimumcutConnection(i);
+        //  cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<layer->minimumcutConnection(i);
         //}
         if (strcmp(layer->minimumcutConnection(i), "FROMABOVE") == 0) {
           rptr->setConnection(frMinimumcutConnectionEnum::FROMABOVE);
         } else if (strcmp(layer->minimumcutConnection(i), "FROMBELOW") == 0) {
           rptr->setConnection(frMinimumcutConnectionEnum::FROMBELOW);
         } else {
-          cout <<"Error: layer minimumcut unsupporterd connection type" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: layer minimumcut unsupporterd connection type" <<endl;
           exit(1);
         }
       }
@@ -3946,7 +3946,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       // hasMinimumcutNumCuts actually outputs whether there is [LENGTH length WITHIN distance]
       if (layer->hasMinimumcutNumCuts(i)) {
         //if (enableOutput) {
-        //  cout <<" LENGTH " <<layer->minimumcutLength(i) <<" WITHIN " <<layer->minimumcutDistance(i);
+        //  cout << __FILE__ << ":" << __LINE__ << ": " <<" LENGTH " <<layer->minimumcutLength(i) <<" WITHIN " <<layer->minimumcutDistance(i);
         //}
         rptr->setLength(frCoord(round(layer->minimumcutLength(i) * dbu)), frCoord(round(layer->minimumcutDistance(i) * dbu)));
       }
@@ -3954,29 +3954,29 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       parser->tech->addUConstraint(std::move(uCon));
       tmpLayer->addMinimumcutConstraint(rptr);
       //if (enableOutput) {
-      //  cout <<" ;" <<endl;
+      //  cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
       //}
       if (enableOutput) {
-        cout <<"  MINIMUMCUT " <<rptr->getNumCuts() <<" WIDTH " <<rptr->getWidth() / dbu;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  MINIMUMCUT " <<rptr->getNumCuts() <<" WIDTH " <<rptr->getWidth() / dbu;
         if (rptr->hasWithin()) {
-          cout <<" WITHIN " <<rptr->getCutDistance() / dbu;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" WITHIN " <<rptr->getCutDistance() / dbu;
         }
         if (rptr->hasConnection()) {
           switch(rptr->getConnection()) {
             case frMinimumcutConnectionEnum::FROMABOVE: 
-              cout <<" FROMABOVE"; 
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" FROMABOVE"; 
               break;
             case frMinimumcutConnectionEnum::FROMBELOW: 
-              cout <<" FROMBELOW";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" FROMBELOW";
               break;
             default: 
-              cout <<" UNKNOWN";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" UNKNOWN";
           }
         }
         if (rptr->hasLength()) {
-          cout <<" LENGTH " <<rptr->getLength() / dbu <<" WITHIN " <<rptr->getDistance() / dbu;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" LENGTH " <<rptr->getLength() / dbu <<" WITHIN " <<rptr->getDistance() / dbu;
         }
-        cout <<" ;" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
       }
     }
   } else if (strcmp(layer->type(), "CUT") == 0) {
@@ -3989,17 +3989,17 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       parser->tech->addLayer(std::move(uMSLayer));
       tmpMSLayer->setType(frLayerTypeEnum::MASTERSLICE);
       if (enableOutput) {
-        cout <<"\n";
-        cout <<"LAYER     " <<tmpMSLayer->getName() <<endl;
-        cout <<"  TYPE      " <<"MASTERSLICE" <<endl;
-        cout <<"  layerNum  " <<tmpMSLayer->getLayerNum() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"LAYER     " <<tmpMSLayer->getName() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  TYPE      " <<"MASTERSLICE" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  layerNum  " <<tmpMSLayer->getLayerNum() <<endl;
       }
     }
     if (enableOutput) {
-      cout <<"\n";
-      cout <<"LAYER "       <<layer->name() <<endl;
-      cout <<"  TYPE      " <<layer->type() <<endl;
-      cout <<"  layerNum  " <<parser->readLayerCnt <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"LAYER "       <<layer->name() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  TYPE      " <<layer->type() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  layerNum  " <<parser->readLayerCnt <<endl;
     }
     tmpLayer->setLayerNum(parser->readLayerCnt++);
     tmpLayer->setName(layer->name());
@@ -4007,7 +4007,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
     parser->tech->addLayer(std::move(uLayer));
 
     auto shortConstraint = make_shared<frShortConstraint>();
-    // std::cout << "add shortConstraint to layer " <<tmpLayer->getName() << "\n";
+    // std::cout << __FILE__ << ":" << __LINE__ << ": " << "add shortConstraint to layer " <<tmpLayer->getName() << "\n";
     parser->tech->addConstraint(shortConstraint);
     tmpLayer->addConstraint(shortConstraint);
     tmpLayer->setShortConstraint(shortConstraint.get());
@@ -4026,19 +4026,19 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
       int adjacentCuts = layer->spacingAdjacentCuts(i);
       frCoord cutWithin = frCoord(round(layer->spacingAdjacentWithin(i) * parser->tech->getDBUPerUU()));
 
-      // std::cout << cutSpacing << " " << centerToCenter << " " << sameNet << " " << stack << " " << exceptSamePGNet 
+      // std::cout << __FILE__ << ":" << __LINE__ << ": " << cutSpacing << " " << centerToCenter << " " << sameNet << " " << stack << " " << exceptSamePGNet 
       //           << " " << parallelOverlap << " " << secondLayerName << " " << adjacentCuts << " " << cutWithin << "\n";
 
-      // std::cout << "raw cutArea = " << layer->spacingArea(i) << "\n";
-      // std::cout << "cutArea = " << cutArea << "\n";
+      // std::cout << __FILE__ << ":" << __LINE__ << ": " << "raw cutArea = " << layer->spacingArea(i) << "\n";
+      // std::cout << __FILE__ << ":" << __LINE__ << ": " << "cutArea = " << cutArea << "\n";
       // initialize for invalid variables
       cutArea = (cutArea == 0) ? -1 : cutArea;
       cutWithin = (cutWithin == 0) ? -1 : cutWithin;
       adjacentCuts = (adjacentCuts == 0) ? -1 : adjacentCuts;
-      // std::cout << "cutArea = " << cutArea << "\n";
+      // std::cout << __FILE__ << ":" << __LINE__ << ": " << "cutArea = " << cutArea << "\n";
 
       if (cutWithin != -1 && cutWithin < cutSpacing) {
-        cout << "Warning: cutWithin is smaller than cutSpacing for ADJACENTCUTS on layer " << layer->name() 
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: cutWithin is smaller than cutSpacing for ADJACENTCUTS on layer " << layer->name() 
              << ", please check your rule definition\n";
       }
 
@@ -4074,7 +4074,7 @@ int io::Parser::Callbacks::getLefLayers(lefrCallbackType_e type, lefiLayer* laye
         } else if (!strcmp(layer->propName(i), "LEF58_SPACINGTABLE") && layer->propIsString(i)) {
           getLef58CutSpacingTable(data, tmpLayer, layer->propValue(i));
         } else {
-          cout <<" Unsupported property name:     " <<layer->propName(i) <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" Unsupported property name:     " <<layer->propName(i) <<endl;
         }
       }
     }
@@ -4102,7 +4102,7 @@ int io::Parser::Callbacks::getLefMacros(lefrCallbackType_e type, lefiMacro* macr
   //bool enableOutput = true;
   bool enableOutput = false;
   if (type != lefrMacroCbkType) {
-    cout <<"Type is not lefrMacroCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not lefrMacroCbkType!" <<endl;
     exit(2);
   }
 
@@ -4112,9 +4112,9 @@ int io::Parser::Callbacks::getLefMacros(lefrCallbackType_e type, lefiMacro* macr
   frCoord sizeX   = round(macro->sizeX()   * parser->tech->getDBUPerUU());
   frCoord sizeY   = round(macro->sizeY()   * parser->tech->getDBUPerUU());
   if (enableOutput) {
-    cout <<"  ORIGIN " <<originX * 1.0 / parser->tech->getDBUPerUU() <<" " 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  ORIGIN " <<originX * 1.0 / parser->tech->getDBUPerUU() <<" " 
                        <<originY * 1.0 / parser->tech->getDBUPerUU() <<" ;" <<endl;
-    cout <<"  SIZE   " <<sizeX   * 1.0 / parser->tech->getDBUPerUU() <<" " 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  SIZE   " <<sizeX   * 1.0 / parser->tech->getDBUPerUU() <<" " 
                        <<sizeY   * 1.0 / parser->tech->getDBUPerUU() <<" ;" <<endl;
   }
   vector<frBoundary> bounds;
@@ -4131,7 +4131,7 @@ int io::Parser::Callbacks::getLefMacros(lefrCallbackType_e type, lefiMacro* macr
 
   if (enableOutput) {
     if (macro->hasClass()) {
-      std::cout << macro->macroClass() << "\n";
+      std::cout << __FILE__ << ":" << __LINE__ << ": " << macro->macroClass() << "\n";
     }
   }
   if (macro->hasClass()) {
@@ -4164,7 +4164,7 @@ int io::Parser::Callbacks::getLefMacros(lefrCallbackType_e type, lefiMacro* macr
     } else if (strcmp(macro->macroClass(), "ENDCAP BOTTOMLEFT") == 0) {
       parser->tmpBlock->setMacroClass(MacroClassEnum::ENDCAP_BOTTOMLEFT);
     } else {
-      cout << "Warning: unknown macroClass " << macro->macroClass() << ", skipped macroClass property\n"; 
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unknown macroClass " << macro->macroClass() << ", skipped macroClass property\n"; 
     }
   }
 
@@ -4176,7 +4176,7 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
   bool enableOutput = false;
   //bool enableOutput = true;
   if (type != lefrPinCbkType) {
-    cout <<"Type is not lefrPinCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not lefrPinCbkType!" <<endl;
     exit(1);
   }
   io::Parser* parser = (io::Parser*) data;
@@ -4192,7 +4192,7 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
   // inst completed
   
   if (enableOutput) {
-    cout <<"  PIN " <<pin->name() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  PIN " <<pin->name() <<endl;
   }
   
   frTermEnum termType = frTermEnum::frcNormalTerm;
@@ -4207,11 +4207,11 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
     } else if (str == "GROUND") {
       termType = frTermEnum::frcGroundTerm;
     } else {
-      cout <<"Error: unsupported PIN USE in lef" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported PIN USE in lef" <<endl;
       exit(1);
     }
     if (enableOutput) {
-      cout <<"    USE " <<str <<" ;" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"    USE " <<str <<" ;" <<endl;
     }
   }
   term->setType(termType);
@@ -4219,12 +4219,12 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
   int numPorts = pin->numPorts();
   int numItems = 0;
   int itemType = 0;
-  // cout <<"pin->numPorts: " <<numPorts <<endl;
+  // cout << __FILE__ << ":" << __LINE__ << ": " <<"pin->numPorts: " <<numPorts <<endl;
   for (int i = 0; i < numPorts; ++i) {
     numItems = pin->port(i)->numItems();
-    // cout <<"pin->ports(" <<i <<")->numItems: " <<numItems <<endl;
+    // cout << __FILE__ << ":" << __LINE__ << ": " <<"pin->ports(" <<i <<")->numItems: " <<numItems <<endl;
     if (enableOutput) {
-      cout <<"    PORT" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"    PORT" <<endl;
     }
 
     // pin
@@ -4239,18 +4239,18 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
         string layer = pin->port(i)->getLayer(j);
         if (parser->tech->name2layer.find(layer) == parser->tech->name2layer.end()) {
           if (VERBOSE > 1) {
-            cout <<"Warning: layer " <<layer <<" is skipped for " <<parser->tmpBlock->getName() <<"/" <<pin->name() <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: layer " <<layer <<" is skipped for " <<parser->tmpBlock->getName() <<"/" <<pin->name() <<endl;
           }
           layerNum = -1;
           continue;
         }
 
         layerNum = parser->tech->name2layer.at(layer)->getLayerNum();
-        //cout <<"  layer: " <<pin->port(i)->getLayer(j) <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"  layer: " <<pin->port(i)->getLayer(j) <<endl;
         if (enableOutput) {
-          cout <<"    LAYER " <<layer <<" ;" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"    LAYER " <<layer <<" ;" <<endl;
         }
-        //cout <<"    LAYERNUM " <<layerNum <<" ;" <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"    LAYERNUM " <<layerNum <<" ;" <<endl;
       } else if (itemType == lefiGeomRectE) {
         if (layerNum == -1) {
           continue;
@@ -4272,7 +4272,7 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
         // pin completed
 
         if (enableOutput) {
-          cout <<"      RECT " <<xl * 1.0 / parser->tech->getDBUPerUU() <<" " 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"      RECT " <<xl * 1.0 / parser->tech->getDBUPerUU() <<" " 
                                <<yl * 1.0 / parser->tech->getDBUPerUU() <<" " 
                                <<xh * 1.0 / parser->tech->getDBUPerUU() <<" " 
                                <<yh * 1.0 / parser->tech->getDBUPerUU() <<" ;" <<endl;
@@ -4284,7 +4284,7 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
         }
         //Polygon polygon;
         if (enableOutput) {
-          cout <<"      POLYGON"; 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"      POLYGON"; 
         }
         frCollection<frPoint> tmpPoints;
         for (int k = 0; k < pin->port(i)->getPolygon(j)->numPoints; k++) {
@@ -4292,7 +4292,7 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
           frCoord y = round(pin->port(i)->getPolygon(j)->y[k] * parser->tech->getDBUPerUU());
           tmpPoints.push_back(frPoint(x, y));
           if (enableOutput) {
-             cout <<" " <<x * 1.0 / parser->tech->getDBUPerUU() <<" " 
+             cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<x * 1.0 / parser->tech->getDBUPerUU() <<" " 
                         <<y * 1.0 / parser->tech->getDBUPerUU();
           }
         }
@@ -4308,24 +4308,24 @@ int io::Parser::Callbacks::getLefPins(lefrCallbackType_e type, lefiPin* pin, lef
         // pin completed
 
         if (enableOutput) {
-          cout <<" ;" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
         }
       } else {
         if (VERBOSE > -1) {
-          cout <<"Error: unsupported lefiGeometries in getLefPins!" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported lefiGeometries in getLefPins!" <<endl;
         }
         continue;
       }
-      //cout <<"  enum: " <<pin->port(i)->itemType(j) <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"  enum: " <<pin->port(i)->itemType(j) <<endl;
     }
     term->addPin(std::move(pinIn));
     // term completed
     if (enableOutput) {
-      cout <<"    END" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"    END" <<endl;
     }
   }
   if (enableOutput) {
-    cout <<"  END " <<pin->name() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  END " <<pin->name() <<endl;
   }
 
   return 0;
@@ -4337,12 +4337,12 @@ int io::Parser::Callbacks::getLefObs(lefrCallbackType_e type, lefiObstruction* o
   bool enableOutput = false;
 
   if (type != lefrObstructionCbkType) {
-    cout <<"Type is not lefrObstructionCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not lefrObstructionCbkType!" <<endl;
     exit(1);
   }
 
   if (enableOutput) {
-    cout <<"  OBS" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  OBS" <<endl;
   }
   
   auto geometry = obs->geometries();
@@ -4366,17 +4366,17 @@ int io::Parser::Callbacks::getLefObs(lefrCallbackType_e type, lefiObstruction* o
         layerNum = parser->tech->name2layer[layer]->getLayerNum();
       } else {
         if (VERBOSE > 2) {
-          cout <<"Warning: layer " <<geometry->getLayer(i) <<" is skipped for " <<parser->tmpBlock->getName() <<"/OBS" <<endl; 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: layer " <<geometry->getLayer(i) <<" is skipped for " <<parser->tmpBlock->getName() <<"/OBS" <<endl; 
         }
         layerNum = -1;
         continue;
       }
       if (enableOutput) {
-        cout <<"    LAYER " <<layer <<" ;" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"    LAYER " <<layer <<" ;" <<endl;
       }
     } else if (geometry->itemType(i) == lefiGeomRectE) {
       if (layerNum == -1) {
-        // cout <<"Warning: OBS on undefined layer " <<" is skipped... " <<endl; 
+        // cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: OBS on undefined layer " <<" is skipped... " <<endl; 
         continue;
       }
       auto rect = geometry->getRect(i);
@@ -4395,11 +4395,11 @@ int io::Parser::Callbacks::getLefObs(lefrCallbackType_e type, lefiObstruction* o
       pinIn->addPinFig(std::move(uptr));
       // pin completed
       if (enableOutput) {
-        cout <<"      RECT " <<rect->xl <<" " <<rect->yl <<" " <<rect->xh <<" " <<rect->yh <<" ;" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"      RECT " <<rect->xl <<" " <<rect->yl <<" " <<rect->xh <<" " <<rect->yh <<" ;" <<endl;
       }
     } else if (geometry->itemType(i) == lefiGeomPolygonE) {
       if (layerNum == -1) {
-        // cout <<"Warning: OBS on undefined layer " <<" is skipped... " <<endl; 
+        // cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: OBS on undefined layer " <<" is skipped... " <<endl; 
         continue;
       }
       std::vector<frPoint> tmpPoints;
@@ -4408,7 +4408,7 @@ int io::Parser::Callbacks::getLefObs(lefrCallbackType_e type, lefiObstruction* o
         frCoord y = round(geometry->getPolygon(i)->y[k] * parser->tech->getDBUPerUU());
         tmpPoints.push_back(frPoint(x, y));
         if (enableOutput) {
-           cout <<" " <<x * 1.0 / parser->tech->getDBUPerUU() <<" " 
+           cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<x * 1.0 / parser->tech->getDBUPerUU() <<" " 
                       <<y * 1.0 / parser->tech->getDBUPerUU();
         }
       }
@@ -4424,31 +4424,31 @@ int io::Parser::Callbacks::getLefObs(lefrCallbackType_e type, lefiObstruction* o
       // pin completed
     } else if (geometry->itemType(i) == lefiGeomLayerMinSpacingE) {
       if (layerNum == -1) {
-        // cout <<"Warning: OBS on undefined layer " <<" is skipped... " <<endl; 
+        // cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: OBS on undefined layer " <<" is skipped... " <<endl; 
         continue;
       }
       frCoord x = round(geometry->getLayerMinSpacing(i) * parser->tech->getDBUPerUU());
       if (enableOutput) {
-         cout <<"      MINSPACING " <<x * 1.0 / parser->tech->getDBUPerUU() <<" ;" <<endl;
+         cout << __FILE__ << ":" << __LINE__ << ": " <<"      MINSPACING " <<x * 1.0 / parser->tech->getDBUPerUU() <<" ;" <<endl;
       }
     } else if (geometry->itemType(i) == lefiGeomLayerRuleWidthE) {
       if (layerNum == -1) {
-        // cout <<"Warning: OBS on undefined layer " <<" is skipped... " <<endl; 
+        // cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: OBS on undefined layer " <<" is skipped... " <<endl; 
         continue;
       }
       frCoord x = round(geometry->getLayerRuleWidth(i) * parser->tech->getDBUPerUU());
       if (enableOutput) {
-         cout <<"      DESIGNRULEWIDTH " <<x * 1.0 / parser->tech->getDBUPerUU() <<" ;" <<endl;
+         cout << __FILE__ << ":" << __LINE__ << ": " <<"      DESIGNRULEWIDTH " <<x * 1.0 / parser->tech->getDBUPerUU() <<" ;" <<endl;
       }
     } else {
       if (VERBOSE > -1) {
-        cout <<"Error: unsupported lefiGeometries in getLefObs" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported lefiGeometries in getLefObs" <<endl;
       }
       continue;
     }
   }
   if (enableOutput) {
-    cout <<"  END" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  END" <<endl;
   }
   blkIn->setPin(std::move(pinIn));
   parser->tmpBlock->addBlockage(std::move(blkIn));
@@ -4463,20 +4463,20 @@ int io::Parser::Callbacks::getLefString(lefrCallbackType_e type, const char* str
     auto &tmpBlock = parser->tmpBlock;
     tmpBlock = make_unique<frBlock>(string(str));
     if (enableOutput) {
-      cout <<"MACRO " <<tmpBlock->getName() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"MACRO " <<tmpBlock->getName() <<endl;
     }
   } else if (type == lefrMacroEndCbkType) {
     auto &tmpBlock = parser->tmpBlock;
     tmpBlock->setId(parser->numRefBlocks + 1);
     if (enableOutput) {
-      cout <<"END " <<tmpBlock->getName() <<" " <<parser->numRefBlocks + 1 <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"END " <<tmpBlock->getName() <<" " <<parser->numRefBlocks + 1 <<endl;
     }
     parser->design->addRefBlock(std::move(parser->tmpBlock));
     parser->numRefBlocks++;
     parser->numTerms     = 0;
     parser->numBlockages = 0;
   } else {
-    cout <<"Type is not supported!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not supported!" <<endl;
     // exit(2);
   }
   return 0;
@@ -4488,7 +4488,7 @@ int io::Parser::Callbacks::getLefUnits(lefrCallbackType_e type, lefiUnits* units
   io::Parser* parser = (io::Parser*) data;
   parser->tech->setDBUPerUU(frUInt4(units->databaseNumber()));
   if (enableOutput) {
-    cout <<"DATABASE MICRONS " <<parser->tech->getDBUPerUU() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"DATABASE MICRONS " <<parser->tech->getDBUPerUU() <<endl;
   }
   return 0;
 }
@@ -4497,21 +4497,21 @@ int io::Parser::Callbacks::getLefUseMinSpacing(lefrCallbackType_e type, lefiUseM
   bool enableOutput = true;
   if (!strcmp(spacing->lefiUseMinSpacing::name(), "OBS")) {
     if (enableOutput) {
-      cout << "USEMINSPACING OBS";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "USEMINSPACING OBS";
     }
     if (spacing->lefiUseMinSpacing::value()) {
       if (enableOutput) {
-        cout << " ON";
+        cout << __FILE__ << ":" << __LINE__ << ": " << " ON";
       }
       USEMINSPACING_OBS = true;
     } else {
       if (enableOutput) {
-        cout << " OFF";
+        cout << __FILE__ << ":" << __LINE__ << ": " << " OFF";
       }
       USEMINSPACING_OBS = false;
     }
     if (enableOutput) {
-      cout << endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " << endl;
     }
   }
   return 0;
@@ -4523,7 +4523,7 @@ int io::Parser::Callbacks::getLefManufacturingGrid(lefrCallbackType_e type, doub
   io::Parser* parser = (io::Parser*) data;
   parser->tech->setManufacturingGrid(frUInt4(round(number * parser->tech->getDBUPerUU())));
   if (enableOutput) {
-    cout <<"MANUFACTURINGGRID " <<number <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"MANUFACTURINGGRID " <<number <<endl;
   }
   return 0;
 }
@@ -4532,18 +4532,18 @@ int io::Parser::Callbacks::getLefVias(lefrCallbackType_e type, lefiVia* via, lef
   bool enableOutput = false;
   // bool enableOutput = true;
   if (type != lefrViaCbkType) {
-    cout <<"Type is not lefrViaCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not lefrViaCbkType!" <<endl;
   }
   if (enableOutput) {
-    cout <<"VIA " <<via->name();
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"VIA " <<via->name();
     if (via->hasDefault()) {
-      cout <<" DEFAULT";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" DEFAULT";
     }
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
   if (via->numLayers() != 3) {
     if (VERBOSE > -1) {
-      cout <<"Error: unsupported via" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported via" <<endl;
     }
     exit(1);
   }
@@ -4552,18 +4552,18 @@ int io::Parser::Callbacks::getLefVias(lefrCallbackType_e type, lefiVia* via, lef
   for (int i = 0; i < via->numLayers(); ++i) {
     if (parser->tech->name2layer.find(via->layerName(i)) == parser->tech->name2layer.end()) {
       if (VERBOSE > -1) {
-        cout <<"Warning: layer " <<via->layerName(i) <<" is skipiped for " <<via->name() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: layer " <<via->layerName(i) <<" is skipiped for " <<via->name() <<endl;
       }
       return 0;
     }
     lNum2Int[parser->tech->name2layer.at(via->layerName(i))->getLayerNum()] = i;
   }
   //for (auto &m: lNum2Int) {
-  //  cout <<"print " <<m.first <<" " <<m.second <<endl;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"print " <<m.first <<" " <<m.second <<endl;
   //}
   if (lNum2Int.begin()->first + 2 != (--lNum2Int.end())->first) {
     if (VERBOSE > -1) {
-      cout <<"Error: non-consecutive layers" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: non-consecutive layers" <<endl;
     }
     exit(1);
   }
@@ -4576,7 +4576,7 @@ int io::Parser::Callbacks::getLefVias(lefrCallbackType_e type, lefiVia* via, lef
   for (auto &m: lNum2Int) {
     int i = m.second;
     if (enableOutput) {
-      cout <<"  LAYER " <<via->layerName(i) <<" ;" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  LAYER " <<via->layerName(i) <<" ;" <<endl;
     }
     auto layerNum = m.first;
     for (int j = 0; j < via->numRects(i); ++j) {
@@ -4588,7 +4588,7 @@ int io::Parser::Callbacks::getLefVias(lefrCallbackType_e type, lefiVia* via, lef
       pinFig->setBBox(frBox(xl, yl, xh, yh));
       pinFig->setLayerNum(layerNum);
       if (enableOutput) {
-        cout <<"    RECT "   <<xl * 1.0 / parser->tech->getDBUPerUU() <<" " 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"    RECT "   <<xl * 1.0 / parser->tech->getDBUPerUU() <<" " 
                              <<yl * 1.0 / parser->tech->getDBUPerUU() <<" " 
                              <<xh * 1.0 / parser->tech->getDBUPerUU() <<" " 
                              <<yh * 1.0 / parser->tech->getDBUPerUU() <<" ;" <<endl;
@@ -4607,7 +4607,7 @@ int io::Parser::Callbacks::getLefVias(lefrCallbackType_e type, lefiVia* via, lef
     }
     for (int j = 0; j < via->numPolygons(i); ++j) {
       if (enableOutput) {
-        cout <<"    POLYGON"; 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"    POLYGON"; 
       }
       vector<frPoint> tmpPoints;
       for (int k = 0; k < via->getPolygon(i, j).numPoints; k++) {
@@ -4615,7 +4615,7 @@ int io::Parser::Callbacks::getLefVias(lefrCallbackType_e type, lefiVia* via, lef
         frCoord y = round(via->getPolygon(i, j).y[k] * parser->tech->getDBUPerUU());
         tmpPoints.push_back(frPoint(x, y));
         if (enableOutput) {
-           cout <<" " <<x * 1.0 / parser->tech->getDBUPerUU() <<" " 
+           cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<x * 1.0 / parser->tech->getDBUPerUU() <<" " 
                       <<y * 1.0 / parser->tech->getDBUPerUU();
         }
       }
@@ -4623,7 +4623,7 @@ int io::Parser::Callbacks::getLefVias(lefrCallbackType_e type, lefiVia* via, lef
       pinFig->setPoints(tmpPoints);
       pinFig->setLayerNum(layerNum);
       if (enableOutput) {
-        cout <<" ;" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" ;" <<endl;
       }
       switch(cnt) {
         case 0 :
@@ -4640,7 +4640,7 @@ int io::Parser::Callbacks::getLefVias(lefrCallbackType_e type, lefiVia* via, lef
     cnt++;
   }
   if (enableOutput) {
-    cout <<"END " <<via->name() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"END " <<via->name() <<endl;
   }
 
   // add via class information
@@ -4676,25 +4676,25 @@ int io::Parser::Callbacks::getLefViaRules(lefrCallbackType_e type, lefiViaRule* 
   bool enableOutput = false;
   //bool enableOutput = true;
   if (type != lefrViaRuleCbkType) {
-    cout <<"Type is not lefrViaRuleCbkType!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Type is not lefrViaRuleCbkType!" <<endl;
     // exit(1);
   }
   if (enableOutput) {
-    cout <<"VIARULE " <<viaRule->name();
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"VIARULE " <<viaRule->name();
     if (viaRule->hasGenerate()) {
-      cout <<" GENERATE";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" GENERATE";
     } else {
-      cout <<"Error: getLefViaRules does not support non-generate rules" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLefViaRules does not support non-generate rules" <<endl;
       exit(1);
     }
     if (viaRule->hasDefault()) {
-      cout <<" DEFAULT";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" DEFAULT";
     }
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
   if (viaRule->numLayers() != 3) {
     if (VERBOSE > -1) {
-      cout <<"Error: unsupported via" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported via" <<endl;
     }
     exit(1);
   }
@@ -4704,7 +4704,7 @@ int io::Parser::Callbacks::getLefViaRules(lefrCallbackType_e type, lefiViaRule* 
     auto viaRuleLayer = viaRule->layer(i);
     if (parser->tech->name2layer.find(viaRuleLayer->name()) == parser->tech->name2layer.end()) {
       if (VERBOSE > -1) {
-        cout <<"Warning: layer " <<viaRuleLayer->name() <<" is skipiped for " <<viaRule->name() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: layer " <<viaRuleLayer->name() <<" is skipiped for " <<viaRule->name() <<endl;
       }
       return 0;
     }
@@ -4712,13 +4712,13 @@ int io::Parser::Callbacks::getLefViaRules(lefrCallbackType_e type, lefiViaRule* 
   }
   if (lNum2Int.begin()->first + 2!= (--lNum2Int.end())->first) {
     if (VERBOSE > -1) {
-      cout <<"Error: non-consecutive layers" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: non-consecutive layers" <<endl;
     }
     exit(1);
   }
 
   if (!viaRule->hasGenerate()) {
-    cout <<"Error: getLefViaRules does not support non-generate rules" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getLefViaRules does not support non-generate rules" <<endl;
     exit(1);
   }
   auto viaRuleGen = make_unique<frViaRuleGenerate>(viaRule->name());
@@ -4729,7 +4729,7 @@ int io::Parser::Callbacks::getLefViaRules(lefrCallbackType_e type, lefiViaRule* 
   for (auto &[lNum, i]: lNum2Int) {
     auto viaRuleLayer = viaRule->layer(i);
     if (enableOutput) {
-      cout <<"  LAYER " <<viaRuleLayer->name() <<" ;" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  LAYER " <<viaRuleLayer->name() <<" ;" <<endl;
     }
     if (viaRuleLayer->hasEnclosure()) {
       frCoord x = round(viaRuleLayer->enclosureOverhang1() * parser->tech->getDBUPerUU());
@@ -4740,14 +4740,14 @@ int io::Parser::Callbacks::getLefViaRules(lefrCallbackType_e type, lefiViaRule* 
           viaRuleGen->setLayer1Enc(enc);
           break;
         case 1:
-          cout <<"Error: getViaRuleGenerates cutLayer cannot have overhands" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getViaRuleGenerates cutLayer cannot have overhands" <<endl;
           break;
         default:
           viaRuleGen->setLayer2Enc(enc);
           break;
       }
       if (enableOutput) {
-        cout <<"    ENCLOSURE " <<viaRuleLayer->enclosureOverhang1() <<" " <<viaRuleLayer->enclosureOverhang1() <<" ;" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"    ENCLOSURE " <<viaRuleLayer->enclosureOverhang1() <<" " <<viaRuleLayer->enclosureOverhang1() <<" ;" <<endl;
       }
     }
     if (viaRuleLayer->hasRect()) {
@@ -4758,17 +4758,17 @@ int io::Parser::Callbacks::getLefViaRules(lefrCallbackType_e type, lefiViaRule* 
       frBox box(xl, yl, xh, yh);
       switch(cnt) {
         case 0:
-          cout <<"Error: getViaRuleGenerates botLayer cannot have rect" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getViaRuleGenerates botLayer cannot have rect" <<endl;
           break;
         case 1:
           viaRuleGen->setCutRect(box);
           break;
         default:
-          cout <<"Error: getViaRuleGenerates topLayer cannot have rect" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getViaRuleGenerates topLayer cannot have rect" <<endl;
           break;
       }
       if (enableOutput) {
-        cout <<"    RECT " <<viaRuleLayer->xl() <<" " 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"    RECT " <<viaRuleLayer->xl() <<" " 
                            <<viaRuleLayer->yl() <<" " 
                            <<viaRuleLayer->xh() <<" " 
                            <<viaRuleLayer->yh() 
@@ -4781,17 +4781,17 @@ int io::Parser::Callbacks::getLefViaRules(lefrCallbackType_e type, lefiViaRule* 
       frPoint pt(x, y);
       switch(cnt) {
         case 0:
-          cout <<"Error: getViaRuleGenerates botLayer cannot have spacing" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getViaRuleGenerates botLayer cannot have spacing" <<endl;
           break;
         case 1:
           viaRuleGen->setCutSpacing(pt);
           break;
         default:
-          cout <<"Error: getViaRuleGenerates topLayer cannot have spacing" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: getViaRuleGenerates topLayer cannot have spacing" <<endl;
           break;
       }
       if (enableOutput) {
-        cout <<"    SPACING " <<viaRuleLayer->spacingStepX() <<" BY " <<viaRuleLayer->spacingStepY() <<" ;" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"    SPACING " <<viaRuleLayer->spacingStepX() <<" BY " <<viaRuleLayer->spacingStepY() <<" ;" <<endl;
       }
     }
     cnt++;
@@ -4823,13 +4823,13 @@ void io::Parser::readLef() {
   lefrSetViaRuleCbk(Callbacks::getLefViaRules);
 
   if ((f = fopen(LEF_FILE.c_str(),"r")) == 0) {
-    cout <<"Couldn't open lef file" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Couldn't open lef file" <<endl;
     exit(2);
   }
 
   res = lefrRead(f, LEF_FILE.c_str(), (lefiUserData)this);
   if (res != 0) {
-    cout <<"LEF parser returns an error!" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"LEF parser returns an error!" <<endl;
     exit(2);
   }
   fclose(f);
@@ -4842,18 +4842,18 @@ void io::Parser::readLefDef() {
   // bool enableOutput = true;
 
   if (VERBOSE > 0) {
-    cout <<endl <<"reading lef ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"reading lef ..." <<endl;
   }
 
   readLef();
 
   if (VERBOSE > 0) {
-    cout <<endl;
-    cout <<"units:       " <<tech->getDBUPerUU()      <<endl;
-    cout <<"#layers:     " <<tech->layers.size()      <<endl;
-    cout <<"#macros:     " <<design->refBlocks.size() <<endl;
-    cout <<"#vias:       " <<tech->vias.size()        <<endl;
-    cout <<"#viarulegen: " <<tech->viaRuleGenerates.size() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"units:       " <<tech->getDBUPerUU()      <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#layers:     " <<tech->layers.size()      <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#macros:     " <<design->refBlocks.size() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#vias:       " <<tech->vias.size()        <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#viarulegen: " <<tech->viaRuleGenerates.size() <<endl;
   }
 
   auto numLefVia = tech->vias.size();
@@ -4868,7 +4868,7 @@ void io::Parser::readLefDef() {
   }
 
   if (VERBOSE > 0) {
-    cout <<endl <<"reading def ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"reading def ..." <<endl;
   }
 
   readDef();
@@ -4876,20 +4876,20 @@ void io::Parser::readLefDef() {
 
 
   if (VERBOSE > 0) {
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     frBox dieBox;
     design->getTopBlock()->getBoundaryBBox(dieBox);
-    cout <<"design:      " <<design->getTopBlock()->getName()    <<endl;
-    cout <<"die area:    " <<dieBox                              <<endl;
-    cout <<"trackPts:    " <<design->getTopBlock()->getTrackPatterns().size() <<endl;
-    cout <<"defvias:     " <<tech->vias.size() - numLefVia       <<endl;
-    cout <<"#components: " <<design->getTopBlock()->insts.size() <<endl;
-    cout <<"#terminals:  " <<design->getTopBlock()->terms.size() <<endl;
-    cout <<"#snets:      " <<design->getTopBlock()->snets.size() <<endl;
-    cout <<"#nets:       " <<design->getTopBlock()->nets.size()  <<endl;
-    //cout <<"#pins:       " <<numPins <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"design:      " <<design->getTopBlock()->getName()    <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"die area:    " <<dieBox                              <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"trackPts:    " <<design->getTopBlock()->getTrackPatterns().size() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"defvias:     " <<tech->vias.size() - numLefVia       <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#components: " <<design->getTopBlock()->insts.size() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#terminals:  " <<design->getTopBlock()->terms.size() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#snets:      " <<design->getTopBlock()->snets.size() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#nets:       " <<design->getTopBlock()->nets.size()  <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"#pins:       " <<numPins <<endl;
   }
-  //cout <<flush;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<flush;
 
   if (enableOutput) {
     //tech->printAllVias();
@@ -4909,7 +4909,7 @@ void io::Parser::readGuide() {
   ProfileTask profile("IO:readGuide");
 
   if (VERBOSE > 0) {
-    cout <<endl <<"reading guide ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"reading guide ..." <<endl;
   }
 
   int numGuides = 0;
@@ -4925,7 +4925,7 @@ void io::Parser::readGuide() {
   if (fin.is_open()){
     while (fin.good()) {
       getline(fin, line);
-      //cout <<line <<endl <<line.size() <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<line <<endl <<line.size() <<endl;
       if (line == "(" || line == "") continue;
       if (line == ")") {
         continue;
@@ -4937,30 +4937,30 @@ void io::Parser::readGuide() {
       while (!ss.eof()) {
         ss >>word;
         vLine.push_back(word);
-        //cout <<word <<" ";
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<word <<" ";
       }
-      //cout <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
 
       if (vLine.size() == 0) {
-        cout <<"Error: reading guide file!" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: reading guide file!" <<endl;
         exit(2);
       } else if (vLine.size() == 1) {
         netName = vLine[0];
         if (design->topBlock->name2net.find(vLine[0]) == design->topBlock->name2net.end()) {
-          cout <<"Error: cannot find net: " <<vLine[0] <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: cannot find net: " <<vLine[0] <<endl;
           exit(2);
         }
         net = design->topBlock->name2net[netName]; 
       } else if (vLine.size() == 5) {
         if (tech->name2layer.find(vLine[4]) == tech->name2layer.end()) {
-          cout <<"Error: cannot find layer: " <<vLine[4] <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: cannot find layer: " <<vLine[4] <<endl;
           exit(2);
         }
         layerNum = tech->name2layer[vLine[4]]->getLayerNum();
 
         if (layerNum < BOTTOM_ROUTING_LAYER && layerNum != VIA_ACCESS_LAYERNUM
             || layerNum > TOP_ROUTING_LAYER) {
-          cout << "Error: guide in net " << netName
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Error: guide in net " << netName
                << " uses layer " << vLine[4]
                << " (" << layerNum << ")"
                << " that is outside the allowed routing range "
@@ -4980,29 +4980,29 @@ void io::Parser::readGuide() {
         ++numGuides;
         if (numGuides < 1000000) {
           if (numGuides % 100000 == 0) {
-            cout <<"guideIn read " <<numGuides <<" guides" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"guideIn read " <<numGuides <<" guides" <<endl;
           }
         } else {
           if (numGuides % 1000000 == 0) {
-            cout <<"guideIn read " <<numGuides <<" guides" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"guideIn read " <<numGuides <<" guides" <<endl;
           }
         }
 
       } else {
-        cout <<"Error: reading guide file!" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: reading guide file!" <<endl;
         exit(2);
       }
     }
     fin.close();
   } else {
-    cout <<"Error: failed to open guide file" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: failed to open guide file" <<endl;
     exit(2);
   }
 
 
   if (VERBOSE > 0) {
-    cout <<endl;
-    cout <<"#guides:     " <<numGuides <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#guides:     " <<numGuides <<endl;
   }
 
 }
@@ -5013,7 +5013,7 @@ void io::Writer::fillConnFigs_net(frNet* net, bool isTA) {
   auto netName = net->getName();
   if (isTA) {
     for (auto &uGuide: net->getGuides()) {
-      //cout <<"find guide" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"find guide" <<endl;
       for (auto &uConnFig: uGuide->getRoutes()) {
         auto connFig = uConnFig.get();
         if (connFig->typeId() == frcPathSeg) {
@@ -5021,13 +5021,13 @@ void io::Writer::fillConnFigs_net(frNet* net, bool isTA) {
         } else if (connFig->typeId() == frcVia) {
           connFigs[netName].push_back(make_shared<frVia>(*static_cast<frVia*>(connFig)));
         } else {
-          cout <<"Error: io::Writer::filliConnFigs does not support this type" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: io::Writer::filliConnFigs does not support this type" <<endl;
         }
       }
     }
   } else {
     if (enableOutput) {
-      cout << netName << ":\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << netName << ":\n";
     }
     for (auto &shape: net->getShapes()) {
       if (shape->typeId() == frcPathSeg) {
@@ -5037,7 +5037,7 @@ void io::Writer::fillConnFigs_net(frNet* net, bool isTA) {
 
         if (enableOutput) {
           frLayerNum currLayerNum = pathSeg.getLayerNum();
-          cout << "  connfig pathseg (" << start.x() / 2000.0<< ", " << start.y() / 2000.0 
+          cout << __FILE__ << ":" << __LINE__ << ": " << "  connfig pathseg (" << start.x() / 2000.0<< ", " << start.y() / 2000.0 
                << ") - (" << end.x() / 2000.0 << ", " << end.y() / 2000.0 << ") " << currLayerNum  <<"\n"; 
         }
         connFigs[netName].push_back(make_shared<frPathSeg>(pathSeg));
@@ -5084,7 +5084,7 @@ void io::Writer::splitVia_helper(frLayerNum layerNum, int isH, frCoord trackLoc,
 // merge pathseg, delete redundant via
 void io::Writer::mergeSplitConnFigs(list<shared_ptr<frConnFig> > &connFigs) {
   //if (VERBOSE > 0) {
-  //  cout <<endl <<"merge and split ..." <<endl;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"merge and split ..." <<endl;
   //}
   // initialzie pathseg and via map
   map < tuple<frLayerNum, bool, frCoord>,
@@ -5099,10 +5099,10 @@ void io::Writer::mergeSplitConnFigs(list<shared_ptr<frConnFig> > &connFigs) {
       pathSeg->getPoints(begin, end);
       frLayerNum layerNum = pathSeg->getLayerNum();
       if (begin == end) {
-        // std::cout << "Warning: 0 length connfig\n";
+        // std::cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: 0 length connfig\n";
         continue; // if segment length = 0, ignore
       } else {
-        // std::cout << "xxx\n";
+        // std::cout << __FILE__ << ":" << __LINE__ << ": " << "xxx\n";
         bool isH = (begin.x() == end.x()) ? false : true;
         frCoord trackLoc   = isH ? begin.y() : begin.x();
         frCoord beginCoord = isH ? begin.x() : begin.y();
@@ -5116,7 +5116,7 @@ void io::Writer::mergeSplitConnFigs(list<shared_ptr<frConnFig> > &connFigs) {
       frPoint viaPoint;
       via->getOrigin(viaPoint);
       viaMergeMap[make_tuple(viaPoint.x(), viaPoint.y(), cutLayerNum)] = via;
-      //cout <<"found via" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"found via" <<endl;
     }
   }
 
@@ -5135,7 +5135,7 @@ void io::Writer::mergeSplitConnFigs(list<shared_ptr<frConnFig> > &connFigs) {
     frSegStyle style;
     frPoint begin, end;
     for (auto &it2: it1.second) {
-      //cout <<"coord " <<coord <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"coord " <<coord <<endl;
       for (auto &pathSegTuple: it2.second) {
         cnt += get<1>(pathSegTuple)? 1 : -1;
       }
@@ -5283,7 +5283,7 @@ void io::Writer::mergeSplitConnFigs(list<shared_ptr<frConnFig> > &connFigs) {
               skip = true;
               break;
             }
-            //cout <<"found" <<endl;
+            //cout << __FILE__ << ":" << __LINE__ << ": " <<"found" <<endl;
           }
           if (skip) break;
         }
@@ -5325,7 +5325,7 @@ void io::Writer::fillViaDefs() {
 void io::Writer::fillConnFigs(bool isTA) {
   connFigs.clear();
   if (VERBOSE > 0) {
-    cout <<endl <<"post processing ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"post processing ..." <<endl;
   }
   for (auto &net: getDesign()->getTopBlock()->getNets()) {
     fillConnFigs_net(net.get(), isTA);
@@ -5341,11 +5341,11 @@ void io::Writer::writeFromTA() {
   ProfileTask profile("IO:writeFromTA");
   if (OUTTA_FILE == string("")) {
     if (VERBOSE > 0) {
-      cout <<"Waring: no output def specified, skipped writing track assignment def" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Waring: no output def specified, skipped writing track assignment def" <<endl;
     }
   } else {
     //if (VERBOSE > 0) {
-    //  cout <<endl <<"start writing track assignment def" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start writing track assignment def" <<endl;
     //}
     fillConnFigs(true);
     fillViaDefs();
@@ -5357,11 +5357,11 @@ void io::Writer::writeFromDR(const string &str) {
   ProfileTask profile("IO:writeFromDR");
   if (OUT_FILE == string("")) {
     if (VERBOSE > 0) {
-      cout <<"Waring: no output def specified, skipped writing routed def" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Waring: no output def specified, skipped writing routed def" <<endl;
     }
   } else {
     //if (VERBOSE > 0) {
-    //  cout <<endl <<"start writing routed def" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start writing routed def" <<endl;
     //}
   }
   fillConnFigs(false);

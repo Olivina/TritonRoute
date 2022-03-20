@@ -93,7 +93,7 @@ void FlexDRWorker::endRemoveNets_pathSeg(frPathSeg* pathSeg,
           boundPts.insert(make_pair(boundPt, lNum));
         }
         if (enableOutput) {
-          cout <<"trim pathseg to ext bottom" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"trim pathseg to ext bottom" <<endl;
         }
       }
       // top seg to ext
@@ -122,10 +122,10 @@ void FlexDRWorker::endRemoveNets_pathSeg(frPathSeg* pathSeg,
           boundPts.insert(make_pair(boundPt, lNum));
         }
         if (enableOutput) {
-          cout <<"trim pathseg to ext top" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"trim pathseg to ext top" <<endl;
         }
       }
-      //std::cout << "  removingPathSeg " << &(*pathSeg) << " (" << begin.x() << ", " << begin.y() 
+      //std::cout << __FILE__ << ":" << __LINE__ << ": " << "  removingPathSeg " << &(*pathSeg) << " (" << begin.x() << ", " << begin.y() 
       //          << ") -- (" << end.x() << ", " << end.y() << ") " << drNet->getName() <<  "\n" << std::flush;
       regionQuery->removeDRObj(pathSeg); // delete rq
       net->removeShape(pathSeg); // delete segment
@@ -163,7 +163,7 @@ void FlexDRWorker::endRemoveNets_pathSeg(frPathSeg* pathSeg,
           boundPts.insert(make_pair(boundPt, lNum));
         }
         if (enableOutput) {
-          cout <<"trim pathseg to ext left" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"trim pathseg to ext left" <<endl;
         }
       }
       // right seg to ext
@@ -192,7 +192,7 @@ void FlexDRWorker::endRemoveNets_pathSeg(frPathSeg* pathSeg,
           boundPts.insert(make_pair(boundPt, lNum));
         }
         if (enableOutput) {
-          cout <<"trim pathseg to ext right" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"trim pathseg to ext right" <<endl;
         }
       }
       regionQuery->removeDRObj(pathSeg); // delete rq
@@ -216,7 +216,7 @@ void FlexDRWorker::endRemoveNets_via(frVia* via) {
     regionQuery->removeDRObj(via); // delete rq
     net->removeVia(via);
     if (enableOutput) {
-      cout <<"delete via in route" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"delete via in route" <<endl;
     }
   }
 }
@@ -236,7 +236,7 @@ void FlexDRWorker::endRemoveNets_patchWire(frPatchWire* pwire) {
     regionQuery->removeDRObj(pwire); // delete rq
     net->removePatchWire(pwire);
     if (enableOutput) {
-      cout <<"delete pwire in route" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"delete pwire in route" <<endl;
     }
   }
 }
@@ -253,7 +253,7 @@ void FlexDRWorker::endRemoveNets(set<frNet*, frBlockObjectComp> &modNets,
           endRemoveNets_pathSeg(cptr, boundPts[cptr->getNet()]);
         }
       } else {
-        cout <<"Error: endRemoveNet hasNet() empty" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: endRemoveNet hasNet() empty" <<endl;
       }
     } else if (rptr->typeId() == frcVia) {
       auto cptr = static_cast<frVia*>(rptr);
@@ -262,7 +262,7 @@ void FlexDRWorker::endRemoveNets(set<frNet*, frBlockObjectComp> &modNets,
           endRemoveNets_via(cptr);
         }
       } else {
-        cout <<"Error: endRemoveNet hasNet() empty" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: endRemoveNet hasNet() empty" <<endl;
       }
     } else if (rptr->typeId() == frcPatchWire) {
       auto cptr = static_cast<frPatchWire*>(rptr);
@@ -271,10 +271,10 @@ void FlexDRWorker::endRemoveNets(set<frNet*, frBlockObjectComp> &modNets,
           endRemoveNets_patchWire(cptr);
         }
       } else {
-        cout <<"Error: endRemoveNet hasNet() empty" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: endRemoveNet hasNet() empty" <<endl;
       }
     } else {
-      cout <<"Error: endRemoveNets unsupported type" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: endRemoveNets unsupported type" <<endl;
     }
   }
 }
@@ -442,7 +442,7 @@ void FlexDRWorker::endAddNets(map<frNet*, set<pair<frPoint, frLayerNum> >, frBlo
     }
     //if (enableOutput) {
     //  if (net->getFrNet()->getName() == string("net30")) {
-    //    cout <<"write back net@@@" <<endl;
+    //    cout << __FILE__ << ":" << __LINE__ << ": " <<"write back net@@@" <<endl;
     //  }
     //}
     //double dbu = getDesign()->getTopBlock()->getDBUPerUU();
@@ -451,7 +451,7 @@ void FlexDRWorker::endAddNets(map<frNet*, set<pair<frPoint, frLayerNum> >, frBlo
     //    getRouteBox().right()   == 84     * dbu && 
     //    getRouteBox().bottom()  == 139.65 * dbu && 
     //    getRouteBox().top()     == 159.6  * dbu) { 
-    //  cout <<"write back net " <<net->getFrNet()->getName() <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"write back net " <<net->getFrNet()->getName() <<endl;
     //}
     for (auto &connFig: net->getBestRouteConnFigs()) {
       if (connFig->typeId() == drcPathSeg) {
@@ -461,7 +461,7 @@ void FlexDRWorker::endAddNets(map<frNet*, set<pair<frPoint, frLayerNum> >, frBlo
       } else if (connFig->typeId() == drcPatchWire) {
         endAddNets_patchWire(static_cast<drPatchWire*>(connFig.get()));
       } else {
-        cout <<"Error: endAddNets unsupported type" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: endAddNets unsupported type" <<endl;
       }
     }
   }
@@ -526,7 +526,7 @@ void FlexDRWorker::end() {
     return;
   // do not write back if current clip is worse than input
   } else if (isEnableDRC() && getRipupMode() == 0 && getBestNumMarkers() > getInitNumMarkers()) {
-    //cout <<"skip clip with #init/final = " <<getInitNumMarkers() <<"/" <<getNumMarkers() <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"skip clip with #init/final = " <<getInitNumMarkers() <<"/" <<getNumMarkers() <<endl;
     return;
   } else if (isEnableDRC() && getDRIter() && getRipupMode() == 1 && getBestNumMarkers() > 5 * getInitNumMarkers()) {
     return;

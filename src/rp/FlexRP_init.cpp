@@ -61,11 +61,11 @@ void FlexRP::init() {
   }
 
   if (enableOutput) {
-    cout << "tech->via2ViaForbiddenLen size = " << tech->via2ViaForbiddenLen.size() << "\n";
-    cout << "tech->via2ViaForbiddenOverlapLen size = " << tech->via2ViaForbiddenOverlapLen.size() << "\n";
-    cout << "tech->viaForbiddenTurnLen size = " << tech->viaForbiddenTurnLen.size() << "\n";
-    cout << "tech->viaForbiddenPlanarLen size = " << tech->viaForbiddenPlanarLen.size() << "\n";
-    cout << "tech->line2LineForbiddenLen size = " << tech->line2LineForbiddenLen.size() << "\n";
-    cout << "tech->viaForbiddenThrough size = " << tech->viaForbiddenThrough.size() << "\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "tech->via2ViaForbiddenLen size = " << tech->via2ViaForbiddenLen.size() << "\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "tech->via2ViaForbiddenOverlapLen size = " << tech->via2ViaForbiddenOverlapLen.size() << "\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "tech->viaForbiddenTurnLen size = " << tech->viaForbiddenTurnLen.size() << "\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "tech->viaForbiddenPlanarLen size = " << tech->viaForbiddenPlanarLen.size() << "\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "tech->line2LineForbiddenLen size = " << tech->line2LineForbiddenLen.size() << "\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "tech->viaForbiddenThrough size = " << tech->viaForbiddenThrough.size() << "\n";
   }
 }

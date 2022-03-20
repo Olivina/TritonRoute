@@ -342,9 +342,9 @@ namespace fr {
       if (!isEdgeInBox(x, y, z, dir, box, initDR)) {
         sol = false;
       } else {
-        //cout <<"orig edge (" <<x <<", " <<y <<", " <<z <<", " <<int(dir) <<")" <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"orig edge (" <<x <<", " <<y <<", " <<z <<", " <<int(dir) <<")" <<endl;
         correct(x, y, z, dir);
-        //cout <<"corr edge (" <<x <<", " <<y <<", " <<z <<", " <<int(dir) <<")" <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"corr edge (" <<x <<", " <<y <<", " <<z <<", " <<int(dir) <<")" <<endl;
         if (isValid(x, y, z, dir)) {
           auto idx = getIdx(x, y, z);
           switch (dir) {
@@ -364,7 +364,7 @@ namespace fr {
               ;
           }
         } else {
-          //cout <<"not valid edge";
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"not valid edge";
         }
       }
       return sol;
@@ -668,7 +668,7 @@ namespace fr {
           auto idx1 = getIdx(x1, i, z);
           auto idx2 = getIdx(x2, i, z);
           std::fill(guides.begin() + idx1, guides.begin() + idx2 + 1, 1);
-          //std::cout <<"fill H from " <<idx1 <<" to " <<idx2 <<" ("
+          //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"fill H from " <<idx1 <<" to " <<idx2 <<" ("
           //          <<x1 <<", " <<i <<", " <<z <<") ("
           //          <<x2 <<", " <<i <<", " <<z <<") "
           //          <<std::endl;
@@ -678,7 +678,7 @@ namespace fr {
           auto idx1 = getIdx(i, y1, z);
           auto idx2 = getIdx(i, y2, z);
           std::fill(guides.begin() + idx1, guides.begin() + idx2 + 1, 1);
-          //std::cout <<"fill V from " <<idx1 <<" to " <<idx2 <<" ("
+          //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"fill V from " <<idx1 <<" to " <<idx2 <<" ("
           //          <<i <<", " <<y1 <<", " <<z <<") ("
           //          <<i <<", " <<y2 <<", " <<z <<") "
           //          <<std::endl;
@@ -697,7 +697,7 @@ namespace fr {
           auto idx1 = getIdx(x1, i, z);
           auto idx2 = getIdx(x2, i, z);
           std::fill(guides.begin() + idx1, guides.begin() + idx2 + 1, 0);
-          //std::cout <<"unfill H from " <<idx1 <<" to " <<idx2 <<" ("
+          //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"unfill H from " <<idx1 <<" to " <<idx2 <<" ("
           //          <<x1 <<", " <<i <<", " <<z <<") ("
           //          <<x2 <<", " <<i <<", " <<z <<") "
           //          <<std::endl;
@@ -707,7 +707,7 @@ namespace fr {
           auto idx1 = getIdx(i, y1, z);
           auto idx2 = getIdx(i, y2, z);
           std::fill(guides.begin() + idx1, guides.begin() + idx2 + 1, 0);
-          //std::cout <<"unfill V from " <<idx1 <<" to " <<idx2 <<" ("
+          //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"unfill V from " <<idx1 <<" to " <<idx2 <<" ("
           //          <<i <<", " <<y1 <<", " <<z <<") ("
           //          <<i <<", " <<y2 <<", " <<z <<") "
           //          <<std::endl;
@@ -844,7 +844,7 @@ namespace fr {
       setBits(idx, pos, length, tmp);
     }
     void setBits(frMIdx idx, frMIdx pos, frUInt4 length, frUInt4 val) {
-      //std::cout <<"setBits (idx/pos/len/val) " <<idx <<" " <<pos <<" " <<length <<" " <<val <<std::endl;
+      //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"setBits (idx/pos/len/val) " <<idx <<" " <<pos <<" " <<length <<" " <<val <<std::endl;
       bits[idx] &= ~(((1ull << length) - 1) << pos); // clear related bits to 0
       bits[idx] |= ((unsigned long long)val & ((1ull << length) - 1)) << pos; // only get last length bits of val
     }

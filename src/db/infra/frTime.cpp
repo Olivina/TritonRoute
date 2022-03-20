@@ -44,20 +44,20 @@ void frTime::print() {
   int chour      = t2 / 3600;
   int cmin       = (t2 % 3600) / 60;
   int csec       = t2 % 60;
-  std::cout <<"cpu time = ";
-  std::cout <<std::setw(2) <<std::setfill('0') <<chour;
-  std::cout <<":";
-  std::cout <<std::setw(2) <<std::setfill('0') <<cmin;
-  std::cout <<":";
-  std::cout <<std::setw(2) <<std::setfill('0') <<csec;
-  std::cout <<", elapsed time = ";
-  std::cout <<std::setw(2) <<std::setfill('0') <<hour;
-  std::cout <<":";
-  std::cout <<std::setw(2) <<std::setfill('0') <<min;
-  std::cout <<":";
-  std::cout <<std::setw(2) <<std::setfill('0') <<sec;
-  std::cout <<", memory = " <<std::fixed <<std::setprecision(2) <<getCurrentRSS() * 1.0 / 1024 / 1024 <<" (MB)";
-  std::cout <<", peak = "   <<std::fixed <<std::setprecision(2) <<getPeakRSS()    * 1.0 / 1024 / 1024 <<" (MB)";
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<"cpu time = ";
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<std::setw(2) <<std::setfill('0') <<chour;
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<":";
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<std::setw(2) <<std::setfill('0') <<cmin;
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<":";
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<std::setw(2) <<std::setfill('0') <<csec;
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<", elapsed time = ";
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<std::setw(2) <<std::setfill('0') <<hour;
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<":";
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<std::setw(2) <<std::setfill('0') <<min;
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<":";
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<std::setw(2) <<std::setfill('0') <<sec;
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<", memory = " <<std::fixed <<std::setprecision(2) <<getCurrentRSS() * 1.0 / 1024 / 1024 <<" (MB)";
+  std::cout << __FILE__ << ":" << __LINE__ << ": " <<", peak = "   <<std::fixed <<std::setprecision(2) <<getPeakRSS()    * 1.0 / 1024 / 1024 <<" (MB)";
   guard.restore();
 }
 

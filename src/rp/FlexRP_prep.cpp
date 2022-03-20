@@ -751,7 +751,7 @@ void FlexRP::prep_via2viaForbiddenLen_cutSpc(const frLayerNum &lNum,
     }
     if (getDesign()->getTech()->getLayer(layerNum2)->hasInterLayerCutSpacing(layerNum1, true)) {
       if (samenetCon) {
-        cout <<"Warning: duplicate diff layer samenet cut spacing, skipping cut spacing from " 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: duplicate diff layer samenet cut spacing, skipping cut spacing from " 
              <<layerNum2 <<" to " <<layerNum1 <<endl;
       } else {
         samenetCon = getDesign()->getTech()->getLayer(layerNum2)->getInterLayerCutSpacing(layerNum1, true);
@@ -763,7 +763,7 @@ void FlexRP::prep_via2viaForbiddenLen_cutSpc(const frLayerNum &lNum,
       }
       if (getDesign()->getTech()->getLayer(layerNum2)->hasInterLayerCutSpacing(layerNum1, false)) {
         if (samenetCon) {
-          cout <<"Warning: duplicate diff layer diffnet cut spacing, skipping cut spacing from " 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: duplicate diff layer diffnet cut spacing, skipping cut spacing from " 
                <<layerNum2 <<" to " <<layerNum1 <<endl;
         } else {
           samenetCon = getDesign()->getTech()->getLayer(layerNum2)->getInterLayerCutSpacing(layerNum1, false);

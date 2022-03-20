@@ -153,7 +153,7 @@ namespace fr {
           accesses[5] = isValid;
           break;
         default:
-          std::cout << "Error: unexpected direction in setValidAccess\n";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " << "Error: unexpected direction in setValidAccess\n";
       }
     }
     void addViaDef(frViaDef *in);

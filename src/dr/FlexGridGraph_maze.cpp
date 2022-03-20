@@ -49,7 +49,7 @@ void FlexGridGraph::expand(FlexWavefrontGrid &currGrid, const frDirEnum &dir,
   nextEstCost = getEstCost(nextIdx, dstMazeIdx1, dstMazeIdx2, dir);
   nextPathCost = getNextPathCost(currGrid, dir);  
   if (enableOutput) {
-    std::cout << "  expanding from (" << currGrid.x() << ", " << currGrid.y() << ", " << currGrid.z() 
+    std::cout << __FILE__ << ":" << __LINE__ << ": " << "  expanding from (" << currGrid.x() << ", " << currGrid.y() << ", " << currGrid.z() 
               << ") [pathCost / totalCost = " << currGrid.getPathCost() << " / " << currGrid.getCost() << "] to "
               << "(" << gridX << ", " << gridY << ", " << gridZ << ") [pathCost / totalCost = " 
               << nextPathCost << " / " << nextPathCost + nextEstCost << "]\n";
@@ -125,7 +125,7 @@ void FlexGridGraph::expand(FlexWavefrontGrid &currGrid, const frDirEnum &dir,
       setPrevAstarNodeDir(tailIdx.x(), tailIdx.y(), tailIdx.z(), tailDir);
       wavefront.push(nextWavefrontGrid);
       if (enableOutput) {
-        std::cout << "    commit (" << tailIdx.x() << ", " << tailIdx.y() << ", " << tailIdx.z() << ") prev accessing dir = " << (int)tailDir << "\n";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "    commit (" << tailIdx.x() << ", " << tailIdx.y() << ", " << tailIdx.z() << ") prev accessing dir = " << (int)tailDir << "\n";
       }
     }
   } else {  
@@ -141,10 +141,10 @@ void FlexGridGraph::expandWavefront(FlexWavefrontGrid &currGrid, const FlexMazeI
   bool enableOutput = false;
   //bool enableOutput = true;
   if (enableOutput) {
-    cout << "start expand from (" << currGrid.x() << ", " << currGrid.y() << ", " << currGrid.z() << ")\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "start expand from (" << currGrid.x() << ", " << currGrid.y() << ", " << currGrid.z() << ")\n";
   }
   //if (currGrid.y() == 19 && currGrid.z() == 0) {
-  //  cout <<"is expandable (" <<currGrid.x() <<", " <<currGrid.y() <<", " <<currGrid.z() <<") NESWUD "
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"is expandable (" <<currGrid.x() <<", " <<currGrid.y() <<", " <<currGrid.z() <<") NESWUD "
   //       <<isExpandable(currGrid, frDirEnum::N)
   //       <<isExpandable(currGrid, frDirEnum::E)
   //       <<isExpandable(currGrid, frDirEnum::S)
@@ -152,7 +152,7 @@ void FlexGridGraph::expandWavefront(FlexWavefrontGrid &currGrid, const FlexMazeI
   //       <<isExpandable(currGrid, frDirEnum::U)
   //       <<isExpandable(currGrid, frDirEnum::D)
   //       <<endl;
-  //  cout <<"has edge " 
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"has edge " 
   //       <<gridGraph.hasEdge(currGrid.x(), currGrid.y(), currGrid.z(), frDirEnum::N)
   //       <<gridGraph.hasEdge(currGrid.x(), currGrid.y(), currGrid.z(), frDirEnum::E)
   //       <<gridGraph.hasEdge(currGrid.x(), currGrid.y(), currGrid.z(), frDirEnum::S)
@@ -168,11 +168,11 @@ void FlexGridGraph::expandWavefront(FlexWavefrontGrid &currGrid, const FlexMazeI
   //  } else {
   //    getNextGrid(gridX, gridY, gridZ, frDirEnum::E);
   //    if (gridGraph.isBlocked(gridX, gridY, gridZ)) {
-  //      cout <<"blocked" <<endl;
+  //      cout << __FILE__ << ":" << __LINE__ << ": " <<"blocked" <<endl;
   //    } else if (gridGraph.isSrc(gridX, gridY, gridZ)) {
-  //      cout <<"src" <<endl;
+  //      cout << __FILE__ << ":" << __LINE__ << ": " <<"src" <<endl;
   //    } else if (gridGraph.getPrevAstarNodeDir(gridX, gridY, gridZ) != frDirEnum::UNKNOWN) {
-  //      cout <<"visited" <<endl;
+  //      cout << __FILE__ << ":" << __LINE__ << ": " <<"visited" <<endl;
   //    } else {
   //      ;
   //    }
@@ -191,42 +191,42 @@ void FlexGridGraph::expandWavefront(FlexWavefrontGrid &currGrid, const FlexMazeI
     expand(currGrid, frDirEnum::N, dstMazeIdx1, dstMazeIdx2, centerPt);
   }
   // else {
-  //   std::cout <<"no N" <<endl;
+  //   std::cout << __FILE__ << ":" << __LINE__ << ": " <<"no N" <<endl;
   // }
   // E
   if (isExpandable(currGrid, frDirEnum::E)) {
     expand(currGrid, frDirEnum::E, dstMazeIdx1, dstMazeIdx2, centerPt);
   }
   // else {
-  //   std::cout <<"no E" <<endl;
+  //   std::cout << __FILE__ << ":" << __LINE__ << ": " <<"no E" <<endl;
   // }
   // S
   if (isExpandable(currGrid, frDirEnum::S)) {
     expand(currGrid, frDirEnum::S, dstMazeIdx1, dstMazeIdx2, centerPt);
   }
   // else {
-  //   std::cout <<"no S" <<endl;
+  //   std::cout << __FILE__ << ":" << __LINE__ << ": " <<"no S" <<endl;
   // }
   // W
   if (isExpandable(currGrid, frDirEnum::W)) {
     expand(currGrid, frDirEnum::W, dstMazeIdx1, dstMazeIdx2, centerPt);
   }
   // else {
-  //   std::cout <<"no W" <<endl;
+  //   std::cout << __FILE__ << ":" << __LINE__ << ": " <<"no W" <<endl;
   // }
   // U
   if (isExpandable(currGrid, frDirEnum::U)) {
     expand(currGrid, frDirEnum::U, dstMazeIdx1, dstMazeIdx2, centerPt);
   }
   // else {
-  //   std::cout <<"no U" <<endl;
+  //   std::cout << __FILE__ << ":" << __LINE__ << ": " <<"no U" <<endl;
   // }
   // D
   if (isExpandable(currGrid, frDirEnum::D)) {
     expand(currGrid, frDirEnum::D, dstMazeIdx1, dstMazeIdx2, centerPt);
   }
   // else {
-  //   std::cout <<"no D" <<endl;
+  //   std::cout << __FILE__ << ":" << __LINE__ << ": " <<"no D" <<endl;
   // }
 }
 
@@ -235,7 +235,7 @@ frCost FlexGridGraph::getEstCost(const FlexMazeIdx &src, const FlexMazeIdx &dstM
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<"est from (" <<src.x() <<", " <<src.y() <<", " <<src.z() <<") "
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"est from (" <<src.x() <<", " <<src.y() <<", " <<src.z() <<") "
          <<"to ("       <<dstMazeIdx1.x() <<", " <<dstMazeIdx1.y() <<", " <<dstMazeIdx1.z() <<") ("
                         <<dstMazeIdx2.x() <<", " <<dstMazeIdx2.y() <<", " <<dstMazeIdx2.z() <<")";
   }
@@ -251,14 +251,14 @@ frCost FlexGridGraph::getEstCost(const FlexMazeIdx &src, const FlexMazeIdx &dstM
   frCoord minCostZ = max(max(getZHeight(dstMazeIdx1.z()) - getZHeight(src.z()), 
                        getZHeight(src.z()) - getZHeight(dstMazeIdx2.z())), 0) * 1;
   if (enableOutput) {
-    cout <<" x/y/z min cost = (" <<minCostX <<", " <<minCostY <<", " <<minCostZ <<") " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<" x/y/z min cost = (" <<minCostX <<", " <<minCostY <<", " <<minCostZ <<") " <<endl;
   }
 
   bendCnt += (minCostX && dir != frDirEnum::UNKNOWN && dir != frDirEnum::E && dir != frDirEnum::W) ? 1 : 0;
   bendCnt += (minCostY && dir != frDirEnum::UNKNOWN && dir != frDirEnum::S && dir != frDirEnum::N) ? 1 : 0;
   bendCnt += (minCostZ && dir != frDirEnum::UNKNOWN && dir != frDirEnum::U && dir != frDirEnum::D) ? 1 : 0;
   if (enableOutput) {
-    cout << "  est cost = " << minCostX + minCostY + minCostZ + bendCnt << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "  est cost = " << minCostX + minCostY + minCostZ + bendCnt << endl;
   }
 
   int gridX = src.x();
@@ -463,7 +463,7 @@ void FlexGridGraph::getPrevGrid(frMIdx &gridX, frMIdx &gridY, frMIdx &gridZ, con
                   + (blockCost  ? BLOCKCOST        * pathWidth * 20                          : 0)
                   + (!guideCost ? GUIDECOST        * getEdgeLength(gridX, gridY, gridZ, dir) : 0);
   if (enableOutput) {
-    cout <<"edge grid/shape/drc/marker/blk/length = " 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"edge grid/shape/drc/marker/blk/length = " 
          <<hasGridCost(gridX, gridY, gridZ, dir)   <<"/"
          <<hasShapeCost(gridX, gridY, gridZ, dir)  <<"/"
          <<hasDRCCost(gridX, gridY, gridZ, dir)    <<"/"
@@ -498,10 +498,10 @@ void FlexGridGraph::getPrevGrid(frMIdx &gridX, frMIdx &gridY, frMIdx &gridZ, con
   bool hg = hasEdge(gridX, gridY, gridZ, dir);
   if (enableOutput) {
     if (!hasEdge(gridX, gridY, gridZ, dir)) {
-      cout <<"no edge@(" <<gridX <<", " <<gridY <<", " <<gridZ <<") " <<(int)dir <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"no edge@(" <<gridX <<", " <<gridY <<", " <<gridZ <<") " <<(int)dir <<endl;
     }
     if (hasEdge(gridX, gridY, gridZ, dir) && !hasGuide(gridX, gridY, gridZ, dir)) {
-      cout <<"no guide@(" <<gridX <<", " <<gridY <<", " <<gridZ <<") " <<(int)dir <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"no guide@(" <<gridX <<", " <<gridY <<", " <<gridZ <<") " <<(int)dir <<endl;
     }
   }
   reverse(gridX, gridY, gridZ, dir);
@@ -520,7 +520,7 @@ void FlexGridGraph::traceBackPath(const FlexWavefrontGrid &currGrid, vector<Flex
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout << "    start traceBackPath...\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "    start traceBackPath...\n";
   }
   frDirEnum prevDir = frDirEnum::UNKNOWN, currDir = frDirEnum::UNKNOWN;
   int currX = currGrid.x(), currY = currGrid.y(), currZ = currGrid.z();
@@ -535,7 +535,7 @@ void FlexGridGraph::traceBackPath(const FlexWavefrontGrid &currGrid, vector<Flex
     currDir = getLastDir(backTraceBuffer);
     backTraceBuffer >>= DIRBITSIZE;
     if (currDir == frDirEnum::UNKNOWN) {
-      cout << "Warning: unexpected direction in tracBackPath\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unexpected direction in tracBackPath\n";
       break;
     }
     root.push_back(FlexMazeIdx(currX, currY, currZ));
@@ -543,7 +543,7 @@ void FlexGridGraph::traceBackPath(const FlexWavefrontGrid &currGrid, vector<Flex
     if (currDir != prevDir) {
       path.push_back(FlexMazeIdx(currX, currY, currZ));
       if (enableOutput) {
-        cout <<" -- (" <<currX <<", " <<currY <<", " <<currZ <<")";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" -- (" <<currX <<", " <<currY <<", " <<currZ <<")";
       }
     }
     getPrevGrid(currX, currY, currZ, currDir);
@@ -555,13 +555,13 @@ void FlexGridGraph::traceBackPath(const FlexWavefrontGrid &currGrid, vector<Flex
     currDir = getPrevAstarNodeDir(currX, currY, currZ);
     root.push_back(FlexMazeIdx(currX, currY, currZ));
     if (currDir == frDirEnum::UNKNOWN) {
-      cout << "Warning: unexpected direction in tracBackPath\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unexpected direction in tracBackPath\n";
       break;
     }
     if (currDir != prevDir) {
       path.push_back(FlexMazeIdx(currX, currY, currZ));
       if (enableOutput) {
-        cout <<" -- (" <<currX <<", " <<currY <<", " <<currZ <<")";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" -- (" <<currX <<", " <<currY <<", " <<currZ <<")";
       }
     }
     getPrevGrid(currX, currY, currZ, currDir);
@@ -571,7 +571,7 @@ void FlexGridGraph::traceBackPath(const FlexWavefrontGrid &currGrid, vector<Flex
   if (!path.empty()) {
     path.push_back(FlexMazeIdx(currX, currY, currZ));
     if (enableOutput) {
-      cout <<" -- (" <<currX <<", " <<currY <<", " <<currZ <<")";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" -- (" <<currX <<", " <<currY <<", " <<currZ <<")";
     }
   }
   for (auto &mi: path) {
@@ -583,7 +583,7 @@ void FlexGridGraph::traceBackPath(const FlexWavefrontGrid &currGrid, vector<Flex
                    max(ccMazeIdx2.z(), mi.z()));
   }
   if (enableOutput) {
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
 
 }
@@ -616,7 +616,7 @@ bool FlexGridGraph::search(vector<FlexMazeIdx> &connComps, drPin* nextPin, vecto
   for (auto &idx: connComps) {
     if (isDst(idx.x(), idx.y(), idx.z())) {
       if (enableOutput) {
-        cout <<"message: astarSearch dst covered (" <<idx.x() <<", " <<idx.y() <<", " <<idx.z() <<")" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"message: astarSearch dst covered (" <<idx.x() <<", " <<idx.y() <<", " <<idx.z() <<")" <<endl;
       }
       path.push_back(FlexMazeIdx(idx.x(), idx.y(), idx.z()));
       return true;
@@ -633,7 +633,7 @@ bool FlexGridGraph::search(vector<FlexMazeIdx> &connComps, drPin* nextPin, vecto
                                currDist, 0, getEstCost(idx, dstMazeIdx1, dstMazeIdx2, frDirEnum::UNKNOWN));
     wavefront.push(currGrid);
     if (enableOutput) {
-      cout <<"src add to wavefront (" <<idx.x() <<", " <<idx.y() <<", " <<idx.z() <<")" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"src add to wavefront (" <<idx.x() <<", " <<idx.y() <<", " <<idx.z() <<")" <<endl;
     }
   }
   while(!wavefront.empty()) {
@@ -648,12 +648,12 @@ bool FlexGridGraph::search(vector<FlexMazeIdx> &connComps, drPin* nextPin, vecto
       ++stepCnt;
     }
     // if (stepCnt % 100000 == 0) {
-    //   std::cout << "wavefront size = " << wavefront.size() << " at step = " << stepCnt << "\n";
+    //   std::cout << __FILE__ << ":" << __LINE__ << ": " << "wavefront size = " << wavefront.size() << " at step = " << stepCnt << "\n";
     // }
     if (isDst(currGrid.x(), currGrid.y(), currGrid.z())) {
       traceBackPath(currGrid, path, connComps, ccMazeIdx1, ccMazeIdx2);
       if (enableOutput) {
-        cout << "path found. stepCnt = " << stepCnt << "\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "path found. stepCnt = " << stepCnt << "\n";
       }
       return true;
     } else {

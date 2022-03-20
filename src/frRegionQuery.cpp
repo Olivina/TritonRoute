@@ -85,7 +85,7 @@ void frRegionQuery::Impl::add(frShape* shape, ObjectsByLayer<frBlockObject> &all
     shape->getBBox(frb);
     allShapes.at(shape->getLayerNum()).push_back(make_pair(frb, shape));
   } else {
-    cout <<"Error: unsupported region query add" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
   }
 }
 
@@ -97,7 +97,7 @@ void frRegionQuery::addDRObj(frShape* shape) {
     boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
     impl->drObjs.at(shape->getLayerNum()).insert(make_pair(boostb, shape));
   } else {
-    cout <<"Error: unsupported region query add" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
   }
 }
 
@@ -117,7 +117,7 @@ void frRegionQuery::Impl::addDRObj(frShape* shape, ObjectsByLayer<frBlockObject>
     boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
     allShapes.at(shape->getLayerNum()).push_back(make_pair(boostb, shape));
   } else {
-    cout <<"Error: unsupported region query add" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
   }
 }
 
@@ -129,7 +129,7 @@ void frRegionQuery::removeDRObj(frShape* shape) {
     boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
     impl->drObjs.at(shape->getLayerNum()).remove(make_pair(boostb, shape));
   } else {
-    cout <<"Error: unsupported region query add" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
   }
 }
 
@@ -156,7 +156,7 @@ void frRegionQuery::Impl::add(frVia* via, ObjectsByLayer<frBlockObject> &allShap
       boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
       allShapes.at(via->getViaDef()->getLayer1Num()).push_back(make_pair(boostb, via));
     } else {
-      cout <<"Error: unsupported region query add" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
     }
   }
   for (auto &uShape: via->getViaDef()->getLayer2Figs()) {
@@ -167,7 +167,7 @@ void frRegionQuery::Impl::add(frVia* via, ObjectsByLayer<frBlockObject> &allShap
       boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
       allShapes.at(via->getViaDef()->getLayer2Num()).push_back(make_pair(boostb, via));
     } else {
-      cout <<"Error: unsupported region query add" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
     }
   }
   for (auto &uShape: via->getViaDef()->getCutFigs()) {
@@ -178,7 +178,7 @@ void frRegionQuery::Impl::add(frVia* via, ObjectsByLayer<frBlockObject> &allShap
       boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
       allShapes.at(via->getViaDef()->getCutLayerNum()).push_back(make_pair(boostb, via));
     } else {
-      cout <<"Error: unsupported region query add" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
     }
   }
 }
@@ -220,7 +220,7 @@ void frRegionQuery::Impl::add(frInstTerm* instTerm, ObjectsByLayer<frBlockObject
         boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
         allShapes.at(static_cast<frShape*>(shape)->getLayerNum()).push_back(make_pair(boostb, instTerm));
       } else {
-        cout <<"Error: unsupported region query add" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
       }
     }
   }
@@ -237,7 +237,7 @@ void frRegionQuery::Impl::add(frTerm* term, ObjectsByLayer<frBlockObject> &allSh
         boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
         allShapes.at(static_cast<frShape*>(shape)->getLayerNum()).push_back(make_pair(boostb, term));
       } else {
-        cout <<"Error: unsupported region query add" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
       }
     }
   }
@@ -259,7 +259,7 @@ void frRegionQuery::Impl::add(frInstBlockage* instBlk, ObjectsByLayer<frBlockObj
       boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
       allShapes.at(static_cast<frShape*>(shape)->getLayerNum()).push_back(make_pair(boostb, instBlk));
     } else {
-      cout <<"Error: unsupported region query add" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
     }
   }
 }
@@ -275,7 +275,7 @@ void frRegionQuery::Impl::add(frBlockage* blk, ObjectsByLayer<frBlockObject> &al
       boostb = box_t(point_t(frb.left(), frb.bottom()), point_t(frb.right(), frb.top()));
       allShapes.at(static_cast<frShape*>(shape)->getLayerNum()).push_back(make_pair(boostb, blk));
     } else {
-      cout <<"Error: unsupported region query add" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
     }
   }
 }
@@ -397,11 +397,11 @@ void frRegionQuery::Impl::init(frLayerNum numLayers) {
     if (VERBOSE > 0) {
       if (cnt < 100000) {
         if (cnt % 10000 == 0) {
-          cout <<"  complete " <<cnt <<" insts" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" insts" <<endl;
         }
       } else {
         if (cnt % 100000 == 0) {
-          cout <<"  complete " <<cnt <<" insts" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" insts" <<endl;
         }
       }
     }
@@ -413,11 +413,11 @@ void frRegionQuery::Impl::init(frLayerNum numLayers) {
     if (VERBOSE > 0) {
       if (cnt < 100000) {
         if (cnt % 10000 == 0) {
-          cout <<"  complete " <<cnt <<" terms" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" terms" <<endl;
         }
       } else {
         if (cnt % 100000 == 0) {
-          cout <<"  complete " <<cnt <<" terms" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" terms" <<endl;
         }
       }
     }
@@ -434,7 +434,7 @@ void frRegionQuery::Impl::init(frLayerNum numLayers) {
     cnt++;
     if (VERBOSE > 0) {
       if (cnt % 10000 == 0) {
-        cout <<"  complete " <<cnt <<" nets" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" nets" <<endl;
       }
     }
   }
@@ -450,7 +450,7 @@ void frRegionQuery::Impl::init(frLayerNum numLayers) {
     cnt++;
     if (VERBOSE > 0) {
       if (cnt % 10000 == 0) {
-        cout <<"  complete " <<cnt <<" snets" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" snets" <<endl;
       }
     }
   }
@@ -461,7 +461,7 @@ void frRegionQuery::Impl::init(frLayerNum numLayers) {
     cnt++;
     if (VERBOSE > 0) {
       if (cnt % 10000 == 0) {
-        cout <<"  complete " <<cnt <<" blockages" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" blockages" <<endl;
       }
     }
   }
@@ -471,7 +471,7 @@ void frRegionQuery::Impl::init(frLayerNum numLayers) {
     allShapes.at(i).clear();
     allShapes.at(i).shrink_to_fit();
     if (VERBOSE > 0) {
-      cout <<"  complete " <<design->getTech()->getLayer(i)->getName() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<design->getTech()->getLayer(i)->getName() <<endl;
     }
   }
 
@@ -494,11 +494,11 @@ void frRegionQuery::Impl::initOrigGuide(frLayerNum numLayers, map<frNet*, vector
       if (VERBOSE > 0) {
         if (cnt < 100000) {
           if (cnt % 10000 == 0) {
-            cout <<"  complete " <<cnt <<" orig guides" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" orig guides" <<endl;
           }
         } else {
           if (cnt % 100000 == 0) {
-            cout <<"  complete " <<cnt <<" orig guides" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" orig guides" <<endl;
           }
         }
       }
@@ -509,7 +509,7 @@ void frRegionQuery::Impl::initOrigGuide(frLayerNum numLayers, map<frNet*, vector
     allShapes.at(i).clear();
     allShapes.at(i).shrink_to_fit();
     if (VERBOSE > 0) {
-      cout <<"  complete " <<design->getTech()->getLayer(i)->getName() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<design->getTech()->getLayer(i)->getName() <<endl;
     }
   }
 }
@@ -532,11 +532,11 @@ void frRegionQuery::Impl::initGuide(frLayerNum numLayers) {
     if (VERBOSE > 0) {
       if (cnt < 100000) {
         if (cnt % 10000 == 0) {
-          cout <<"  complete " <<cnt <<" nets (guide)" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" nets (guide)" <<endl;
         }
       } else {
         if (cnt % 100000 == 0) {
-          cout <<"  complete " <<cnt <<" nets (guide)" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" nets (guide)" <<endl;
         }
       }
     }
@@ -546,7 +546,7 @@ void frRegionQuery::Impl::initGuide(frLayerNum numLayers) {
     allGuides.at(i).clear();
     allGuides.at(i).shrink_to_fit();
     if (VERBOSE > 0) {
-      cout <<"  complete " <<design->getTech()->getLayer(i)->getName() <<" (guide)"<<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<design->getTech()->getLayer(i)->getName() <<" (guide)"<<endl;
     }
   }
 }
@@ -596,32 +596,32 @@ void frRegionQuery::Impl::initDRObj(frLayerNum numLayers) {
 }
 
 void frRegionQuery::print() {
-  cout <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   auto& layers = impl->design->getTech()->getLayers();
   for (int i = 0; i < (int)(layers.size()); i++) {
     frString layerName;
     layers.at(i)->getName(layerName);
-    cout <<layerName <<" shape region query size = " <<impl->shapes.at(i).size() <<endl <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<layerName <<" shape region query size = " <<impl->shapes.at(i).size() <<endl <<flush;
   }
 }
 
 void frRegionQuery::printGuide() {
-  cout <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   auto& layers = impl->design->getTech()->getLayers();
   for (int i = 0; i < (int)(layers.size()); i++) {
     frString layerName;
     layers.at(i)->getName(layerName);
-    cout <<layerName <<" guide region query size = " <<impl->guides.at(i).size() <<endl <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<layerName <<" guide region query size = " <<impl->guides.at(i).size() <<endl <<flush;
   }
 }
 
 void frRegionQuery::printDRObj() {
-  cout <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   auto& layers = impl->design->getTech()->getLayers();
   for (int i = 0; i < (int)(layers.size()); i++) {
     frString layerName;
     layers.at(i)->getName(layerName);
-    cout <<layerName <<" drObj region query size = " <<impl->drObjs.at(i).size() <<endl <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<layerName <<" drObj region query size = " <<impl->drObjs.at(i).size() <<endl <<flush;
   }
 }
 

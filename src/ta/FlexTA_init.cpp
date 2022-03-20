@@ -50,7 +50,7 @@ void FlexTAWorker::initTracks() {
       if ((getDir() == frcHorzPrefRoutingDir && tp->isHorizontal() == false) ||
           (getDir() == frcVertPrefRoutingDir && tp->isHorizontal() == true)) {
         if (enableOutput) {
-          cout <<"TRACKS " <<(tp->isHorizontal() ? string("X ") : string("Y "))
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"TRACKS " <<(tp->isHorizontal() ? string("X ") : string("Y "))
                <<tp->getStartCoord() <<" DO " <<tp->getNumTracks() <<" STEP "
                <<tp->getTrackSpacing() <<" LAYER " <<tp->getLayerNum() 
                <<" ;" <<endl;
@@ -67,7 +67,7 @@ void FlexTAWorker::initTracks() {
         }
         for (; trackNum < (int)tp->getNumTracks() && trackNum * (int)tp->getTrackSpacing() + tp->getStartCoord() < tempCoord2; trackNum++) {
           frCoord trackCoord = trackNum * tp->getTrackSpacing() + tp->getStartCoord();
-          //cout <<"TRACKLOC " <<trackCoord * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"TRACKLOC " <<trackCoord * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<endl;
           trackCoordSets[lNum].insert(trackCoord);
         }
       }
@@ -75,16 +75,16 @@ void FlexTAWorker::initTracks() {
   }
   for (int i = 0; i < (int)trackCoordSets.size(); i++) {
     if (enableOutput) {
-      cout <<"lNum " <<i <<":";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"lNum " <<i <<":";
     }
     for (auto coord: trackCoordSets[i]) {
       if (enableOutput) {
-        cout <<" " <<coord * 1.0 / getDesign()->getTopBlock()->getDBUPerUU();
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<coord * 1.0 / getDesign()->getTopBlock()->getDBUPerUU();
       }
       trackLocs[i].push_back(coord);
     }
     if (enableOutput) {
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -174,7 +174,7 @@ bool FlexTAWorker::initIroute_helper_pin(frGuide* guide, frCoord &maxBegin, frCo
         frPoint apBp;
         ap->getPoint(apBp);
         if (enableOutput) {
-          cout <<" (" <<apBp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<apBp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
                       <<apBp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") origin";
         }
         auto bNum = ap->getLayerNum();
@@ -267,7 +267,7 @@ void FlexTAWorker::initIroute_helper_generic_helper(frGuide* guide, frCoord &wle
         frPoint apBp;
         ap->getPoint(apBp);
         if (enableOutput) {
-          cout <<" (" <<apBp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<apBp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
                       <<apBp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") origin";
         }
         apBp.transform(shiftXform);
@@ -399,7 +399,7 @@ void FlexTAWorker::initIroute(frGuide *guide) {
     }
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"ext@(" <<guideBox.left() / dbu  <<", " <<guideBox.bottom() / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"ext@(" <<guideBox.left() / dbu  <<", " <<guideBox.bottom() / dbu <<") ("
                      <<guideBox.right() / dbu <<", " <<guideBox.top()    / dbu <<")" <<endl;
     }
   }
@@ -474,19 +474,19 @@ void FlexTAWorker::initIroutes() {
     }
     result.clear();
     regionQuery->queryGuide(getExtBox(), lNum, result);
-    //cout <<endl <<"query1:" <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"query1:" <<endl;
     for (auto &[boostb, guide]: result) {
       frPoint pt1, pt2;
       guide->getPoints(pt1, pt2);
       //if (enableOutput) {
-      //  cout <<"found guide (" 
+      //  cout << __FILE__ << ":" << __LINE__ << ": " <<"found guide (" 
       //       <<pt1.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", " 
       //       <<pt1.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") (" 
       //       <<pt2.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", " 
       //       <<pt2.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") " 
       //       <<guide->getNet()->getName() << "\n";
       //}
-      //cout <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
       initIroute(guide);
     }
   }
@@ -497,7 +497,7 @@ void FlexTAWorker::initIroutes() {
     for (auto &iroute: iroutes) {
       frPoint bp, ep;
       frCoord bc, ec, trackLoc;
-      cout <<iroute->getId() <<" " <<iroute->getGuide()->getNet()->getName();
+      cout << __FILE__ << ":" << __LINE__ << ": " <<iroute->getId() <<" " <<iroute->getGuide()->getNet()->getName();
       auto guideLNum = iroute->getGuide()->getBeginLayerNum();
       for (auto &uPinFig: iroute->getFigs()) {
         if (uPinFig->typeId() == tacPathSeg) {
@@ -506,17 +506,17 @@ void FlexTAWorker::initIroutes() {
           bc = isH ? bp.x() : bp.y();
           ec = isH ? ep.x() : ep.y();
           trackLoc = isH ? bp.y() : bp.x();
-          cout <<" (" <<bc / dbu <<"-->" <<ec / dbu <<"), len@" <<(ec - bc) / dbu <<", track@" <<trackLoc / dbu
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bc / dbu <<"-->" <<ec / dbu <<"), len@" <<(ec - bc) / dbu <<", track@" <<trackLoc / dbu
                <<", " <<getDesign()->getTech()->getLayer(iroute->getGuide()->getBeginLayerNum())->getName();
         } else if (uPinFig->typeId() == tacVia) {
           auto obj = static_cast<taVia*>(uPinFig.get());
           auto cutLNum = obj->getViaDef()->getCutLayerNum();
           obj->getOrigin(bp);
           bc = isH ? bp.x() : bp.y();
-          cout <<string((cutLNum > guideLNum) ? ", U@" : ", D@") <<bc / dbu;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<string((cutLNum > guideLNum) ? ", U@" : ", D@") <<bc / dbu;
         }
       }
-      cout <<", wlen_h@" <<iroute->getWlenHelper() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<", wlen_h@" <<iroute->getWlenHelper() <<endl;
     }
   }
 }
@@ -574,7 +574,7 @@ void FlexTAWorker::initCosts() {
         }
       }
       if (trackLoc == std::numeric_limits<frCoord>::max()) {
-        cout <<"Error: FlexTAWorker::initCosts does not find trackLoc" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: FlexTAWorker::initCosts does not find trackLoc" <<endl;
         exit(1);
       }
       assignIroute_getCost(iroute.get(), trackLoc, drcCost);
@@ -585,7 +585,7 @@ void FlexTAWorker::initCosts() {
         double dbu = getDesign()->getTopBlock()->getDBUPerUU();
         frPoint bp, ep;
         frCoord bc, ec, trackLoc;
-        cout <<iroute->getId() <<" " <<iroute->getGuide()->getNet()->getName();
+        cout << __FILE__ << ":" << __LINE__ << ": " <<iroute->getId() <<" " <<iroute->getGuide()->getNet()->getName();
         auto guideLNum = iroute->getGuide()->getBeginLayerNum();
         for (auto &uPinFig: iroute->getFigs()) {
           if (uPinFig->typeId() == tacPathSeg) {
@@ -594,18 +594,18 @@ void FlexTAWorker::initCosts() {
             bc = isH ? bp.x() : bp.y();
             ec = isH ? ep.x() : ep.y();
             trackLoc = isH ? bp.y() : bp.x();
-            cout <<" (" <<bc / dbu <<"-->" <<ec / dbu <<"), len@" <<(ec - bc) / dbu <<", track@" <<trackLoc / dbu
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bc / dbu <<"-->" <<ec / dbu <<"), len@" <<(ec - bc) / dbu <<", track@" <<trackLoc / dbu
                  <<", " <<getDesign()->getTech()->getLayer(iroute->getGuide()->getBeginLayerNum())->getName();
           } else if (uPinFig->typeId() == tacVia) {
             auto obj = static_cast<taVia*>(uPinFig.get());
             auto cutLNum = obj->getViaDef()->getCutLayerNum();
             obj->getOrigin(bp);
             bc = isH ? bp.x() : bp.y();
-            cout <<string((cutLNum > guideLNum) ? ", U@" : ", D@") <<bc / dbu;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<string((cutLNum > guideLNum) ? ", U@" : ", D@") <<bc / dbu;
           }
         }
-        //cout <<", wlen_h@" <<iroute->getWlenHelper() <<", cost@" <<iroute->getCost() <<", drcCost@" <<iroute->getDrcCost() <<endl;
-        cout <<", wlen_h@" <<iroute->getWlenHelper() <<", cost@" <<iroute->getCost() <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<", wlen_h@" <<iroute->getWlenHelper() <<", cost@" <<iroute->getCost() <<", drcCost@" <<iroute->getDrcCost() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<", wlen_h@" <<iroute->getWlenHelper() <<", cost@" <<iroute->getCost() <<endl;
       }
     }
   }
@@ -632,7 +632,7 @@ void FlexTAWorker::sortIroutes() {
     for (auto &iroute: reassignIroutes) {
       frPoint bp, ep;
       frCoord bc, ec, trackLoc;
-      cout <<iroute->getId() <<" " <<iroute->getGuide()->getNet()->getName();
+      cout << __FILE__ << ":" << __LINE__ << ": " <<iroute->getId() <<" " <<iroute->getGuide()->getNet()->getName();
       auto guideLNum = iroute->getGuide()->getBeginLayerNum();
       for (auto &uPinFig: iroute->getFigs()) {
         if (uPinFig->typeId() == tacPathSeg) {
@@ -641,18 +641,18 @@ void FlexTAWorker::sortIroutes() {
           bc = isH ? bp.x() : bp.y();
           ec = isH ? ep.x() : ep.y();
           trackLoc = isH ? bp.y() : bp.x();
-          cout <<" (" <<bc / dbu <<"-->" <<ec / dbu <<"), len@" <<(ec - bc) / dbu <<", track@" <<trackLoc / dbu
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bc / dbu <<"-->" <<ec / dbu <<"), len@" <<(ec - bc) / dbu <<", track@" <<trackLoc / dbu
                <<", " <<getDesign()->getTech()->getLayer(iroute->getGuide()->getBeginLayerNum())->getName();
         } else if (uPinFig->typeId() == tacVia) {
           auto obj = static_cast<taVia*>(uPinFig.get());
           auto cutLNum = obj->getViaDef()->getCutLayerNum();
           obj->getOrigin(bp);
           bc = isH ? bp.x() : bp.y();
-          cout <<string((cutLNum > guideLNum) ? ", U@" : ", D@") <<bc / dbu;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<string((cutLNum > guideLNum) ? ", U@" : ", D@") <<bc / dbu;
         }
       }
-      //cout <<", wlen_h@" <<iroute->getWlenHelper() <<", cost@" <<iroute->getCost() <<", drcCost@" <<iroute->getDrcCost() <<endl;
-      cout <<", wlen_h@" <<iroute->getWlenHelper() <<", cost@" <<iroute->getCost() <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<", wlen_h@" <<iroute->getWlenHelper() <<", cost@" <<iroute->getCost() <<", drcCost@" <<iroute->getDrcCost() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<", wlen_h@" <<iroute->getWlenHelper() <<", cost@" <<iroute->getCost() <<endl;
     }
   }
 }
@@ -690,14 +690,14 @@ void FlexTAWorker::initFixedObjs_helper(const frBox &box, frCoord bloatDist, frL
     }
     workerRegionQuery.addCost(tmpBox, lNum, net, con);
     if (enableOutput) {
-      cout <<"  add fixed obj cost ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  add fixed obj cost ("
            <<tmpBox.left()  / dbu <<", " <<tmpBox.bottom() / dbu <<") (" 
            <<tmpBox.right() / dbu <<", " <<tmpBox.top()    / dbu <<") " 
            <<getDesign()->getTech()->getLayer(lNum)->getName();
       if (net != nullptr) {
-        cout <<" " <<net->getName();
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<net->getName();
       }
-      cout <<endl <<flush;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<flush;
     }
   }
 }
@@ -810,7 +810,7 @@ void FlexTAWorker::initFixedObjs() {
           }
         }
       } else {
-        cout <<"Warning: unsupported type in initFixedObjs" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: unsupported type in initFixedObjs" <<endl;
       }
     }
   }

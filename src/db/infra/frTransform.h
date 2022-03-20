@@ -146,7 +146,7 @@ namespace fr {
           resXOffset = -offset.x();
           resYOffset = -offset.y();
           resOrient = frcR0;
-          std::cout << "Error: unrecognized orient in revert\n";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " << "Error: unrecognized orient in revert\n";
       }
       transformIn.set(resXOffset, resYOffset, resOrient);
     }

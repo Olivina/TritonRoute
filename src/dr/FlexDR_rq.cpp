@@ -80,7 +80,7 @@ void FlexDRWorkerRegionQuery::add(drConnFig* connFig) {
         frb.transform(xform);
         impl->shapes.at(via->getViaDef()->getLayer1Num()).insert(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query add" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
       }
     }
     for (auto &uShape: via->getViaDef()->getLayer2Figs()) {
@@ -90,7 +90,7 @@ void FlexDRWorkerRegionQuery::add(drConnFig* connFig) {
         frb.transform(xform);
         impl->shapes.at(via->getViaDef()->getLayer2Num()).insert(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query add" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
       }
     }
     for (auto &uShape: via->getViaDef()->getCutFigs()) {
@@ -100,11 +100,11 @@ void FlexDRWorkerRegionQuery::add(drConnFig* connFig) {
         frb.transform(xform);
         impl->shapes.at(via->getViaDef()->getCutLayerNum()).insert(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query add" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
       }
     }
   } else {
-    cout <<"Error: unsupported region query add" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
   }
 }
 
@@ -129,7 +129,7 @@ void FlexDRWorkerRegionQuery::Impl::add(drConnFig* connFig, vector<vector<rq_box
         frb.transform(xform);
         allShapes.at(via->getViaDef()->getLayer1Num()).push_back(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query add" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
       }
     }
     for (auto &uShape: via->getViaDef()->getLayer2Figs()) {
@@ -139,7 +139,7 @@ void FlexDRWorkerRegionQuery::Impl::add(drConnFig* connFig, vector<vector<rq_box
         frb.transform(xform);
         allShapes.at(via->getViaDef()->getLayer2Num()).push_back(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query add" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
       }
     }
     for (auto &uShape: via->getViaDef()->getCutFigs()) {
@@ -149,11 +149,11 @@ void FlexDRWorkerRegionQuery::Impl::add(drConnFig* connFig, vector<vector<rq_box
         frb.transform(xform);
         allShapes.at(via->getViaDef()->getCutLayerNum()).push_back(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query add" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
       }
     }
   } else {
-    cout <<"Error: unsupported region query add" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
   }
 }
 
@@ -176,7 +176,7 @@ void FlexDRWorkerRegionQuery::remove(drConnFig* connFig) {
         frb.transform(xform);
         impl->shapes.at(via->getViaDef()->getLayer1Num()).remove(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query remove" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query remove" <<endl;
       }
     }
     for (auto &uShape: via->getViaDef()->getLayer2Figs()) {
@@ -186,7 +186,7 @@ void FlexDRWorkerRegionQuery::remove(drConnFig* connFig) {
         frb.transform(xform);
         impl->shapes.at(via->getViaDef()->getLayer2Num()).remove(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query remove" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query remove" <<endl;
       }
     }
     for (auto &uShape: via->getViaDef()->getCutFigs()) {
@@ -196,11 +196,11 @@ void FlexDRWorkerRegionQuery::remove(drConnFig* connFig) {
         frb.transform(xform);
         impl->shapes.at(via->getViaDef()->getCutLayerNum()).remove(make_pair(frb, via));
       } else {
-        cout <<"Error: unsupported region query remove" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query remove" <<endl;
       }
     }
   } else {
-    cout <<"Error: unsupported region query remove" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query remove" <<endl;
   }
 }
 
@@ -232,7 +232,7 @@ void FlexDRWorkerRegionQuery::init() {
     allShapes.at(i).clear();
     allShapes.at(i).shrink_to_fit();
     //if (VERBOSE > 0) {
-    //  cout <<"  complete " <<design->getTech()->getLayer(i)->getName() <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<design->getTech()->getLayer(i)->getName() <<endl;
     //}
   }
 }

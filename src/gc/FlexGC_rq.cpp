@@ -157,34 +157,34 @@ void FlexGCWorkerRegionQuery::Impl::init(int numLayers) {
       double dbu = gcWorker->getDesign()->getTopBlock()->getDBUPerUU();
       for (auto &[seg, ptr]: polygon_edges[i]) {
         //ptr->getPoints(bp, ep);
-        cout <<"polyEdge ";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"polyEdge ";
         if (ptr->isFixed()) {
-          cout <<"FIXED";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"FIXED";
         } else {
-          cout <<"ROUTE";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"ROUTE";
         }
-        cout <<" @(" <<ptr->low().x() / dbu <<", " <<ptr->low().y() / dbu <<") (" <<ptr->high().x() / dbu <<", " <<ptr->high().y() / dbu <<") "
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" @(" <<ptr->low().x() / dbu <<", " <<ptr->low().y() / dbu <<") (" <<ptr->high().x() / dbu <<", " <<ptr->high().y() / dbu <<") "
              <<gcWorker->getDesign()->getTech()->getLayer(i)->getName() <<" ";
         auto owner = ptr->getNet()->getOwner();
         if (owner == nullptr) {
-          cout <<" FLOATING";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" FLOATING";
         } else {
           if (owner->typeId() == frcNet) {
-            cout <<static_cast<frNet*>(owner)->getName();
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
           } else if (owner->typeId() == frcInstTerm) {
-            cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                  <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
           } else if (owner->typeId() == frcTerm) {
-            cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
           } else if (owner->typeId() == frcInstBlockage) {
-            cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
           } else if (owner->typeId() == frcBlockage) {
-            cout <<"PIN/OBS";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
           } else {
-            cout <<"UNKNOWN";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
           }
         }
-        cout <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
       }
     }
   }
@@ -193,40 +193,40 @@ void FlexGCWorkerRegionQuery::Impl::init(int numLayers) {
     for (int i = 0; i < numLayers; i++) {
       double dbu = gcWorker->getDesign()->getTopBlock()->getDBUPerUU();
       for (auto &[box, ptr]: max_rectangles[i]) {
-        cout <<"maxRect ";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"maxRect ";
         if (ptr->isFixed()) {
-          cout <<"FIXED";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"FIXED";
         } else {
-          cout <<"ROUTE";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"ROUTE";
         }
-        cout <<" @(" <<gtl::xl(*ptr) / dbu <<", " <<gtl::yl(*ptr) / dbu <<") (" <<gtl::xh(*ptr) / dbu <<", " <<gtl::yh(*ptr) / dbu <<") "
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" @(" <<gtl::xl(*ptr) / dbu <<", " <<gtl::yl(*ptr) / dbu <<") (" <<gtl::xh(*ptr) / dbu <<", " <<gtl::yh(*ptr) / dbu <<") "
              <<gcWorker->getDesign()->getTech()->getLayer(i)->getName() <<" ";
         auto owner = ptr->getNet()->getOwner();
         if (owner == nullptr) {
-          cout <<" FLOATING";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" FLOATING";
         } else {
           if (owner->typeId() == frcNet) {
-            cout <<static_cast<frNet*>(owner)->getName();
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
           } else if (owner->typeId() == frcInstTerm) {
-            cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                  <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
           } else if (owner->typeId() == frcTerm) {
-            cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
           } else if (owner->typeId() == frcInstBlockage) {
-            cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
           } else if (owner->typeId() == frcBlockage) {
-            cout <<"PIN/OBS";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
           } else {
-            cout <<"UNKNOWN";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
           }
         }
-        cout <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
       }
     }
   }
 
   if (enableOutput) {
-    cout <<"gc region query #poly_edges/max_rects/rt_poly_edges/rt_max_rect = " 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"gc region query #poly_edges/max_rects/rt_poly_edges/rt_max_rect = " 
          <<cntPolygonEdge <<"/" <<cntMaxRectangle <<"/" <<cntRTPolygonEdge <<"/" <<cntRTMaxRectangle 
          <<endl;
   }

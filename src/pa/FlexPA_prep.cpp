@@ -95,7 +95,7 @@ void FlexPA::prepPoint_pin_mergePinShapes(vector<gtl::polygon_90_set_data<frCoor
       using namespace boost::polygon::operators;
       pinShapes[layerNum] += poly;
     } else {
-      cout <<"Error: FlexPA mergePinShapes unsupported shape" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: FlexPA mergePinShapes unsupported shape" <<endl;
       exit(1);
     }
   }
@@ -137,7 +137,7 @@ void FlexPA::prepPoint_pin_genPoints_rect_genCenter(map<frCoord, int> &coords, f
   if (it == coords.end()) {
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"gen center pt@ " << coord / dbu <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"gen center pt@ " << coord / dbu <<endl;
     }
     coords.insert(make_pair(coord, 2));
   } else {
@@ -197,7 +197,7 @@ void FlexPA::prepPoint_pin_genPoints_rect_ap_helper(vector<unique_ptr<frAccessPo
   ap->setAccess(frDirEnum::D, false);
   if (allowVia) {
     ap->setAccess(frDirEnum::U, true);
-    //cout <<"@@@set U valid, check " <<ap->hasAccess(frDirEnum::U) <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@@set U valid, check " <<ap->hasAccess(frDirEnum::U) <<endl;
   } else {
     ap->setAccess(frDirEnum::U, false);
   }
@@ -250,14 +250,14 @@ void FlexPA::prepPoint_pin_genPoints_rect_genEnc(map<frCoord, int> &coords, cons
     auto viaWidth  = box.right() - box.left();
     auto viaHeight = box.top()   - box.bottom();
     if (viaWidth > rectWidth || viaHeight > rectHeight) {
-      //cout <<"@@@" <<viaDef->getName() <<" rect " <<rectWidth <<" " <<rectHeight <<" via " <<viaWidth <<" " <<viaHeight <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@@" <<viaDef->getName() <<" rect " <<rectWidth <<" " <<rectHeight <<" via " <<viaWidth <<" " <<viaHeight <<endl;
       continue;
     }
     if (isCurrLayerHorz) {
       auto coord = gtl::yh(rect) - (box.top() - 0);
       auto it = coords.find(coord);
       if (it == coords.end()) {
-        //cout << coord / 2000.0 <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " << coord / 2000.0 <<endl;
         coords.insert(make_pair(coord, 3));
       } else {
         coords[coord] = std::min(coords[coord], 3);
@@ -265,7 +265,7 @@ void FlexPA::prepPoint_pin_genPoints_rect_genEnc(map<frCoord, int> &coords, cons
       coord = gtl::yl(rect) + (0 - box.bottom());
       it = coords.find(coord);
       if (it == coords.end()) {
-        //cout << coord / 2000.0 <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " << coord / 2000.0 <<endl;
         coords.insert(make_pair(coord, 3));
       } else {
         coords[coord] = std::min(coords[coord], 3);
@@ -274,7 +274,7 @@ void FlexPA::prepPoint_pin_genPoints_rect_genEnc(map<frCoord, int> &coords, cons
       auto coord = gtl::xh(rect) - (box.right() - 0);
       auto it = coords.find(coord);
       if (it == coords.end()) {
-        //cout << coord / 2000.0 <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " << coord / 2000.0 <<endl;
         coords.insert(make_pair(coord, 3));
       } else {
         coords[coord] = std::min(coords[coord], 3);
@@ -282,7 +282,7 @@ void FlexPA::prepPoint_pin_genPoints_rect_genEnc(map<frCoord, int> &coords, cons
       coord = gtl::xl(rect) + (0 - box.left());
       it = coords.find(coord);
       if (it == coords.end()) {
-        //cout << coord / 2000.0 <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " << coord / 2000.0 <<endl;
         coords.insert(make_pair(coord, 3));
       } else {
         coords[coord] = std::min(coords[coord], 3);
@@ -303,7 +303,7 @@ void FlexPA::prepPoint_pin_genPoints_rect(vector<unique_ptr<frAccessPoint> > &ap
   } else if (layerNum - 2 >= getDesign()->getTech()->getBottomLayerNum()) {
     secondLayerNum = layerNum - 2;
   } else {
-    cout <<"Error: prepPoint_pin_genPoints_rect cannot find secondLayerNum" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: prepPoint_pin_genPoints_rect cannot find secondLayerNum" <<endl;
     exit(1);
   }
   auto &layer1TrackCoords = trackCoords[layerNum];
@@ -458,20 +458,20 @@ void FlexPA::prepPoint_pin_genPoints(vector<unique_ptr<frAccessPoint> > &aps, se
       allowVia = false;
     }
     if (!it->empty() && getDesign()->getTech()->getLayer(layerNum)->getType() == frLayerTypeEnum::ROUTING) {
-      //cout <<"via layernum = " <<layerNum <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"via layernum = " <<layerNum <<endl;
       prepPoint_pin_genPoints_layerShapes(aps, apset, pin, instTerm, *it, layerNum, allowVia, lowerType, upperType);
     }
     layerNum--;
   }
   if (enableOutput) {
     if (aps.empty()) {
-      cout <<"Warning: prepPoint_pin_genPoints zero ap" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: prepPoint_pin_genPoints zero ap" <<endl;
     }
     double dbu = getDesign()->getTopBlock()->getDBUPerUU();
     frPoint pt;
     for (auto &ap: aps) {
       ap->getPoint(pt);
-      cout <<"generated ap@(" <<pt.x() / dbu <<", " <<pt.y() / dbu <<") "
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"generated ap@(" <<pt.x() / dbu <<", " <<pt.y() / dbu <<") "
            <<getDesign()->getTech()->getLayer(ap->getLayerNum())->getName() <<" , cost=" 
            <<ap->getCost() <<endl;
     }
@@ -499,7 +499,7 @@ bool FlexPA::prepPoint_pin_checkPoint_planar_ep(frPoint &ep,
       y += stepSize;
       break;
     default:
-      std::cout << "unexpected direction in getPlanarEP\n";
+      std::cout << __FILE__ << ":" << __LINE__ << ": " << "unexpected direction in getPlanarEP\n";
   }
   ep.set(x, y);
   gtl::point_data<frCoord> pt(x, y);
@@ -520,25 +520,25 @@ void FlexPA::prepPoint_pin_checkPoint_print_helper(frAccessPoint* ap, frPin* pin
   // type == 1 clean; type == 2 drc
   if (typeDRC != -1) { // compare mode
     if (typeGC == 1 && typeDRC == 2) {
-      cout <<"  gcmisses";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  gcmisses";
     } else if (typeGC == 2 && typeDRC == 1) {
-      cout <<"  gcfalsealarm";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  gcfalsealarm";
     } else {
       return;
     }
   } else { // pure gc mode
     if (typeGC == 1) {
-      cout <<"  gcclean";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  gcclean";
     } else if (typeGC == 2) {
-      cout <<"  gcdirty";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  gcdirty";
     } else {
       return;
     }
   }
   if (viaDef) {
-    cout <<"via";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"via";
   } else {
-    cout <<"seg";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"seg";
   }
   frTransform xform, revertCellXForm;
   if (instTerm) {
@@ -566,21 +566,21 @@ void FlexPA::prepPoint_pin_checkPoint_print_helper(frAccessPoint* ap, frPin* pin
                                            {frcMX, "MX"},
                                            {frcMYR90, "MY90"}};
   if (viaDef) {
-    cout <<" " << instTerm->getInst()->getRefBlock()->getName() << " "
+    cout << __FILE__ << ":" << __LINE__ << ": " <<" " << instTerm->getInst()->getRefBlock()->getName() << " "
          << instTerm->getTerm()->getName() << " " << viaDef->getName() << " "
          << bp.x() << " " << bp.y() 
          << " " << orient2Name[instTerm->getInst()->getOrient()] << "\n";
   } else {
     frCoord layerWidth = getDesign()->getTech()->getLayer(ap->getLayerNum())->getWidth();
     if (transSP.x() == transEP.x()) {
-      cout << " " << instTerm->getInst()->getRefBlock()->getName() << " "
+      cout << __FILE__ << ":" << __LINE__ << ": " << " " << instTerm->getInst()->getRefBlock()->getName() << " "
            << instTerm->getTerm()->getName() << " "
            << transSP.x() << " " << transSP.y() - layerWidth / 2 << " "
            << transEP.x() << " " << transEP.y() + layerWidth / 2 << " "
            << orient2Name[instTerm->getInst()->getOrient()]      << " "
            << getDesign()->getTech()->getLayer(ap->getLayerNum())->getName() << "\n";
     } else {
-      cout << " " << instTerm->getInst()->getRefBlock()->getName() << " "
+      cout << __FILE__ << ":" << __LINE__ << ": " << " " << instTerm->getInst()->getRefBlock()->getName() << " "
            << instTerm->getTerm()->getName() << " "
            << transSP.x() - layerWidth / 2 << " " << transSP.y() << " "
            << transEP.x() + layerWidth / 2 << " " << transEP.y() << " "
@@ -692,7 +692,7 @@ void FlexPA::prepPoint_pin_checkPoint_via(frAccessPoint* ap,
   auto layerNum = ap->getLayerNum();
   // skip planar only access
   if (!ap->hasAccess(dir)) {
-    //cout <<"no via access, check " <<ap->hasAccess(frDirEnum::U) <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"no via access, check " <<ap->hasAccess(frDirEnum::U) <<endl;
     return;
   }
 
@@ -835,7 +835,7 @@ bool FlexPA::prepPoint_pin_checkPoint_via_helper(frAccessPoint* ap, frVia* via, 
       //  for (auto &marker: gcWorker.getMarkers()) {
       //    frBox bbox;
       //    marker.get()->getBBox(bbox);
-      //    cout << "  violation on layer " << marker.get()->getLayerNum() 
+      //    cout << __FILE__ << ":" << __LINE__ << ": " << "  violation on layer " << marker.get()->getLayerNum() 
       //         << ", bbox = (" << bbox.left() / 2000.0 << ", " << bbox.bottom() / 2000.0 << ") - (" << bbox.right() / 2000.0 << ", " << bbox.top() / 2000.0 << ")"
       //         << ", constraint enum = " << int(marker.get()->getConstraint()->typeId()) << "\n";
       //  }
@@ -855,7 +855,7 @@ void FlexPA::prepPoint_pin_checkPoint(frAccessPoint* ap,
     double dbu = getDesign()->getTopBlock()->getDBUPerUU();
     frPoint pt;
     ap->getPoint(pt);
-    cout <<"checking ap@( " <<pt.x() / dbu <<" " <<pt.y() / dbu <<" ) "
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"checking ap@( " <<pt.x() / dbu <<" " <<pt.y() / dbu <<" ) "
          <<getDesign()->getTech()->getLayer(ap->getLayerNum())->getName() <<" , cost=" 
          <<ap->getCost() <<endl;
     //if (pt.x() != 28.8 * 2000 && pt.y() != 125.26 * 2000) {
@@ -961,7 +961,7 @@ bool FlexPA::prepPoint_pin_helper(vector<unique_ptr<frAccessPoint> > &aps,
     // write to pa
     auto it = unique2paidx.find(instTerm->getInst());
     if (it == unique2paidx.end()) {
-      cout <<"Error: prepPoint_pin_helper unique2paidx not found" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: prepPoint_pin_helper unique2paidx not found" <<endl;
       exit(1);
     } else {
       for (auto &ap: aps) {
@@ -975,7 +975,7 @@ bool FlexPA::prepPoint_pin_helper(vector<unique_ptr<frAccessPoint> > &aps,
     // write to pa
     auto it = unique2paidx.find(instTerm->getInst());
     if (it == unique2paidx.end()) {
-      cout <<"Error: prepPoint_pin_helper unique2paidx not found" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: prepPoint_pin_helper unique2paidx not found" <<endl;
       exit(1);
     } else {
       for (auto &ap: aps) {
@@ -1017,62 +1017,62 @@ void FlexPA::prepPoint_pin(frPin* pin, frInstTerm* instTerm) {
   }
 
   // 0 iter, gen on-grid, on-grid points
-  //cout <<"iter0" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter0" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 0, 0)) {
     return;
   }
   // 1st iter, gen 1/2-grid, on-grid points
-  //cout <<"iter1" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter1" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 1, 0)) {
     return;
   }
   // 2nd iter, gen center, on-grid points
-  //cout <<"iter2" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter2" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 2, 0)) {
     return;
   }
   // 3rd iter, gen enc-opt, on-grid points
-  //cout <<"iter3" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter3" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 3, 0)) {
     return;
   }
   // 4th iter, gen on-grid, 1/2-grid points
-  //cout <<"iter4" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter4" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 0, 1)) {
     return;
   }
   // 5th iter, gen 1/2-grid, 1/2-grid points
-  //cout <<"iter5" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter5" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 1, 1)) {
     return;
   }
   // 6th iter, gen center, 1/2-grid points
-  //cout <<"iter6" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter6" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 2, 1)) {
     return;
   }
   // 7th iter, gen enc-opt, 1/2-grid points
-  //cout <<"iter7" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter7" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 3, 1)) {
     return;
   }
   // 8th iter, gen on-grid, center points
-  //cout <<"iter8" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter8" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 0, 2)) {
     return;
   }
   // 9th iter, gen 1/2-grid, center points
-  //cout <<"iter9" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter9" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 1, 2)) {
     return;
   }
   // 10th iter, gen center, center points
-  //cout <<"iter10" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter10" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 2, 2)) {
     return;
   }
   // 11th iter, gen enc-opt, center points
-  //cout <<"iter11" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"iter11" <<endl;
   if (prepPoint_pin_helper(aps, apset, pinShapes, pin, instTerm, 3, 2)) {
     return;
   }
@@ -1082,9 +1082,9 @@ void FlexPA::prepPoint_pin(frPin* pin, frInstTerm* instTerm) {
   prepPoint_pin_updateStat(aps, pin, instTerm);
   if (aps.empty()) {
     if (instTerm) {
-      cout <<"Error: no ap for " <<instTerm->getInst()->getName() <<"/" <<instTerm->getTerm()->getName() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no ap for " <<instTerm->getInst()->getName() <<"/" <<instTerm->getTerm()->getName() <<endl;
     } else {
-      cout <<"Error: no ap for PIN/" <<pin->getTerm()->getName() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no ap for PIN/" <<pin->getTerm()->getName() <<endl;
     }
     if (isStdCellPin) {
       stdCellPinNoApCnt++;
@@ -1096,7 +1096,7 @@ void FlexPA::prepPoint_pin(frPin* pin, frInstTerm* instTerm) {
     // write to pa
     auto it = unique2paidx.find(instTerm->getInst());
     if (it == unique2paidx.end()) {
-      cout <<"Error: prepPoint_pin unique2paidx not found" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: prepPoint_pin unique2paidx not found" <<endl;
       exit(1);
     } else {
       for (auto &ap: aps) {
@@ -1105,7 +1105,7 @@ void FlexPA::prepPoint_pin(frPin* pin, frInstTerm* instTerm) {
         //  frPoint pt;
         //  for (auto &ap: aps) {
         //    ap->getPoint(pt);
-        //    cout <<"checked ap@(" <<pt.x() / dbu <<", " <<pt.y() / dbu <<") "
+        //    cout << __FILE__ << ":" << __LINE__ << ": " <<"checked ap@(" <<pt.x() / dbu <<", " <<pt.y() / dbu <<") "
         //         <<getDesign()->getTech()->getLayer(ap->getLayerNum())->getName() <<" , cost=" 
         //         <<ap->getCost() <<endl;
         //  }
@@ -1121,7 +1121,7 @@ void FlexPA::prepPoint() {
   // bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
   int cnt = 0;
 
@@ -1148,7 +1148,7 @@ void FlexPA::prepPoint() {
       }
       for (auto &pin: instTerm->getTerm()->getPins()) {
         if (enableOutput) {
-          cout <<"pin prep for " <<inst->getName() <<" / " <<instTerm->getTerm()->getName() 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"pin prep for " <<inst->getName() <<" / " <<instTerm->getTerm()->getName() 
                <<" " <<inst->getRefBlock()->getName() <<" " <<inst->getOrient() <<endl;
         }
         prepPoint_pin(pin.get(), instTerm.get());
@@ -1159,11 +1159,11 @@ void FlexPA::prepPoint() {
         if (VERBOSE > 0) {
           if (cnt < 1000) {
             if (cnt % 100 == 0) {
-              cout <<"  complete " <<cnt <<" pins" <<endl;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" pins" <<endl;
             }
           } else {
             if (cnt % 1000 == 0) {
-              cout <<"  complete " <<cnt <<" pins" <<endl;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" pins" <<endl;
             }
           }
         }
@@ -1171,7 +1171,7 @@ void FlexPA::prepPoint() {
     }
   }
 
-  //cout << "PA for IO terms\n" << flush;
+  //cout << __FILE__ << ":" << __LINE__ << ": " << "PA for IO terms\n" << flush;
 
   // PA for IO terms
   omp_set_num_threads(MAX_THREADS);
@@ -1185,10 +1185,10 @@ void FlexPA::prepPoint() {
     if (net == nullptr) {
       continue;
     }
-    // cout << term->getName() << endl;
+    // cout << __FILE__ << ":" << __LINE__ << ": " << term->getName() << endl;
     for (auto &pin: term->getPins()) {
       if (enableOutput) {
-        cout << "pin prep for PIN/" << term->getName() << " " << endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " << "pin prep for PIN/" << term->getName() << " " << endl;
       }
       prepPoint_pin(pin.get(), nullptr);
     }
@@ -1196,7 +1196,7 @@ void FlexPA::prepPoint() {
 
 
   if (VERBOSE > 0) {
-    cout <<"  complete " <<cnt <<" pins" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" pins" <<endl;
   }
 }
 
@@ -1205,7 +1205,7 @@ void FlexPA::prepPattern() {
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
 
   // revert access points to origin
@@ -1232,18 +1232,18 @@ void FlexPA::prepPattern() {
       if (VERBOSE > 0) {
         if (cnt < 1000) {
           if (cnt % 100 == 0) {
-            cout <<"  complete " <<cnt <<" unique inst patterns" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" unique inst patterns" <<endl;
           }
         } else {
           if (cnt % 1000 == 0) {
-            cout <<"  complete " <<cnt <<" unique inst patterns" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" unique inst patterns" <<endl;
           }
         }
       }
     }
   }
   if (VERBOSE > 0) {
-    cout <<"  complete " <<cnt <<" unique inst patterns" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" unique inst patterns" <<endl;
   }
 
   
@@ -1271,15 +1271,15 @@ void FlexPA::prepPattern() {
   int prevYCoord = INT_MIN;
   int prevXEndCoord = INT_MIN;
   //if (enableOutput) {
-  //  cout << "sorted insts...\n" << flush;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " << "sorted insts...\n" << flush;
   //}
   frBox instBoundaryBox;
   for (auto inst: insts) {
     frPoint origin;
     inst->getOrigin(origin);
-    // cout << inst->getName() << " (" << origin.x() << ", " << origin.y() << ") -- ";
+    // cout << __FILE__ << ":" << __LINE__ << ": " << inst->getName() << " (" << origin.x() << ", " << origin.y() << ") -- ";
     if (origin.y() != prevYCoord || origin.x() > prevXEndCoord) {
-      // cout << "\n";
+      // cout << __FILE__ << ":" << __LINE__ << ": " << "\n";
       if (!rowInsts.empty()) {
         instRows.push_back(rowInsts);
         rowInsts.clear();
@@ -1295,7 +1295,7 @@ void FlexPA::prepPattern() {
   }
 
   if (enableOutput) {
-    cout << "gen inst row access patterns...\n" << flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "gen inst row access patterns...\n" << flush;
   }
   // choose access pattern of a row of insts
   int rowIdx = 0;
@@ -1309,29 +1309,29 @@ void FlexPA::prepPattern() {
     #pragma omp critical
     {
       if (enableOutput) {
-        cout << "Row " << rowIdx << "\n" << flush;
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Row " << rowIdx << "\n" << flush;
       }
       rowIdx++;
       cnt++;
       if (VERBOSE > 0) {
         if (cnt < 10000) {
           if (cnt % 1000 == 0) {
-            cout <<"  complete " <<cnt <<" groups" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" groups" <<endl;
           }
         } else {
           if (cnt % 10000 == 0) {
-            cout <<"  complete " <<cnt <<" groups" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" groups" <<endl;
           }
         }
       }
     }
   }
   if (VERBOSE > 0) {
-    cout <<"  complete " <<cnt <<" groups" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" groups" <<endl;
   }
 
   if (enableOutput) {
-    cout << "GC called " << gcCallCnt << " times\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "GC called " << gcCallCnt << " times\n";
   }
 }
 
@@ -1387,7 +1387,7 @@ void FlexPA::genInstPattern_init(std::vector<FlexDPNode> &nodes,
   // bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout << "  genInstPattern_init\n" << flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "  genInstPattern_init\n" << flush;
   }
 
   // init virutal nodes
@@ -1416,13 +1416,13 @@ void FlexPA::genInstPattern_perform(std::vector<FlexDPNode> &nodes,
   //bool enableOutput = true;
   bool enableOutput = false;
   //if (enableOutput) {
-  //  cout << "  genInstPattern_perform\n" << flush;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " << "  genInstPattern_perform\n" << flush;
   //}
   for (int currIdx1 = 0; currIdx1 <= (int)insts.size(); currIdx1++) {
     bool isSet = false;
     if (enableOutput) {
       if (currIdx1 != int(insts.size())) {
-        cout << "  genInstPattern_perform " <<insts[currIdx1]->getName() << " uniqueInst " 
+        cout << __FILE__ << ":" << __LINE__ << ": " << "  genInstPattern_perform " <<insts[currIdx1]->getName() << " uniqueInst " 
              << inst2unique[insts[currIdx1]]->getName() <<endl <<flush;
       }
     }
@@ -1450,7 +1450,7 @@ void FlexPA::genInstPattern_perform(std::vector<FlexDPNode> &nodes,
       }
     }
     if (!isSet) {
-      cout << "@@@ dead end inst\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "@@@ dead end inst\n";
     }
   }
 }
@@ -1462,7 +1462,7 @@ void FlexPA::genInstPattern_commit(std::vector<FlexDPNode> &nodes,
   //bool isDebugMode = true;
   bool isDebugMode = false;
   if (enableOutput) {
-    cout << "  genInstPattern_commit\n" << flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "  genInstPattern_commit\n" << flush;
   }
   int currNodeIdx = getFlatIdx(insts.size(), 0, maxAccessPatternSize);
   auto currNode = &(nodes[currNodeIdx]);
@@ -1477,7 +1477,7 @@ void FlexPA::genInstPattern_commit(std::vector<FlexDPNode> &nodes,
     
       auto &inst = insts[currIdx1];
       if (enableOutput) {
-        cout << inst->getName() << " ";
+        cout << __FILE__ << ":" << __LINE__ << ": " << inst->getName() << " ";
       }
       int accessPointIdx = 0;
       auto &uniqueInst = inst2unique[inst];
@@ -1509,17 +1509,17 @@ void FlexPA::genInstPattern_commit(std::vector<FlexDPNode> &nodes,
     instCnt--;
   }
   if (enableOutput) {
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
 
   if (instCnt != -1) {
-    cout << "Error: valid access pattern combination not found\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: valid access pattern combination not found\n";
   }
 
   // for (int i = 0; i < (int)instAccessPatternIdx.size(); i++) {
-  //   cout << instAccessPatternIdx[i] << " ";
+  //   cout << __FILE__ << ":" << __LINE__ << ": " << instAccessPatternIdx[i] << " ";
   // }
-  // cout << "\n";
+  // cout << __FILE__ << ":" << __LINE__ << ": " << "\n";
 
   if (isDebugMode) {
     genInstPattern_print(nodes, insts);
@@ -1571,12 +1571,12 @@ void FlexPA::genInstPattern_print(std::vector<FlexDPNode> &nodes,
           
           frPoint pt(accessPoint->getPoint());
           if (instTerm->hasNet()) {
-            cout << " gcclean2via " << inst->getName() << " " 
+            cout << __FILE__ << ":" << __LINE__ << ": " << " gcclean2via " << inst->getName() << " " 
                  << instTerm->getTerm()->getName() << " " << accessPoint->getViaDef()->getName() << " "
                  << pt.x() << " " << pt.y() << " "
                  << orient2Name[inst->getOrient()] << "\n";
             instTermValidViaApCnt++;
-            // cout << instTermValidViaApCnt << endl;
+            // cout << __FILE__ << ":" << __LINE__ << ": " << instTermValidViaApCnt << endl;
           }
           accessPointIdx++;
         }
@@ -1587,10 +1587,10 @@ void FlexPA::genInstPattern_print(std::vector<FlexDPNode> &nodes,
     instCnt--;
   }
 
-  cout << flush;
+  cout << __FILE__ << ":" << __LINE__ << ": " << flush;
 
   if (instCnt != -1) {
-    cout << "Error: valid access pattern combination not found\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: valid access pattern combination not found\n";
   }
 }
 
@@ -1599,7 +1599,7 @@ int FlexPA::getEdgeCost(int prevNodeIdx, int currNodeIdx,
                         const std::vector<frInst*> &insts) {
   bool enableOutput = false;
   if (enableOutput) {
-    cout << "  getEdgeCost\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "  getEdgeCost\n";
   }
   int edgeCost = 0;
   int prevIdx1, prevIdx2, currIdx1, currIdx2;
@@ -1656,7 +1656,7 @@ void FlexPA::addAccessPatternObj(frInst* inst,
     // to avoid unused variable warning in GCC
     for (int i = 0; i < (int)(instTerm->getTerm()->getPins().size()); i++) {
       auto &accessPoint = accessPoints[accessPointIdx];
-      //cout <<"@@@test: isPrev = " <<isPrev <<", apoint " 
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@@test: isPrev = " <<isPrev <<", apoint " 
       //     <<accessPoint <<", leftAPoint " 
       //     <<accessPattern->getBoundaryAP(true) <<", rightAPoint " 
       //     <<accessPattern->getBoundaryAP(false) <<endl <<flush;
@@ -1726,7 +1726,7 @@ void FlexPA::prepPattern_inst(frInst *inst, int currUniqueInstIdx) {
   bool enableOutput = false;
   std::vector<std::pair<frCoord, std::pair<frPin*, frInstTerm*> > > pins;
   if (enableOutput) {
-    cout << "start prepPattern " << inst->getName() << "\n" << flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "start prepPattern " << inst->getName() << "\n" << flush;
   }
   // TODO: add assert in case input inst is not unique inst
   int paIdx = unique2paidx[inst];
@@ -1750,7 +1750,7 @@ void FlexPA::prepPattern_inst(frInst *inst, int currUniqueInstIdx) {
       if (cnt != 0) {
         pins.push_back(std::make_pair((sumXCoord + 0.0 * sumYCoord) / cnt, std::make_pair(pin.get(), instTerm.get())));
       } else {
-        std::cout << "Error: pin does not have access point\n"; 
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "Error: pin does not have access point\n"; 
       }
     }
   }
@@ -1758,12 +1758,12 @@ void FlexPA::prepPattern_inst(frInst *inst, int currUniqueInstIdx) {
                                          const std::pair<frCoord, std::pair<frPin*, frInstTerm*> > &rhs) 
                                         {return lhs.first < rhs.first;} );
   if (enableOutput) {
-    cout <<inst->getName() <<":";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<inst->getName() <<":";
     for (auto &[x, m]: pins) {
       auto &[pin, instTerm] = m;
-      cout << " " <<pin->getTerm()->getName() << "(" << pin->getPinAccess(paIdx)->getNumAccessPoints() << ")";
+      cout << __FILE__ << ":" << __LINE__ << ": " << " " <<pin->getTerm()->getName() << "(" << pin->getPinAccess(paIdx)->getNumAccessPoints() << ")";
     }
-    cout << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << endl;
   }
 
   std::vector<std::pair<frPin*, frInstTerm*> > pinInstTermPairs;
@@ -1800,7 +1800,7 @@ void FlexPA::genPatterns(const std::vector<std::pair<frPin*, frInstTerm*> > &pin
   if (enableOutput) {
     auto &[pin, instTerm] = pins[0];
     auto inst = instTerm->getInst();
-    cout << "generate access pattern for uniqueInst" << currUniqueInstIdx << " (" << inst->getName() << ")\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "generate access pattern for uniqueInst" << currUniqueInstIdx << " (" << inst->getName() << ")\n";
   }
   
   genPatterns_init(nodes, pins, instAccessPatterns, usedAccessPoints, violAccessPoints, maxAccessPointSize);
@@ -1851,7 +1851,7 @@ void FlexPA::genPatterns(const std::vector<std::pair<frPin*, frInstTerm*> > &pin
 
   if (numValidPattern == 0) {
     auto inst = pins[0].second->getInst();
-    cout << "Error: no valid pattern for unique instance " 
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: no valid pattern for unique instance " 
          << inst->getName() <<", refBlock is " 
          << inst->getRefBlock()->getName() <<endl;
     //int paIdx = unique2paidx[pins[0].second->getInst()];
@@ -1859,18 +1859,18 @@ void FlexPA::genPatterns(const std::vector<std::pair<frPin*, frInstTerm*> > &pin
     frTransform shiftXform;
     inst->getTransform(shiftXform);
     shiftXform.set(frOrient(frcR0));
-    cout <<"  pin ordering (with ap): " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"  pin ordering (with ap): " <<endl;
     for (auto &[pin, instTerm]: pins) {
-      cout <<"    " <<instTerm->getTerm()->getName();
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"    " <<instTerm->getTerm()->getName();
       for (auto &ap: pin->getPinAccess(paIdx)->getAccessPoints()) {
         frPoint pt;
         ap->getPoint(pt);
         pt.transform(shiftXform);
-        cout <<" (" <<pt.x() / dbu <<", " <<pt.y() / dbu <<")";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<pt.x() / dbu <<", " <<pt.y() / dbu <<")";
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
-    //cout << "Error: no valid pattern for unique instance " ;
+    //cout << __FILE__ << ":" << __LINE__ << ": " << "Error: no valid pattern for unique instance " ;
   }
 
 }
@@ -1884,7 +1884,7 @@ void FlexPA::genPatterns_init(std::vector<FlexDPNode> &nodes,
                               int maxAccessPointSize) {
   bool enableOutput = false;
   if (enableOutput) {
-    cout << "  init\n" << flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "  init\n" << flush;
   }
   // clear temp storage and flag
   instAccessPatterns.clear();
@@ -1935,7 +1935,7 @@ bool FlexPA::genPatterns_gc(frBlockObject* targetObj, vector<pair<frConnFig*, fr
   gcCallCnt++;
   if (objs.empty()) {
     if (VERBOSE > 1) {
-      cout <<"Warning: genPattern_gc objs empty" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: genPattern_gc objs empty" <<endl;
     }
     return false;
   }
@@ -1962,7 +1962,7 @@ bool FlexPA::genPatterns_gc(frBlockObject* targetObj, vector<pair<frConnFig*, fr
 
   gcWorker.setTargetObj(targetObj);
   gcWorker.setIgnoreDB();
-  //cout <<flush;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<flush;
   gcWorker.initPA0();
   for (auto &[connFig, owner]: objs) {
     gcWorker.addPAObj(connFig, owner);
@@ -1997,7 +1997,7 @@ void FlexPA::genPatterns_perform(std::vector<FlexDPNode> &nodes,
                                  int maxAccessPointSize) {
   bool enableOutput = false;
   if (enableOutput) {
-    cout << "  perform\n" << flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "  perform\n" << flush;
   }
   for (int currIdx1 = 0; currIdx1 <= (int)pins.size(); currIdx1++) {
     for (int currIdx2 = 0; currIdx2 < maxAccessPointSize; currIdx2++) {
@@ -2148,7 +2148,7 @@ bool FlexPA::genPatterns_commit(std::vector<FlexDPNode> &nodes,
   bool enableOutput = false;
   //bool enableOutput = true;
   if (enableOutput) {
-    cout << "  commit\n" << flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " << "  commit\n" << flush;
   }
   int currNodeIdx = getFlatIdx(pins.size(), 0, maxAccessPointSize);
   auto currNode = &(nodes[currNodeIdx]);
@@ -2169,14 +2169,14 @@ bool FlexPA::genPatterns_commit(std::vector<FlexDPNode> &nodes,
   }
 
   if (pinCnt != -1) {
-    cout << "Error: valid access pattern not found\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: valid access pattern not found\n";
   }
 
   // if (enableOutput) {
   //   for (auto &apIdx: accessPattern) {
-  //     cout << " " << apIdx;
+  //     cout << __FILE__ << ":" << __LINE__ << ": " << " " << apIdx;
   //   }
-  //   cout << "\n";
+  //   cout << __FILE__ << ":" << __LINE__ << ": " << "\n";
   // }
   // add to pattern set if unique
   if (instAccessPatterns.find(accessPattern) == instAccessPatterns.end()) {
@@ -2232,7 +2232,7 @@ bool FlexPA::genPatterns_commit(std::vector<FlexDPNode> &nodes,
       }
       for (auto &pin: instTerm->getTerm()->getPins()) {
         if (pin2AP.find(pin.get()) == pin2AP.end()) {
-          cout << "Error: pin does not have valid ap\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Error: pin does not have valid ap\n";
         } else {
           auto &ap = pin2AP[pin.get()];
           ap->getPoint(tmpPt);
@@ -2249,10 +2249,10 @@ bool FlexPA::genPatterns_commit(std::vector<FlexDPNode> &nodes,
       }
     }
     //if (leftAP == nullptr) {
-    //  cout <<"@@@Warning leftAP == nullptr " <<instTerm->getInst()->getName() <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"@@@Warning leftAP == nullptr " <<instTerm->getInst()->getName() <<endl;
     //}
     //if (rightAP == nullptr) {
-    //  cout <<"@@@Warning rightAP == nullptr " <<instTerm->getInst()->getName() <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"@@@Warning rightAP == nullptr " <<instTerm->getInst()->getName() <<endl;
     //}
     pinAccessPattern->setBoundaryAP(true,  leftAP);
     pinAccessPattern->setBoundaryAP(false, rightAP);
@@ -2260,11 +2260,11 @@ bool FlexPA::genPatterns_commit(std::vector<FlexDPNode> &nodes,
     set<frBlockObject*> owners;
     if (targetObj != nullptr && genPatterns_gc(targetObj, objs, &owners)) {
       pinAccessPattern->updateCost();
-      //cout <<"commit ap:";
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"commit ap:";
       //for (auto &ap: pinAccessPattern->getPattern()) {
-      //  cout <<" " <<ap;
+      //  cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<ap;
       //}
-      //cout <<endl <<"l/r = " 
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"l/r = " 
       //     <<pinAccessPattern->getBoundaryAP(true) <<"/" 
       //     <<pinAccessPattern->getBoundaryAP(false) <<", "
       //     <<currUniqueInstIdx <<", " <<uniqueInstances[currUniqueInstIdx]->getName() <<endl;
@@ -2311,7 +2311,7 @@ void FlexPA::genPatterns_print_debug(std::vector<FlexDPNode> &nodes,
     xform.set(frcR0);
   }
 
-  cout << "failed pattern:";
+  cout << __FILE__ << ":" << __LINE__ << ": " << "failed pattern:";
 
 
   double dbu = getDesign()->getTopBlock()->getDBUPerUU();
@@ -2320,14 +2320,14 @@ void FlexPA::genPatterns_print_debug(std::vector<FlexDPNode> &nodes,
     if (pinCnt != (int)pins.size()) {
       auto &[pin, instTerm] = pins[pinCnt];
       auto inst = instTerm->getInst();
-      cout <<" " <<instTerm->getTerm()->getName();
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<instTerm->getTerm()->getName();
       int paIdx = unique2paidx[inst];
       auto pa = pin->getPinAccess(paIdx);
       int currIdx1, currIdx2;
       getNestedIdx(currNodeIdx, currIdx1, currIdx2, maxAccessPointSize);
       frPoint pt(pa->getAccessPoint(currIdx2)->getPoint());
       pt.transform(xform);
-      cout << " ("
+      cout << __FILE__ << ":" << __LINE__ << ": " << " ("
            << pt.x() / dbu << ", " << pt.y() / dbu << ")";
     }
 
@@ -2335,9 +2335,9 @@ void FlexPA::genPatterns_print_debug(std::vector<FlexDPNode> &nodes,
     currNode = &(nodes[currNode->getPrevNodeIdx()]);
     pinCnt--;
   }
-  cout <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   if (pinCnt != -1) {
-    cout << "Error: valid access pattern not found\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: valid access pattern not found\n";
   }
 }
 
@@ -2358,7 +2358,7 @@ void FlexPA::genPatterns_print(std::vector<FlexDPNode> &nodes,
                                            {frcMX, "MX"},
                                            {frcMYR90, "MY90"}};
 
-  cout << "new pattern\n";
+  cout << __FILE__ << ":" << __LINE__ << ": " << "new pattern\n";
 
 
   while (currNode->getPrevNodeIdx() != -1) {
@@ -2372,7 +2372,7 @@ void FlexPA::genPatterns_print(std::vector<FlexDPNode> &nodes,
       getNestedIdx(currNodeIdx, currIdx1, currIdx2, maxAccessPointSize);
       unique_ptr<frVia> via = make_unique<frVia>(pa->getAccessPoint(currIdx2)->getViaDef());
       frPoint pt(pa->getAccessPoint(currIdx2)->getPoint());
-      cout << " gccleanvia " << instTerm->getInst()->getRefBlock()->getName() << " " 
+      cout << __FILE__ << ":" << __LINE__ << ": " << " gccleanvia " << instTerm->getInst()->getRefBlock()->getName() << " " 
            << instTerm->getTerm()->getName() << " " << via->getViaDef()->getName() << " "
            << pt.x() << " " << pt.y() << " "
            << orient2Name[instTerm->getInst()->getOrient()] << "\n";
@@ -2383,7 +2383,7 @@ void FlexPA::genPatterns_print(std::vector<FlexDPNode> &nodes,
     pinCnt--;
   }
   if (pinCnt != -1) {
-    cout << "Error: valid access pattern not found\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: valid access pattern not found\n";
   }
 }
 

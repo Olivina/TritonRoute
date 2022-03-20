@@ -35,31 +35,31 @@ using namespace std;
 using namespace fr;
 
 void frDesign::printAllComps() {
-  cout <<endl <<"print all components: ";
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"print all components: ";
   for (auto &m: topBlock->getInsts()) {
-    cout <<endl <<*m <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<*m <<endl;
   }
 }
 
 void frDesign::printAllMacros() {
-  cout <<endl;
-  cout <<"print all macros: " <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<"print all macros: " <<endl;
   for (auto &m: refBlocks) {
-    cout <<endl <<*(m) <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<*(m) <<endl;
   }
 }
 
 void frDesign::printAllTerms() {
-  cout <<endl <<"print all terminals: ";
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"print all terminals: ";
   for (auto &m: topBlock->getTerms()) {
-    cout <<endl <<*m <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<*m <<endl;
   }
 }
 
 void frTechObject::printAllVias() {
-  cout <<endl <<"print all vias: " <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"print all vias: " <<endl;
   for (auto &m: vias) {
-    cout <<endl <<*(m) <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<*(m) <<endl;
   }
 }
 

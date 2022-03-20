@@ -55,7 +55,7 @@ int FlexTAWorker::main() {
       ss <<"V";
     }
     ss <<endl;
-    cout <<ss.str();
+    cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str();
   }
 
 
@@ -76,7 +76,7 @@ int FlexTAWorker::main() {
                                       <<time_span1.count() <<" "
                                       <<time_span2.count() <<" "
                                       <<endl;
-    cout <<ss.str() <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str() <<flush;
   }
   return 0;
 }
@@ -98,7 +98,7 @@ int FlexTAWorker::main_mt() {
       ss <<"V";
     }
     ss <<endl;
-    cout <<ss.str();
+    cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str();
   }
 
 
@@ -119,7 +119,7 @@ int FlexTAWorker::main_mt() {
                                       <<time_span1.count() <<" "
                                       <<time_span2.count() <<" "
                                       <<endl;
-    cout <<ss.str() <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str() <<flush;
   }
   return 0;
 }
@@ -149,7 +149,7 @@ int FlexTA::initTA_helper(int iter, int size, int offset, bool isH, int &numPane
         sol += worker.getNumAssigned();
         numPanels++;
         //if (VERBOSE > 0) {
-        //  cout <<"Done with " <<numAssigned <<"horizontal wires";
+        //  cout << __FILE__ << ":" << __LINE__ << ": " <<"Done with " <<numAssigned <<"horizontal wires";
         //}
       }
     } else {
@@ -170,7 +170,7 @@ int FlexTA::initTA_helper(int iter, int size, int offset, bool isH, int &numPane
         sol += worker.getNumAssigned();
         numPanels++;
         //if (VERBOSE > 0) {
-        //  cout <<"Done with " <<numAssigned <<"vertical wires";
+        //  cout << __FILE__ << ":" << __LINE__ << ": " <<"Done with " <<numAssigned <<"vertical wires";
         //}
       }
     } 
@@ -247,7 +247,7 @@ void FlexTA::initTA(int size) {
   frTime t;
 
   if (VERBOSE > 1) {
-    cout <<endl <<"start initial track assignment ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start initial track assignment ..." <<endl;
   }
 
   auto bottomLNum = getDesign()->getTech()->getBottomLayerNum();
@@ -265,21 +265,21 @@ void FlexTA::initTA(int size) {
   if (isBottomLayerH) {
     numAssigned = initTA_helper(0, size, 0, true, numPanels);
     if (VERBOSE > 0) {
-      cout <<"Done with " <<numAssigned <<" horizontal wires in " <<numPanels <<" frboxes and ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Done with " <<numAssigned <<" horizontal wires in " <<numPanels <<" frboxes and ";
     }
     numAssigned = initTA_helper(0, size, 0, false, numPanels);
     if (VERBOSE > 0) {
-      cout <<numAssigned <<" vertical wires in " <<numPanels <<" frboxes." <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<numAssigned <<" vertical wires in " <<numPanels <<" frboxes." <<endl;
     }
   // V first
   } else {
     numAssigned = initTA_helper(0, size, 0, false, numPanels);
     if (VERBOSE > 0) {
-      cout <<"Done with " <<numAssigned <<" vertical wires in " <<numPanels <<" frboxes and ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Done with " <<numAssigned <<" vertical wires in " <<numPanels <<" frboxes and ";
     }
     numAssigned = initTA_helper(0, size, 0, true, numPanels);
     if (VERBOSE > 0) {
-      cout <<numAssigned <<" horizontal wires in " <<numPanels <<" frboxes." <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<numAssigned <<" horizontal wires in " <<numPanels <<" frboxes." <<endl;
     }
   }
 }
@@ -290,9 +290,9 @@ void FlexTA::searchRepair(int iter, int size, int offset) {
 
   if (VERBOSE > 1) {
     if (iter == -1) {
-      cout <<endl <<"start polishing ..." <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start polishing ..." <<endl;
     } else {
-      cout <<endl <<"start " <<iter;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start " <<iter;
       string suffix;
       if (iter == 1 || (iter > 20 && iter % 10 == 1)) {
         suffix = "st";
@@ -303,7 +303,7 @@ void FlexTA::searchRepair(int iter, int size, int offset) {
       } else {
         suffix = "th";
       }
-      cout <<suffix <<" optimization iteration ..." <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<suffix <<" optimization iteration ..." <<endl;
     }
   }
   auto bottomLNum = getDesign()->getTech()->getBottomLayerNum();
@@ -321,21 +321,21 @@ void FlexTA::searchRepair(int iter, int size, int offset) {
   if (isBottomLayerH) {
     numAssigned = initTA_helper(iter, size, offset, true, numPanels);
     if (VERBOSE > 0) {
-      cout <<"Done with " <<numAssigned <<" horizontal wires in " <<numPanels <<" frboxes and ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Done with " <<numAssigned <<" horizontal wires in " <<numPanels <<" frboxes and ";
     }
     numAssigned = initTA_helper(iter, size, offset, false, numPanels);
     if (VERBOSE > 0) {
-      cout <<numAssigned <<" vertical wires in " <<numPanels <<" frboxes." <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<numAssigned <<" vertical wires in " <<numPanels <<" frboxes." <<endl;
     }
   // V first
   } else {
     numAssigned = initTA_helper(iter, size, offset, false, numPanels);
     if (VERBOSE > 0) {
-      cout <<"Done with " <<numAssigned <<" vertical wires in " <<numPanels <<" frboxes and ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Done with " <<numAssigned <<" vertical wires in " <<numPanels <<" frboxes and ";
     }
     numAssigned = initTA_helper(iter, size, offset, true, numPanels);
     if (VERBOSE > 0) {
-      cout <<numAssigned <<" horizontal wires in " <<numPanels <<" frboxes." <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<numAssigned <<" horizontal wires in " <<numPanels <<" frboxes." <<endl;
     }
   }
 }
@@ -345,19 +345,19 @@ int FlexTA::main() {
 
   frTime t;
   if (VERBOSE > 0) {
-    cout <<endl <<endl <<"start track assignment" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<endl <<"start track assignment" <<endl;
   }
   initTA(50);
   searchRepair(1, 50, 0);
 
   if (VERBOSE > 0) {
-    cout <<endl <<"complete track assignment";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"complete track assignment";
     //end();
   }
   if (VERBOSE > 0) {
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     t.print();
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
   return 0;
 }

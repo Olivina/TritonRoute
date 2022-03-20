@@ -35,7 +35,7 @@ using namespace fr;
 void frPoint::transform(const frTransform &xform) {
   frCoord tmpX = 0;
   frCoord tmpY = 0;
-  //cout <<xform.orient() <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<xform.orient() <<endl;
   switch(xform.orient()) {
     case frcR90 :
       tmpX = xform.xOffset() - yCoord;

@@ -48,7 +48,7 @@ int FlexDRWorker::main() {
                 <<routeBox.bottom() * 1.0 / getTech()->getDBUPerUU() <<" ) ( "
                 <<routeBox.right()  * 1.0 / getTech()->getDBUPerUU() <<" "
                 <<routeBox.top()    * 1.0 / getTech()->getDBUPerUU() <<" )" <<endl;
-    cout <<ss.str() <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str() <<flush;
   }
 
   init();
@@ -68,7 +68,7 @@ int FlexDRWorker::main() {
                                      <<time_span1.count() <<" "
                                      <<time_span2.count() <<" "
                                      <<endl;
-    cout <<ss.str() <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str() <<flush;
   }
   return 0;
 }
@@ -85,7 +85,7 @@ int FlexDRWorker::main_mt() {
                 <<routeBox.bottom() * 1.0 / getTech()->getDBUPerUU() <<" ) ( "
                 <<routeBox.right()  * 1.0 / getTech()->getDBUPerUU() <<" "
                 <<routeBox.top()    * 1.0 / getTech()->getDBUPerUU() <<" )" <<endl;
-    cout <<ss.str() <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str() <<flush;
   }
 
   init();
@@ -109,7 +109,7 @@ int FlexDRWorker::main_mt() {
                                      <<time_span1.count() <<" "
                                      <<time_span2.count() <<" "
                                      <<endl;
-    cout <<ss.str() <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<ss.str() <<flush;
   }
   return 0;
 }
@@ -130,7 +130,7 @@ void FlexDR::initFromTA() {
             net->addShape(std::move(ps));
           }
         } else {
-          cout <<"Error: initFromTA unsupported shape" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initFromTA unsupported shape" <<endl;
         }
       }
     }
@@ -138,7 +138,7 @@ void FlexDR::initFromTA() {
 
   if (enableOutput) {
     for (auto &net: getDesign()->getTopBlock()->getNets()) {
-      cout <<"net " <<net->getName() <<" has " <<net->getShapes().size() <<" shape" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"net " <<net->getName() <<" has " <<net->getShapes().size() <<" shape" <<endl;
     }
   }
 }
@@ -197,7 +197,7 @@ void FlexDR::initGCell2BoundaryPin() {
                 frPoint boundaryPt(leftBound, bp.y());
                 gcell2BoundaryPin[x][y][netPtr].insert(make_pair(boundaryPt, layerNum));
                 if (enableOutput) {
-                  cout << "init left boundary pin (" 
+                  cout << __FILE__ << ":" << __LINE__ << ": " << "init left boundary pin (" 
                        << boundaryPt.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                        << boundaryPt.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") at ("
                        << x <<", " <<y <<") " 
@@ -209,7 +209,7 @@ void FlexDR::initGCell2BoundaryPin() {
                 frPoint boundaryPt(rightBound, ep.y());
                 gcell2BoundaryPin[x][y][netPtr].insert(make_pair(boundaryPt, layerNum));
                 if (enableOutput) {
-                  cout << "init right boundary pin (" 
+                  cout << __FILE__ << ":" << __LINE__ << ": " << "init right boundary pin (" 
                        << boundaryPt.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                        << boundaryPt.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") at ("
                        << x <<", " <<y <<") " 
@@ -243,7 +243,7 @@ void FlexDR::initGCell2BoundaryPin() {
                 frPoint boundaryPt(bp.x(), bottomBound);
                 gcell2BoundaryPin[x][y][netPtr].insert(make_pair(boundaryPt, layerNum));
                 if (enableOutput) {
-                  cout << "init bottom boundary pin (" 
+                  cout << __FILE__ << ":" << __LINE__ << ": " << "init bottom boundary pin (" 
                        << boundaryPt.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                        << boundaryPt.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") at ("
                        << x <<", " <<y <<") " 
@@ -255,7 +255,7 @@ void FlexDR::initGCell2BoundaryPin() {
                 frPoint boundaryPt(ep.x(), topBound);
                 gcell2BoundaryPin[x][y][netPtr].insert(make_pair(boundaryPt, layerNum));
                 if (enableOutput) {
-                  cout << "init top boundary pin (" 
+                  cout << __FILE__ << ":" << __LINE__ << ": " << "init top boundary pin (" 
                        << boundaryPt.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                        << boundaryPt.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") at ("
                        << x <<", " <<y <<") " 
@@ -265,7 +265,7 @@ void FlexDR::initGCell2BoundaryPin() {
               }
             }
           } else {
-            cout << "Error: non-orthogonal pathseg in initGCell2BoundryPin\n";
+            cout << __FILE__ << ":" << __LINE__ << ": " << "Error: non-orthogonal pathseg in initGCell2BoundryPin\n";
           }
         }
       }
@@ -452,7 +452,7 @@ bool FlexDR::init_via2viaMinLen_minimumcut2(frLayerNum lNum, frViaDef* viaDef1, 
 
 frCoord FlexDR::init_via2viaMinLen_minSpc(frLayerNum lNum, frViaDef* viaDef1, frViaDef* viaDef2) {
   if (!(viaDef1 && viaDef2)) {
-    //cout <<"hehehehehe" <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"hehehehehe" <<endl;
     return 0;
   }
 
@@ -573,7 +573,7 @@ void FlexDR::init_via2viaMinLen() {
     (via2viaMinLen[i].first)[2] = max((via2viaMinLen[i].first)[2], init_via2viaMinLen_minSpc(lNum, upVia, downVia));
     (via2viaMinLen[i].first)[3] = max((via2viaMinLen[i].first)[3], init_via2viaMinLen_minSpc(lNum, upVia, upVia));
     if (enableOutput) {
-      cout <<"initVia2ViaMinLen_minSpc " <<getDesign()->getTech()->getLayer(lNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initVia2ViaMinLen_minSpc " <<getDesign()->getTech()->getLayer(lNum)->getName()
            <<" (d2d, d2u, u2d, u2u) = (" 
            <<(via2viaMinLen[i].first)[0] <<", "
            <<(via2viaMinLen[i].first)[1] <<", "
@@ -607,13 +607,13 @@ void FlexDR::init_via2viaMinLen() {
     (via2viaMinLen[i].second)[2] = (via2viaMinLen[i].second)[2] && init_via2viaMinLen_minimumcut2(lNum, upVia, downVia);
     (via2viaMinLen[i].second)[3] = (via2viaMinLen[i].second)[3] && init_via2viaMinLen_minimumcut2(lNum, upVia, upVia);
     if (enableOutput) {
-      cout <<"initVia2ViaMinLen_minimumcut " <<getDesign()->getTech()->getLayer(lNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initVia2ViaMinLen_minimumcut " <<getDesign()->getTech()->getLayer(lNum)->getName()
            <<" (d2d, d2u, u2d, u2u) = (" 
            <<(via2viaMinLen[i].first)[0] <<", "
            <<(via2viaMinLen[i].first)[1] <<", "
            <<(via2viaMinLen[i].first)[2] <<", "
            <<(via2viaMinLen[i].first)[3] <<")" <<endl;
-      cout <<"initVia2ViaMinLen_minimumcut " <<getDesign()->getTech()->getLayer(lNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initVia2ViaMinLen_minimumcut " <<getDesign()->getTech()->getLayer(lNum)->getName()
            <<" zerolen (b, b, b, b) = (" 
            <<(via2viaMinLen[i].second)[0] <<", "
            <<(via2viaMinLen[i].second)[1] <<", "
@@ -885,7 +885,7 @@ frCoord FlexDR::init_via2viaMinLenNew_cutSpc(frLayerNum lNum, frViaDef* viaDef1,
     }
     if (getDesign()->getTech()->getLayer(layerNum2)->hasInterLayerCutSpacing(layerNum1, true)) {
       if (samenetCon) {
-        cout <<"Warning: duplicate diff layer samenet cut spacing, skipping cut spacing from " 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: duplicate diff layer samenet cut spacing, skipping cut spacing from " 
              <<layerNum2 <<" to " <<layerNum1 <<endl;
       } else {
         samenetCon = getDesign()->getTech()->getLayer(layerNum2)->getInterLayerCutSpacing(layerNum1, true);
@@ -897,7 +897,7 @@ frCoord FlexDR::init_via2viaMinLenNew_cutSpc(frLayerNum lNum, frViaDef* viaDef1,
       }
       if (getDesign()->getTech()->getLayer(layerNum2)->hasInterLayerCutSpacing(layerNum1, false)) {
         if (samenetCon) {
-          cout <<"Warning: duplicate diff layer diffnet cut spacing, skipping cut spacing from " 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: duplicate diff layer diffnet cut spacing, skipping cut spacing from " 
                <<layerNum2 <<" to " <<layerNum1 <<endl;
         } else {
           samenetCon = getDesign()->getTech()->getLayer(layerNum2)->getInterLayerCutSpacing(layerNum1, false);
@@ -956,7 +956,7 @@ void FlexDR::init_via2viaMinLenNew() {
     via2viaMinLenNew[i][6] = max(via2viaMinLenNew[i][6], init_via2viaMinLenNew_minSpc(lNum, upVia,   upVia,   false));
     via2viaMinLenNew[i][7] = max(via2viaMinLenNew[i][7], init_via2viaMinLenNew_minSpc(lNum, upVia,   upVia,   true ));
     if (enableOutput) {
-      cout <<"initVia2ViaMinLenNew_minSpc " <<getDesign()->getTech()->getLayer(lNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initVia2ViaMinLenNew_minSpc " <<getDesign()->getTech()->getLayer(lNum)->getName()
            <<" (d2d-x, d2d-y, d2u-x, d2u-y, u2d-x, u2d-y, u2u-x, u2u-y) = (" 
            <<via2viaMinLenNew[i][0] <<", "
            <<via2viaMinLenNew[i][1] <<", "
@@ -993,7 +993,7 @@ void FlexDR::init_via2viaMinLenNew() {
     via2viaMinLenNew[i][6] = max(via2viaMinLenNew[i][6], init_via2viaMinLenNew_minimumcut1(lNum, upVia,   upVia,   false));
     via2viaMinLenNew[i][7] = max(via2viaMinLenNew[i][7], init_via2viaMinLenNew_minimumcut1(lNum, upVia,   upVia,   true ));
     if (enableOutput) {
-      cout <<"initVia2ViaMinLenNew_minimumcut " <<getDesign()->getTech()->getLayer(lNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initVia2ViaMinLenNew_minimumcut " <<getDesign()->getTech()->getLayer(lNum)->getName()
            <<" (d2d-x, d2d-y, d2u-x, d2u-y, u2d-x, u2d-y, u2u-x, u2u-y) = (" 
            <<via2viaMinLenNew[i][0] <<", "
            <<via2viaMinLenNew[i][1] <<", "
@@ -1030,7 +1030,7 @@ void FlexDR::init_via2viaMinLenNew() {
     via2viaMinLenNew[i][6] = max(via2viaMinLenNew[i][6], init_via2viaMinLenNew_cutSpc(lNum, upVia,   upVia,   false));
     via2viaMinLenNew[i][7] = max(via2viaMinLenNew[i][7], init_via2viaMinLenNew_cutSpc(lNum, upVia,   upVia,   true ));
     if (enableOutput) {
-      cout <<"initVia2ViaMinLenNew_cutSpc " <<getDesign()->getTech()->getLayer(lNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initVia2ViaMinLenNew_cutSpc " <<getDesign()->getTech()->getLayer(lNum)->getName()
            <<" (d2d-x, d2d-y, d2u-x, d2u-y, u2d-x, u2d-y, u2u-x, u2u-y) = (" 
            <<via2viaMinLenNew[i][0] <<", "
            <<via2viaMinLenNew[i][1] <<", "
@@ -1188,7 +1188,7 @@ void FlexDR::init_via2turnMinLen() {
     via2turnMinLen[i][2] = max(via2turnMinLen[i][2], init_via2turnMinLen_minSpc(lNum, upVia, false));
     via2turnMinLen[i][3] = max(via2turnMinLen[i][3], init_via2turnMinLen_minSpc(lNum, upVia, true));
     if (enableOutput) {
-      cout <<"initVia2TurnMinLen_minSpc " <<getDesign()->getTech()->getLayer(lNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initVia2TurnMinLen_minSpc " <<getDesign()->getTech()->getLayer(lNum)->getName()
            <<" (down->x->y, down->y->x, up->x->y, up->y->x) = (" 
            <<via2turnMinLen[i][0] <<", "
            <<via2turnMinLen[i][1] <<", "
@@ -1218,7 +1218,7 @@ void FlexDR::init_via2turnMinLen() {
     via2turnMinLen[i][2] = max(via2turnMinLen[i][2], init_via2turnMinLen_minStp(lNum, upVia, false));
     via2turnMinLen[i][3] = max(via2turnMinLen[i][3], init_via2turnMinLen_minStp(lNum, upVia, true));
     if (enableOutput) {
-      cout <<"initVia2TurnMinLen_minstep " <<getDesign()->getTech()->getLayer(lNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initVia2TurnMinLen_minstep " <<getDesign()->getTech()->getLayer(lNum)->getName()
            <<" (down->x->y, down->y->x, up->x->y, up->y->x) = (" 
            <<via2turnMinLen[i][0] <<", "
            <<via2turnMinLen[i][1] <<", "
@@ -1235,7 +1235,7 @@ void FlexDR::init() {
   ProfileTask profile("DR:init");
   frTime t;
   if (VERBOSE > 0) {
-    cout <<endl <<"start routing data preparation" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start routing data preparation" <<endl;
   }
   initGCell2BoundaryPin();
   getRegionQuery()->initDRObj(getTech()->getLayers().size()); // first init in postProcess
@@ -1290,7 +1290,7 @@ void FlexDR::initDR(int size, bool enableDRC) {
   frTime t;
 
   if (VERBOSE > 0) {
-    cout <<endl <<"start initial detail routing ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start initial detail routing ..." <<endl;
   }
   frBox dieBox;
   getDesign()->getTopBlock()->getBoundaryBBox(dieBox);
@@ -1319,7 +1319,7 @@ void FlexDR::initDR(int size, bool enableDRC) {
     frPoint idx;
     getDesign()->getTopBlock()->getGCellIdx(frPoint(xl, yl), idx);
     if (VERBOSE > 1) {
-      cout <<"(i,j) = (" <<idx.x() <<", " <<idx.y() <<")" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"(i,j) = (" <<idx.x() <<", " <<idx.y() <<")" <<endl;
     }
     //getDesign()->getTopBlock()->getGCellBox(idx, routeBox);
     frBox routeBox1;
@@ -1347,7 +1347,7 @@ void FlexDR::initDR(int size, bool enableDRC) {
     worker.setEnableDRC(enableDRC);
     //worker.setTest(true);
     worker.main();
-    cout <<"done"  <<endl <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"done"  <<endl <<flush;
   } else {
     vector<unique_ptr<FlexDRWorker> > uworkers;
     int batchStepX, batchStepY;
@@ -1418,11 +1418,11 @@ void FlexDR::initDR(int size, bool enableDRC) {
                 //if (true) {
                 if (isExceed) {
                   if (enableDRC) {
-                    cout <<"    completing " <<prev_perc <<"% with " <<getDesign()->getTopBlock()->getNumMarkers() <<" violations" <<endl;
+                    cout << __FILE__ << ":" << __LINE__ << ": " <<"    completing " <<prev_perc <<"% with " <<getDesign()->getTopBlock()->getNumMarkers() <<" violations" <<endl;
                   } else {
-                    cout <<"    completing " <<prev_perc <<"% with " <<numQuickMarkers <<" quick violations" <<endl;
+                    cout << __FILE__ << ":" << __LINE__ << ": " <<"    completing " <<prev_perc <<"% with " <<numQuickMarkers <<" quick violations" <<endl;
                   }
-                  cout <<"    " <<t <<endl <<flush;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"    " <<t <<endl <<flush;
                 }
               }
             }
@@ -1446,26 +1446,26 @@ void FlexDR::initDR(int size, bool enableDRC) {
       //if (true) {
       if (isExceed) {
         if (enableDRC) {
-          cout <<"    completing " <<prev_perc <<"% with " <<getDesign()->getTopBlock()->getNumMarkers() <<" violations" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"    completing " <<prev_perc <<"% with " <<getDesign()->getTopBlock()->getNumMarkers() <<" violations" <<endl;
         } else {
-          cout <<"    completing " <<prev_perc <<"% with " <<numQuickMarkers <<" quick violations" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"    completing " <<prev_perc <<"% with " <<numQuickMarkers <<" quick violations" <<endl;
         }
-        cout <<"    " <<t <<endl <<flush;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"    " <<t <<endl <<flush;
       }
     }
   }
 
-  //cout <<"  number of violations = " <<numMarkers <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"  number of violations = " <<numMarkers <<endl;
   removeGCell2BoundaryPin();
   numViols.push_back(getDesign()->getTopBlock()->getNumMarkers());
   if (VERBOSE > 0) {
     if (enableDRC) {
-      cout <<"  number of violations = "       <<getDesign()->getTopBlock()->getNumMarkers() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  number of violations = "       <<getDesign()->getTopBlock()->getNumMarkers() <<endl;
     } else {
-      cout <<"  number of quick violations = " <<numQuickMarkers <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  number of quick violations = " <<numQuickMarkers <<endl;
     }
     t.print();
-    cout <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<flush;
   }
 }
 
@@ -1495,7 +1495,7 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
   //bool TEST = false;
   //bool TEST = true;
   if (VERBOSE > 0) {
-    cout <<endl <<"start " <<iter;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start " <<iter;
     string suffix;
     if (iter == 1 || (iter > 20 && iter % 10 == 1)) {
       suffix = "st";
@@ -1506,7 +1506,7 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
     } else {
       suffix = "th";
     }
-    cout <<suffix <<" optimization iteration ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<suffix <<" optimization iteration ..." <<endl;
   }
   frBox dieBox;
   getDesign()->getTopBlock()->getBoundaryBBox(dieBox);
@@ -1520,7 +1520,7 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
   int prev_perc = 0;
   bool isExceed = false;
   if (TEST) {
-    cout <<"search and repair test mode" <<endl <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"search and repair test mode" <<endl <<flush;
     //FlexDRWorker worker(getDesign());
     FlexDRWorker worker(this);
     frBox routeBox;
@@ -1529,7 +1529,7 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
     //frPoint idx;
     //getDesign()->getTopBlock()->getGCellIdx(frPoint(xl, yl), idx);
     //if (VERBOSE > 1) {
-    //  cout <<"(i,j) = (" <<idx.x() <<", " <<idx.y() <<")" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"(i,j) = (" <<idx.x() <<", " <<idx.y() <<")" <<endl;
     //}
     //getDesign()->getTopBlock()->getGCellBox(idx, routeBox);
     //routeBox.set(156*2000, 108.3*2000, 177*2000, 128.25*2000);
@@ -1563,7 +1563,7 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
     worker.setCost(workerDRCCost, workerMarkerCost, workerMarkerBloatWidth, workerMarkerBloatDepth);
     worker.main_mt();
     numQuickMarkers += worker.getNumQuickMarkers();
-    cout <<"done"  <<endl <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"done"  <<endl <<flush;
   } else {
 
     vector<unique_ptr<FlexDRWorker> > uworkers;
@@ -1594,7 +1594,7 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
         worker->setDRIter(iter);
         if (!iter) {
           // if (routeBox.left() == 441000 && routeBox.bottom() == 816100) {
-          //   cout << "@@@ debug: " << i << " " << j << endl;
+          //   cout << __FILE__ << ":" << __LINE__ << ": " << "@@@ debug: " << i << " " << j << endl;
           // }
           // set boundary pin
           auto bp = initDR_mergeBoundaryPin(i, j, size, routeBox);
@@ -1643,11 +1643,11 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
                   //if (true) {
                   if (isExceed) {
                     if (enableDRC) {
-                      cout <<"    completing " <<prev_perc <<"% with " <<getDesign()->getTopBlock()->getNumMarkers() <<" violations" <<endl;
+                      cout << __FILE__ << ":" << __LINE__ << ": " <<"    completing " <<prev_perc <<"% with " <<getDesign()->getTopBlock()->getNumMarkers() <<" violations" <<endl;
                     } else {
-                      cout <<"    completing " <<prev_perc <<"% with " <<numQuickMarkers <<" quick violations" <<endl;
+                      cout << __FILE__ << ":" << __LINE__ << ": " <<"    completing " <<prev_perc <<"% with " <<numQuickMarkers <<" quick violations" <<endl;
                     }
-                    cout <<"    " <<t <<endl <<flush;
+                    cout << __FILE__ << ":" << __LINE__ << ": " <<"    " <<t <<endl <<flush;
                   }
                 }
               }
@@ -1677,11 +1677,11 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
       //if (true) {
       if (isExceed) {
         if (enableDRC) {
-          cout <<"    completing " <<prev_perc <<"% with " <<getDesign()->getTopBlock()->getNumMarkers() <<" violations" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"    completing " <<prev_perc <<"% with " <<getDesign()->getTopBlock()->getNumMarkers() <<" violations" <<endl;
         } else {
-          cout <<"    completing " <<prev_perc <<"% with " <<numQuickMarkers <<" quick violations" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"    completing " <<prev_perc <<"% with " <<numQuickMarkers <<" quick violations" <<endl;
         }
-        cout <<"    " <<t <<endl <<flush;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"    " <<t <<endl <<flush;
       }
     }
   }
@@ -1689,12 +1689,12 @@ void FlexDR::searchRepair(int iter, int size, int offset, int mazeEndIter,
   numViols.push_back(getDesign()->getTopBlock()->getNumMarkers());
   if (VERBOSE > 0) {
     if (enableDRC) {
-      cout <<"  number of violations = " <<getDesign()->getTopBlock()->getNumMarkers() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  number of violations = " <<getDesign()->getTopBlock()->getNumMarkers() <<endl;
     } else {
-      cout <<"  number of quick violations = " <<numQuickMarkers <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  number of quick violations = " <<numQuickMarkers <<endl;
     }
     t.print();
-    cout <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<flush;
   }
   end();
 }
@@ -1731,21 +1731,21 @@ void FlexDR::end() {
   }
   if (VERBOSE > 0) {
     boost::io::ios_all_saver guard(std::cout);
-    cout <<endl <<"total wire length = " <<totWlen / getDesign()->getTopBlock()->getDBUPerUU() <<" um" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"total wire length = " <<totWlen / getDesign()->getTopBlock()->getDBUPerUU() <<" um" <<endl;
     for (int i = getTech()->getBottomLayerNum(); i <= getTech()->getTopLayerNum(); i++) {
       if (getTech()->getLayer(i)->getType() == frLayerTypeEnum::ROUTING) {
-        cout <<"total wire length on LAYER " <<getTech()->getLayer(i)->getName() <<" = " 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"total wire length on LAYER " <<getTech()->getLayer(i)->getName() <<" = " 
              <<wlen[i] / getDesign()->getTopBlock()->getDBUPerUU() <<" um" <<endl;
       }
     }
-    cout <<"total number of vias = " <<totSCut + totMCut <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"total number of vias = " <<totSCut + totMCut <<endl;
     if (totMCut > 0) {
-      cout <<"total number of multi-cut vias = " <<totMCut 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"total number of multi-cut vias = " <<totMCut 
            << " (" <<setw(5) <<fixed <<setprecision(1) <<totMCut * 100.0 / (totSCut + totMCut) <<"%)" <<endl;
-      cout <<"total number of single-cut vias = " <<totSCut 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"total number of single-cut vias = " <<totSCut 
            << " (" <<setw(5) <<fixed <<setprecision(1) <<totSCut * 100.0 / (totSCut + totMCut) <<"%)" <<endl;
     }
-    cout <<"up-via summary (total " <<totSCut + totMCut <<"):" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"up-via summary (total " <<totSCut + totMCut <<"):" <<endl;
     int nameLen = 0;
     for (int i = getTech()->getBottomLayerNum(); i <= getTech()->getTopLayerNum(); i++) {
       if (getTech()->getLayer(i)->getType() == frLayerTypeEnum::CUT) {
@@ -1757,41 +1757,41 @@ void FlexDR::end() {
       maxL += 9 + 4 + (int)to_string(totMCut).length() + 9 + 4 + (int)to_string(totSCut + totMCut).length();
     }
     if (totMCut) {
-      cout <<" " <<setw(nameLen + 4 + (int)to_string(totSCut).length() + 9) <<"single-cut";
-      cout <<setw(4 + (int)to_string(totMCut).length() + 9) <<"multi-cut" 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<setw(nameLen + 4 + (int)to_string(totSCut).length() + 9) <<"single-cut";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<setw(4 + (int)to_string(totMCut).length() + 9) <<"multi-cut" 
            <<setw(4 + (int)to_string(totSCut + totMCut).length()) <<"total";
     }
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     for (int i = 0; i < maxL; i++) {
-      cout <<"-";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"-";
     }
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     for (int i = getTech()->getBottomLayerNum(); i <= getTech()->getTopLayerNum(); i++) {
       if (getTech()->getLayer(i)->getType() == frLayerTypeEnum::CUT) {
-        cout <<" "    <<setw(nameLen) <<getTech()->getLayer(i-1)->getName() 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" "    <<setw(nameLen) <<getTech()->getLayer(i-1)->getName() 
              <<"    " <<setw((int)to_string(totSCut).length()) <<sCut[i];
         if (totMCut) {
-          cout <<" ("   <<setw(5) <<(double)((sCut[i] + mCut[i]) ? sCut[i] * 100.0 / (sCut[i] + mCut[i]) : 0.0) <<"%)";
-          cout <<"    " <<setw((int)to_string(totMCut).length()) <<mCut[i] 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ("   <<setw(5) <<(double)((sCut[i] + mCut[i]) ? sCut[i] * 100.0 / (sCut[i] + mCut[i]) : 0.0) <<"%)";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"    " <<setw((int)to_string(totMCut).length()) <<mCut[i] 
                <<" ("   <<setw(5) <<(double)((sCut[i] + mCut[i]) ? mCut[i] * 100.0 / (sCut[i] + mCut[i]) : 0.0) <<"%)"
                <<"    " <<setw((int)to_string(totSCut + totMCut).length()) <<sCut[i] + mCut[i];
         }
-        cout <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
       }
     }
     for (int i = 0; i < maxL; i++) {
-      cout <<"-";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"-";
     }
-    cout <<endl;
-    cout <<" "    <<setw(nameLen) <<""
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<" "    <<setw(nameLen) <<""
          <<"    " <<setw((int)to_string(totSCut).length()) <<totSCut;
     if (totMCut) {
-      cout <<" ("   <<setw(5) <<(double)((totSCut + totMCut) ? totSCut * 100.0 / (totSCut + totMCut) : 0.0) <<"%)";
-      cout <<"    " <<setw((int)to_string(totMCut).length()) <<totMCut 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ("   <<setw(5) <<(double)((totSCut + totMCut) ? totSCut * 100.0 / (totSCut + totMCut) : 0.0) <<"%)";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"    " <<setw((int)to_string(totMCut).length()) <<totMCut 
            <<" ("   <<setw(5) <<(double)((totSCut + totMCut) ? totMCut * 100.0 / (totSCut + totMCut) : 0.0) <<"%)"
            <<"    " <<setw((int)to_string(totSCut + totMCut).length()) <<totSCut + totMCut;
     }
-    cout <<endl <<endl <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<endl <<flush;
     guard.restore();
   }
 }
@@ -1801,11 +1801,11 @@ void FlexDR::reportDRC() {
 
   if (DRC_RPT_FILE == string("")) {
     if (VERBOSE > 0) {
-      cout <<"Waring: no DRC report specified, skipped writing DRC report" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Waring: no DRC report specified, skipped writing DRC report" <<endl;
     }
     return;
   }
-  //cout << DRC_RPT_FILE << "\n";
+  //cout << __FILE__ << ":" << __LINE__ << ": " << DRC_RPT_FILE << "\n";
   ofstream drcRpt(DRC_RPT_FILE.c_str());
   if (drcRpt.is_open()) {
     for (auto &marker: getDesign()->getTopBlock()->getMarkers()) {
@@ -1885,7 +1885,7 @@ void FlexDR::reportDRC() {
               break;
             }
             default:
-              std::cout << "Error: unexpected src type in marker\n";
+              std::cout << __FILE__ << ":" << __LINE__ << ": " << "Error: unexpected src type in marker\n";
           }
         }
       }
@@ -1903,7 +1903,7 @@ void FlexDR::reportDRC() {
       }
     }
   } else {
-    cout << "Error: Fail to open DRC report file\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: Fail to open DRC report file\n";
   }
   
 }
@@ -1914,7 +1914,7 @@ int FlexDR::main() {
   init();
   frTime t;
   if (VERBOSE > 0) {
-    cout <<endl <<endl <<"start detail routing ...";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<endl <<"start detail routing ...";
   }
   // search and repair: iter, size, offset, mazeEndIter, workerDRCCost, workerMarkerCost, 
   //                    markerBloatWidth, markerBloatDepth, enableDRC, ripupMode, followGuide, fixMode, TEST
@@ -2004,12 +2004,12 @@ int FlexDR::main() {
     reportDRC();
   }
   if (VERBOSE > 0) {
-    cout <<endl <<"complete detail routing";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"complete detail routing";
     end();
   }
   if (VERBOSE > 0) {
     t.print();
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
   return 0;
 }

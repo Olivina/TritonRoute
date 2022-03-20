@@ -135,7 +135,7 @@ int main(int argc, char** argv)
   using namespace std::chrono;
   high_resolution_clock::time_point t1 = high_resolution_clock::now();
   if (argc == 1) {
-    cout << "usage:\n ./TritonRoute \n  -lef <LEF_FILE> \n  -def <DEF_FILE> \n "
+    cout << __FILE__ << ":" << __LINE__ << ": " << "usage:\n ./TritonRoute \n  -lef <LEF_FILE> \n  -def <DEF_FILE> \n "
             " -guide <GUIDE_FILE> \n  -output <OUTPUT_DEF> \n  "
             "[optional]-threads <NUM_THREADS>\n  [optional]-verbose "
             "<LOG_LEVEL>\n"
@@ -147,7 +147,7 @@ int main(int argc, char** argv)
   if (argc == 2) {
     int readSuccess = readParams(string(argv[1]));
     if (readSuccess) {
-      cout << "Error reading param file!!!" << endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Error reading param file!!!" << endl;
       return 2;
     }
   } else {
@@ -180,7 +180,7 @@ int main(int argc, char** argv)
         argc--;
         VERBOSE = atoi(*argv);
       } else {
-        cout << "ERROR: Illegal command line option: " << *argv << endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " << "ERROR: Illegal command line option: " << *argv << endl;
         return 2;
       }
       argv++;
@@ -193,7 +193,7 @@ int main(int argc, char** argv)
   high_resolution_clock::time_point t2 = high_resolution_clock::now();
   duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
   if (VERBOSE > 0) {
-    cout << endl << "Runtime taken (hrt): " << time_span.count() << endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " << endl << "Runtime taken (hrt): " << time_span.count() << endl;
   }
   return 0;
 }

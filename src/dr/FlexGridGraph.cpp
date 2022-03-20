@@ -83,26 +83,26 @@ void FlexGridGraph::initGrids(const map<frCoord, map<frLayerNum, frTrackPattern*
   }
 
   if (enableOutput) {
-    cout <<"x ";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"x ";
     for (auto &k: xCoords) {
-      cout <<" " <<k;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<k;
     }
-    cout <<endl;
-    cout <<"y ";   
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"y ";   
     for (auto &k: yCoords) {
-      cout <<" " <<k;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<k;
     }
-    cout <<endl;
-    cout <<"z ";   
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"z ";   
     for (auto &k: zCoords) {
-      cout <<" " <<k;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<k;
     }
-    cout <<endl;
-    cout <<"z height ";   
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"z height ";   
     for (auto &k: zHeights) {
-      cout <<" " <<k;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<k;
     }
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
 }
 
@@ -152,7 +152,7 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
           if (layerNum >= BOTTOM_ROUTING_LAYER && layerNum <= TOP_ROUTING_LAYER) {
             if (enableOutput) {
               if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::E)) {
-                cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) already set" <<endl;
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) already set" <<endl;
               }
             }
             if (getTech()->getLayer(layerNum)->getLef58RightWayOnGridOnlyConstraint() == nullptr || yIt->second != nullptr) {
@@ -162,14 +162,14 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
               }
               if (enableOutput) {
                 if (!flag) {
-                  cout <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E)" <<endl;
                 } else if (!hasEdge(xIdx, yIdx, zIdx, frDirEnum::E)) {
-                  cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) not set" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) not set" <<endl;
                 } else {
                   if (hasGridCostE(xIdx, yIdx, zIdx) != ((yIt->second || outOfDiePlanar) ? false : true)) {
-                    cout <<"check edge cost failed (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) != 1" <<endl;
+                    cout << __FILE__ << ":" << __LINE__ << ": " <<"check edge cost failed (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) != 1" <<endl;
                   }
-                  cout <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E)" <<endl;
                 }
               }
             }
@@ -178,7 +178,7 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
           if (xFound2) {
             if (enableOutput) {
               if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::U)) {
-                cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) already set" <<endl;
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) already set" <<endl;
               }
             }
             if ((getTech()->getLayer(layerNum)->getLef58RightWayOnGridOnlyConstraint() != nullptr && yIt->second == nullptr) || 
@@ -192,11 +192,11 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
               }
               if (enableOutput) {
                 if (!flag) {
-                  cout <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U)" <<endl;
                 } else if (!hasEdge(xIdx, yIdx, zIdx, frDirEnum::U)) {
-                  cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) not set" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) not set" <<endl;
                 } else {
-                  cout <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U)" <<endl;
                 }
               }
             }
@@ -205,7 +205,7 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
           if (layerNum >= BOTTOM_ROUTING_LAYER && layerNum <= TOP_ROUTING_LAYER) {
             if (enableOutput) {
               if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::N)) {
-                cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) already set" <<endl;
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) already set" <<endl;
               }
             }
             if (getTech()->getLayer(layerNum)->getLef58RightWayOnGridOnlyConstraint() == nullptr || xIt->second != nullptr) {
@@ -215,14 +215,14 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
               }
               if (enableOutput) {
                 if (!flag) {
-                  cout <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N)" <<endl;
                 } else if (!hasEdge(xIdx, yIdx, zIdx, frDirEnum::N)) {
-                  cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) not set" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) not set" <<endl;
                 } else {
                   if (hasGridCostN(xIdx, yIdx, zIdx) != ((xIt->second || outOfDiePlanar) ? false : true)) {
-                    cout <<"check edge cost failed (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) != 1" <<endl;
+                    cout << __FILE__ << ":" << __LINE__ << ": " <<"check edge cost failed (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) != 1" <<endl;
                   }
-                  cout <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N)" <<endl;
 
                 }
               }
@@ -232,7 +232,7 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
           if (yFound2) {
             if (enableOutput) {
               if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::U)) {
-                cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) already set" <<endl;
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) already set" <<endl;
               }
             }
             if ((getTech()->getLayer(layerNum)->getLef58RightWayOnGridOnlyConstraint() != nullptr && xIt->second == nullptr) || 
@@ -246,11 +246,11 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
               }
               if (enableOutput) {
                 if (!flag) {
-                  cout <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U)" <<endl;
                 } else if (!hasEdge(xIdx, yIdx, zIdx, frDirEnum::U)) {
-                  cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) not set" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) not set" <<endl;
                 } else {
-                  cout <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U)" <<endl;
                 }
               }
             }
@@ -264,21 +264,21 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
             if (layerNum >= BOTTOM_ROUTING_LAYER && layerNum <= TOP_ROUTING_LAYER) {
               if (enableOutput) {
                 if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::N)) {
-                  cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) already set" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) already set" <<endl;
                 }
               }
               flag = addEdge(xIdx, yIdx, zIdx, frDirEnum::N, bbox, initDR);
               setGridCostN(xIdx, yIdx, zIdx);
               if (enableOutput) {
                 if (!flag) {
-                  cout <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N)" <<endl;
                 } else if (!hasEdge(xIdx, yIdx, zIdx, frDirEnum::N)) {
-                  cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) not set" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) not set" <<endl;
                 } else {
                   if (!hasGridCostN(xIdx, yIdx, zIdx)) {
-                    cout <<"check edge cost failed (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) != 1" <<endl;
+                    cout << __FILE__ << ":" << __LINE__ << ": " <<"check edge cost failed (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) != 1" <<endl;
                   }
-                  cout <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N)" <<endl;
                 }
               }
             }
@@ -287,21 +287,21 @@ void FlexGridGraph::initEdges(const map<frCoord, map<frLayerNum, frTrackPattern*
             if (layerNum >= BOTTOM_ROUTING_LAYER && layerNum <= TOP_ROUTING_LAYER) {
               if (enableOutput) {
                 if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::E)) {
-                  cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) already set" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) already set" <<endl;
                 }
               }
               flag = addEdge(xIdx, yIdx, zIdx, frDirEnum::E, bbox, initDR);
               setGridCostE(xIdx, yIdx, zIdx);
               if (enableOutput) {
                 if (!flag) {
-                  cout <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"edge out of bound (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E)" <<endl;
                 } else if (!hasEdge(xIdx, yIdx, zIdx, frDirEnum::E)) {
-                  cout <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) not set" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) not set" <<endl;
                 } else {
                   if (!hasGridCostE(xIdx, yIdx, zIdx)) {
-                    cout <<"check edge cost failed (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) != 1" <<endl;
+                    cout << __FILE__ << ":" << __LINE__ << ": " <<"check edge cost failed (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) != 1" <<endl;
                   }
-                  cout <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E)" <<endl;
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"add edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E)" <<endl;
                 }
               }
             }
@@ -338,7 +338,7 @@ void FlexGridGraph::init(const frBox &routeBBox, const frBox &extBBox,
     for(int i = 0; i < (int)xCoords.size(); i++) {
       for(int j = 0; j < (int)yCoords.size(); j++) {
         for(int k = 0; k < (int)zCoords.size(); k++) {
-          cout <<"test x/y/z/E/N/U = "  <<i <<" " <<j <<" " <<k <<" "
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"test x/y/z/E/N/U = "  <<i <<" " <<j <<" " <<k <<" "
                <<hasGridCostE(i, j, k) <<" "
                <<hasGridCostN(i, j, k) <<" "
                <<"0" <<" " <<endl;
@@ -361,7 +361,7 @@ void FlexGridGraph::initTracks(map<frCoord, map<frLayerNum, frTrackPattern* > > 
       continue;
     }
     if (enableOutput) {
-      cout <<"initTracks: " <<layer->getName() <<endl <<flush;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"initTracks: " <<layer->getName() <<endl <<flush;
     }
     frLayerNum currLayerNum = layer->getLayerNum();
     frPrefRoutingDirEnum currPrefRouteDir = layer->getDir();
@@ -395,7 +395,7 @@ void FlexGridGraph::initTracks(map<frCoord, map<frLayerNum, frTrackPattern* > > 
     zMap[currLayerNum] = currPrefRouteDir;
   }
   if (enableOutput) {
-    cout <<"finish initTracks" <<endl <<flush;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"finish initTracks" <<endl <<flush;
   }
 }
 
@@ -435,10 +435,10 @@ void FlexGridGraph::print() const {
     getDim(xDim, yDim, zDim);
 
     if (xDim == 0 || yDim == 0 || zDim == 0) {
-      cout << "Error: dimension == 0\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Error: dimension == 0\n";
       return;
     } else {
-      cout << "extBBox (xDim, yDim, zDim) = (" << xDim << ", " << yDim << ", " << zDim << ")\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "extBBox (xDim, yDim, zDim) = (" << xDim << ", " << yDim << ", " << zDim << ")\n";
     }
 
     frPoint p;
@@ -447,7 +447,7 @@ void FlexGridGraph::print() const {
         for (frMIdx zIdx = 0; zIdx < zDim; ++zIdx) {
           if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::N)) {
             if (yIdx + 1 >= yDim) {
-              cout <<"Error: no edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) " <<yDim <<endl;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", N) " <<yDim <<endl;
               continue;
             } 
             mazeLog << "Edge: " << getPoint(p, xIdx, yIdx).x()   << " " << getPoint(p, xIdx, yIdx).y()   << " " << zIdx
@@ -455,7 +455,7 @@ void FlexGridGraph::print() const {
           }
           if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::E)) {
             if (xIdx + 1 >= xDim) {
-              cout <<"Error: no edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) " << xDim <<endl;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", E) " << xDim <<endl;
               continue;
             }
             mazeLog << "Edge: " << getPoint(p, xIdx, yIdx).x()   << " " << getPoint(p, xIdx, yIdx).y()   << " " << zIdx
@@ -463,7 +463,7 @@ void FlexGridGraph::print() const {
           }
           if (hasEdge(xIdx, yIdx, zIdx, frDirEnum::U)) {
             if (zIdx + 1 >= zDim) {
-              cout <<"Error: no edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) " <<zDim <<endl;
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no edge (" <<xIdx <<", " <<yIdx <<", " <<zIdx <<", U) " <<zDim <<endl;
               continue;
             }
             mazeLog << "Edge: " << getPoint(p, xIdx, yIdx).x() << " " << getPoint(p, xIdx, yIdx).y() << " " << zIdx
@@ -473,7 +473,7 @@ void FlexGridGraph::print() const {
       }
     }
   } else {
-    cout << "Error: Fail to open maze log\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: Fail to open maze log\n";
   }
 }
 

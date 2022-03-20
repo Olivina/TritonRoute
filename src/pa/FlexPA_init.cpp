@@ -56,7 +56,7 @@ void FlexPA::initUniqueInstance_refBlock2PinLayerRange(map<frBlock*, tuple<frLay
   //bool enableOutput = true;
   bool enableOutput = false;
   if (enableOutput) {
-    cout <<endl <<"initUniqueInstances_refBlock2PinLayerRange ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"initUniqueInstances_refBlock2PinLayerRange ..." <<endl;
   }
   int numLayers = design->getTech()->getLayers().size();
   for (auto &uRefBlock: design->getRefBlocks()) {
@@ -83,25 +83,25 @@ void FlexPA::initUniqueInstance_refBlock2PinLayerRange(map<frBlock*, tuple<frLay
             }
             maxLayerNum = std::max(maxLayerNum, lNum);
           } else {
-            cout <<"Error: instAnalysis unsupported pinFig" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: instAnalysis unsupported pinFig" <<endl;
           }
         }
       }
     }
     if (minLayerNum < getDesign()->getTech()->getBottomLayerNum() ||
         maxLayerNum > getDesign()->getTech()->getTopLayerNum()) {
-      cout <<"Warning: instAnalysis skips " <<refBlock->getName() <<" due to no pin shapes" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: instAnalysis skips " <<refBlock->getName() <<" due to no pin shapes" <<endl;
       continue;
     }
     maxLayerNum = std::min(maxLayerNum + 2, numLayers);
     refBlock2PinLayerRange[refBlock] = make_tuple(minLayerNum, maxLayerNum);
     if (enableOutput) {
-      cout <<"  " <<refBlock->getName() <<" PIN layer ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  " <<refBlock->getName() <<" PIN layer ("
            <<design->getTech()->getLayer(minLayerNum)->getName() <<", "
            <<design->getTech()->getLayer(maxLayerNum)->getName() <<")" <<endl;
     }
   }
-  //cout <<"  refBlock pin layer range done" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"  refBlock pin layer range done" <<endl;
 }
 
 bool FlexPA::hasTrackPattern(frTrackPattern* tp, const frBox &box) {
@@ -112,7 +112,7 @@ bool FlexPA::hasTrackPattern(frTrackPattern* tp, const frBox &box) {
   frCoord high = low + (frCoord)(tp->getTrackSpacing()) * ((frCoord)(tp->getNumTracks()) - 1);
   if (enableOutput) {
     double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-    cout <<"tp low@" <<low / dbu <<", high@" <<high / dbu <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"tp low@" <<low / dbu <<", high@" <<high / dbu <<endl;
   }
   if (isVerticalTrack) {
     return !(low > box.right() || high < box.left());
@@ -127,7 +127,7 @@ void FlexPA::initUniqueInstance_main(const map<frBlock*, tuple<frLayerNum, frLay
   bool enableOutput = false;
   //bool enableOutput = true;
   if (enableOutput) {
-    cout <<endl <<"initUniqueInstances_main ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"initUniqueInstances_main ..." <<endl;
   }
   map<frBlock*, 
       map<frOrient, map<vector<frCoord>, set<frInst*, frBlockObjectComp> > >,
@@ -141,11 +141,11 @@ void FlexPA::initUniqueInstance_main(const map<frBlock*, tuple<frLayerNum, frLay
     inst->getBoundaryBBox(boundaryBBox);
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      //cout <<inst->getName() <<": (" 
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<inst->getName() <<": (" 
       //     <<boundaryBBox.left()  <<", " <<boundaryBBox.bottom() <<") ("
       //     <<boundaryBBox.right() <<", " <<boundaryBBox.top()    <<")"
       //     <<endl;
-      cout <<inst->getName() <<": (" 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<inst->getName() <<": (" 
            <<boundaryBBox.left()  / dbu <<", " <<boundaryBBox.bottom() / dbu <<") ("
            <<boundaryBBox.right() / dbu <<", " <<boundaryBBox.top()    / dbu <<")"
            <<endl;
@@ -160,13 +160,13 @@ void FlexPA::initUniqueInstance_main(const map<frBlock*, tuple<frLayerNum, frLay
           if (tp->isHorizontal()) {
             offset.push_back(origin.x() % tp->getTrackSpacing());
             //if (enableOutput) {
-            //  cout <<"inst/offset/layer " <<inst->getName() <<" " <<origin.y() % tp->getTrackSpacing() 
+            //  cout << __FILE__ << ":" << __LINE__ << ": " <<"inst/offset/layer " <<inst->getName() <<" " <<origin.y() % tp->getTrackSpacing() 
             //       <<" " <<design->getTech()->getLayer(tp->getLayerNum())->getName() <<endl;
             //}
           } else {
             offset.push_back(origin.y() % tp->getTrackSpacing());
             //if (enableOutput) {
-            //  cout <<"inst/offset/layer " <<inst->getName() <<" " <<origin.x() % tp->getTrackSpacing()
+            //  cout << __FILE__ << ":" << __LINE__ << ": " <<"inst/offset/layer " <<inst->getName() <<" " <<origin.x() % tp->getTrackSpacing()
             //       <<" " <<design->getTech()->getLayer(tp->getLayerNum())->getName() <<endl;
             //}
           }
@@ -182,30 +182,30 @@ void FlexPA::initUniqueInstance_main(const map<frBlock*, tuple<frLayerNum, frLay
     //if (VERBOSE > 0) {
     //  if (cnt < 100000) {
     //    if (cnt % 10000 == 0) {
-    //      cout <<"  complete " <<cnt <<" instances" <<endl;
+    //      cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" instances" <<endl;
     //    }
     //  } else {
     //    if (cnt % 100000 == 0) {
-    //      cout <<"  complete " <<cnt <<" instances" <<endl;
+    //      cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" instances" <<endl;
     //    }
     //  }
     //}
   }
 
   if (enableOutput) {
-    cout <<endl <<"summary: " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"summary: " <<endl;
   }
   cnt = 0;
   frString orientName;
   for (auto &[refBlock, orientMap]: refBlockOT2Insts) {
     if (enableOutput) {
-      cout <<"  " <<refBlock->getName() <<" (ORIENT/#diff patterns)" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  " <<refBlock->getName() <<" (ORIENT/#diff patterns)" <<endl;
     }
     for (auto &[orient, offsetMap]: orientMap) {
       cnt += offsetMap.size();
       if (enableOutput) {
         orient.getName(orientName);
-        cout <<"     (" <<orientName <<", " <<offsetMap.size() <<")";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"     (" <<orientName <<", " <<offsetMap.size() <<")";
       }
       for (auto &[vec, inst]: offsetMap) {
         auto uniqueInst = *(inst.begin());
@@ -214,11 +214,11 @@ void FlexPA::initUniqueInstance_main(const map<frBlock*, tuple<frLayerNum, frLay
           inst2unique[i] = uniqueInst;
         }
         if (enableOutput) {
-          cout <<" " <<(*(inst.begin()))->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<(*(inst.begin()))->getName();
         }
       }
       if (enableOutput) {
-        cout <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
       }
     }
   }
@@ -229,7 +229,7 @@ void FlexPA::initUniqueInstance_main(const map<frBlock*, tuple<frLayerNum, frLay
   }
 
   //if (VERBOSE > 0) {
-  //  cout <<"#unique instances = " <<cnt <<endl;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"#unique instances = " <<cnt <<endl;
   //}
 }
 
@@ -254,7 +254,7 @@ void FlexPA::initPinAccess() {
           unique2paidx[inst] = pin->getNumPinAccess();
         } else {
           if (unique2paidx[inst] != pin->getNumPinAccess()) {
-            cout <<"Error: initPinAccess error" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initPinAccess error" <<endl;
             exit(1);
           }
         }
@@ -268,15 +268,15 @@ void FlexPA::initPinAccess() {
     inst->setPinAccessIdx(uniqueInst->getPinAccessIdx());
   }
   if (enableOutput) {
-    cout <<"unique2paidx:" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"unique2paidx:" <<endl;
     for (auto &[inst, idx]: unique2paidx) {
-      cout <<inst->getName() <<" " <<idx <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<inst->getName() <<" " <<idx <<endl;
     }
   }
   if (enableOutput) {
-    cout <<"inst2paidx:" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"inst2paidx:" <<endl;
     for (auto &inst: getDesign()->getTopBlock()->getInsts()) {
-      cout <<inst->getName() <<" " <<inst->getPinAccessIdx() <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<inst->getName() <<" " <<inst->getPinAccessIdx() <<endl;
     }
   }
 
@@ -349,7 +349,7 @@ void FlexPA::initTrackCoords() {
   //bool enableOutput = true;
 
   if (enableOutput) {
-    cout <<endl <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<endl;
   }
 
   int     numLayers = getDesign()->getTech()->getLayers().size();
@@ -371,11 +371,11 @@ void FlexPA::initTrackCoords() {
     }
   }
   if (enableOutput) {
-    cout <<"full coords: " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"full coords: " <<endl;
     int cnt = 0;
     for (auto &m: trackCoords) {
       if (!m.empty()) {
-        cout <<getDesign()->getTech()->getLayer(cnt)->getName() <<": " <<m.size() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<getDesign()->getTech()->getLayer(cnt)->getName() <<": " <<m.size() <<endl;
       }
       cnt++;
     }
@@ -399,11 +399,11 @@ void FlexPA::initTrackCoords() {
     }
   }
   if (enableOutput) {
-    cout <<"full+half coords: " <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"full+half coords: " <<endl;
     int cnt = 0;
     for (auto &m: trackCoords) {
       if (!m.empty()) {
-        cout <<getDesign()->getTech()->getLayer(cnt)->getName() <<": " <<m.size() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<getDesign()->getTech()->getLayer(cnt)->getName() <<": " <<m.size() <<endl;
       }
       cnt++;
     }

@@ -72,7 +72,7 @@ frUInt4 taTrack::getCost(frCoord x1, frCoord x2, int type, taPinFig* fig) const 
           tmpCost++;
         }
       } else {
-        cout <<"Warning: taTrack::getCost unsupported type" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: taTrack::getCost unsupported type" <<endl;
       }
     }
     cost += tmpCost * len;

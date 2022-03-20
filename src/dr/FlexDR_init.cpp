@@ -49,14 +49,14 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
   // split seg
   frPoint begin, end;
   pathSeg->getPoints(begin, end);
-  //cout <<"here" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"here" <<endl;
   // vertical seg
   if (begin.x() == end.x()) {
-    //cout <<"vert seg" <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"vert seg" <<endl;
     // may cross routeBBox
     bool condition1 = isInitDR() ? (begin.x() < gridBBox.right()) : (begin.x() <= gridBBox.right());
     if (gridBBox.left() <= begin.x() && condition1) {
-      //cout << " pathSeg (" << begin.x() << ", " << begin.y() << ") - (" << end.x() << ", " << end.y() << ")\n";
+      //cout << __FILE__ << ":" << __LINE__ << ": " << " pathSeg (" << begin.x() << ", " << begin.y() << ") - (" << end.x() << ", " << end.y() << ")\n";
       // bottom seg to ext
       if (begin.y() < gridBBox.bottom()) {
         auto uPathSeg = make_unique<drPathSeg>(*pathSeg);
@@ -77,7 +77,7 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
           netRouteObjs[net].push_back(std::move(uDRObj));
         }
         if (enableOutput) {
-          cout <<"find pathseg to ext bottom (" << begin.x() / 2000.0 << ", " << begin.y() / 2000.0 << ") to ("
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"find pathseg to ext bottom (" << begin.x() / 2000.0 << ", " << begin.y() / 2000.0 << ") to ("
                << end.x() / 2000.0 << ", " << min(end.y(), gridBBox.bottom()) / 2000.0 << ") on Layer " << ps->getLayerNum() <<endl;
         }
       }
@@ -101,7 +101,7 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
 
         netRouteObjs[net].push_back(std::move(uDRObj));
         if (enableOutput) {
-          cout <<"find pathseg to route vert (" << begin.x() / 2000.0 << ", " << max(begin.y(), gridBBox.bottom()) / 2000.0
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"find pathseg to route vert (" << begin.x() / 2000.0 << ", " << max(begin.y(), gridBBox.bottom()) / 2000.0
                << ") to (" << end.x() / 2000.0 << ", " << min(end.y(),   gridBBox.top()) / 2000.0 << ")" <<endl;
         }
       }
@@ -125,7 +125,7 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
           netRouteObjs[net].push_back(std::move(uDRObj));
         }
         if (enableOutput) {
-          cout <<"find pathseg to ext top (at " << begin.x() / 2000.0 << ", " 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"find pathseg to ext top (at " << begin.x() / 2000.0 << ", " 
                << max(begin.y(), gridBBox.top()) / 2000.0 << ", " << ps->getLayerNum() << ") )" <<endl;
         }
       }
@@ -135,16 +135,16 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
       unique_ptr<drConnFig> uDRObj(std::move(uPathSeg));
       netExtObjs[net].push_back(std::move(uDRObj));
       if (enableOutput) {
-        cout <<"find pathseg to pure ext vert" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"find pathseg to pure ext vert" <<endl;
       }
     }
   // horizontal seg
   } else if (begin.y() == end.y()) {
-    //cout <<"horz seg" <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"horz seg" <<endl;
     // may cross routeBBox
     bool condition1 = isInitDR() ? (begin.y() < gridBBox.top()) : (begin.y() <= gridBBox.top());
     if (gridBBox.bottom() <= begin.y() && condition1) {
-      //cout << " pathSeg (" << begin.x() / 2000.0 << ", " << begin.y() / 2000.0 << ") - (" 
+      //cout << __FILE__ << ":" << __LINE__ << ": " << " pathSeg (" << begin.x() / 2000.0 << ", " << begin.y() / 2000.0 << ") - (" 
       //                     << end.x()   / 2000.0 << ", " << end.y() / 2000.0   << ")\n";
       // left seg to ext
       if (begin.x() < gridBBox.left()) {
@@ -166,7 +166,7 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
           netRouteObjs[net].push_back(std::move(uDRObj)); //touching bounds
         }
         if (enableOutput) {
-          cout <<"find pathseg to ext left (at " << min(end.x(), gridBBox.left()) / 2000.0 << ", " 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"find pathseg to ext left (at " << min(end.x(), gridBBox.left()) / 2000.0 << ", " 
                << end.y() / 2000.0 << ", " << ps->getLayerNum() << ") )" <<endl;
         }
       }
@@ -190,7 +190,7 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
 
         netRouteObjs[net].push_back(std::move(uDRObj));
         if (enableOutput) {
-          cout <<"find pathseg to route horz" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"find pathseg to route horz" <<endl;
         }
       }
       // right seg to ext
@@ -213,7 +213,7 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
           netRouteObjs[net].push_back(std::move(uDRObj)); // touching bounds
         }
         if (enableOutput) {
-          cout <<"find pathseg to ext right (at " << max(begin.x(), gridBBox.right()) / 2000.0 << ", " 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"find pathseg to ext right (at " << max(begin.x(), gridBBox.right()) / 2000.0 << ", " 
                << begin.y() / 2000.0 << ", " << ps->getLayerNum() << ") )" <<endl;
         }
       }
@@ -223,11 +223,11 @@ void FlexDRWorker::initNetObjs_pathSeg(frPathSeg* pathSeg,
       unique_ptr<drConnFig> uDRObj(std::move(uPathSeg));
       netExtObjs[net].push_back(std::move(uDRObj));
       if (enableOutput) {
-        cout <<"find pathseg to pure ext horz" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"find pathseg to pure ext horz" <<endl;
       }
     }
   } else {
-    cout <<"wtf" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"wtf" <<endl;
   }
 }
 
@@ -250,14 +250,14 @@ void FlexDRWorker::initNetObjs_via(frVia* via,
     unique_ptr<drConnFig> uDRObj(std::move(uVia));
     netRouteObjs[net].push_back(std::move(uDRObj));
     if (enableOutput) {
-      cout <<"find via route" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"find via route" <<endl;
     }
   } else {
     auto uVia = make_unique<drVia>(*via);
     unique_ptr<drConnFig> uDRObj(std::move(uVia));
     netExtObjs[net].push_back(std::move(uDRObj));
     if (enableOutput) {
-      cout <<"find via ext" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"find via ext" <<endl;
     }
   }
 }
@@ -281,14 +281,14 @@ void FlexDRWorker::initNetObjs_patchWire(frPatchWire* pwire,
     unique_ptr<drConnFig> uDRObj(std::move(uPWire));
     netRouteObjs[net].push_back(std::move(uDRObj));
     if (enableOutput) {
-      cout <<"find patch wire route" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"find patch wire route" <<endl;
     }
   } else {
     auto uPWire = make_unique<drPatchWire>(*pwire);
     unique_ptr<drConnFig> uDRObj(std::move(uPWire));
     netExtObjs[net].push_back(std::move(uDRObj));
     if (enableOutput) {
-      cout <<"find patch wire ext" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"find patch wire ext" <<endl;
     }
   }
 }
@@ -310,7 +310,7 @@ void FlexDRWorker::initNetObjs(set<frNet*, frBlockObjectComp> &nets,
         initNetObjs_pathSeg(cptr, nets, netRouteObjs, netExtObjs);
         cnt1++;
       } else {
-        cout <<"Error: initNetObjs hasNet() empty" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initNetObjs hasNet() empty" <<endl;
       }
     } else if (rptr->typeId() == frcVia) {
       auto cptr = static_cast<frVia*>(rptr);
@@ -318,7 +318,7 @@ void FlexDRWorker::initNetObjs(set<frNet*, frBlockObjectComp> &nets,
         initNetObjs_via(cptr, nets, netRouteObjs, netExtObjs);
         cnt2++;
       } else {
-        cout <<"Error: initNetObjs hasNet() empty" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initNetObjs hasNet() empty" <<endl;
       }
     } else if (rptr->typeId() == frcPatchWire) {
       auto cptr = static_cast<frPatchWire*>(rptr);
@@ -326,11 +326,11 @@ void FlexDRWorker::initNetObjs(set<frNet*, frBlockObjectComp> &nets,
         initNetObjs_patchWire(cptr, nets, netRouteObjs, netExtObjs);
         cnt1++;
       } else {
-        cout <<"Error: initNetObjs hasNet() empty" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initNetObjs hasNet() empty" <<endl;
       }
     } else {
-      cout << rptr->typeId() << "\n";
-      cout <<"Error: initCopyDRObjs unsupported type" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " << rptr->typeId() << "\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initCopyDRObjs unsupported type" <<endl;
     }
   }
   if (isInitDR()) {
@@ -367,7 +367,7 @@ void FlexDRWorker::initNetObjs(set<frNet*, frBlockObjectComp> &nets,
         netOrigGuides[net].push_back(rect);
         if (enableOutput) {
           double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-          cout <<"found net/guide=" <<net->getName() <<" ("
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"found net/guide=" <<net->getName() <<" ("
                <<box.left()  / dbu <<", " <<box.bottom() / dbu <<") ("
                <<box.right() / dbu <<", " <<box.top()    / dbu <<") "
                <<getDesign()->getTech()->getLayer(lNum)->getName() <<endl;
@@ -377,8 +377,8 @@ void FlexDRWorker::initNetObjs(set<frNet*, frBlockObjectComp> &nets,
   }
 
   if (enableOutput) {
-    cout <<"cnt1/2 = " <<cnt1 <<"/" <<cnt2 <<endl;
-    cout <<"nets size = " <<nets.size() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"cnt1/2 = " <<cnt1 <<"/" <<cnt2 <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"nets size = " <<nets.size() <<endl;
   }
 }
 
@@ -399,7 +399,7 @@ void FlexDRWorker::initNets_initDR(set<frNet*, frBlockObjectComp> &nets,
       nets.insert(net);
       netTerms[net].insert(obj);
     } else {
-      cout <<"Error: initNetTerms unsupported obj" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initNetTerms unsupported obj" <<endl;
     }
   }
   vector<unique_ptr<drConnFig> > vRouteObjs;
@@ -447,28 +447,28 @@ void FlexDRWorker::initNets_searchRepair_pin2epMap_helper(frNet *net, const frPo
       auto instTerm = static_cast<frInstTerm*>(rqObj);
       if (instTerm->getNet() == net) {
         if (enableOutput) {
-          cout <<"found instTerm" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"found instTerm" <<endl;
         }
         pin2epMap[rqObj].insert(make_pair(bp, lNum));
         // if (instTerm->getInst()->getName() == string("_435747_") && instTerm->getTerm()->getName() == string("B")) {
-        //   cout << "  @@@ debug @@@ (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << "(" << bp.x() << ")" << ", "
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "  @@@ debug @@@ (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << "(" << bp.x() << ")" << ", "
         //               <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << "(" << bp.y() << ") " <<") lNum = " << lNum << "\n";
         // }
       } else {
         if (enableOutput) {
-          cout <<"found other instTerm" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"found other instTerm" <<endl;
         }
       }
     } else if (rqObj->typeId() == frcTerm) {
       auto term = static_cast<frTerm*>(rqObj);
       if (term->getNet() == net) {
         if (enableOutput) {
-          cout <<"found term" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"found term" <<endl;
         }
         pin2epMap[rqObj].insert(make_pair(bp, lNum));
       } else {
         if (enableOutput) {
-          cout <<"found other term" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"found other term" <<endl;
         }
       }
     }
@@ -490,7 +490,7 @@ void FlexDRWorker::initNets_searchRepair_pin2epMap(frNet* net,
       obj->getPoints(bp, ep);
       auto lNum = obj->getLayerNum();
       if (enableOutput) {
-       cout <<"(bp, ep) (" <<bp.x() / 2000.0 <<" ," <<bp.y() / 2000.0 <<") ("
+       cout << __FILE__ << ":" << __LINE__ << ": " <<"(bp, ep) (" <<bp.x() / 2000.0 <<" ," <<bp.y() / 2000.0 <<") ("
                            <<ep.x() / 2000.0 <<" ," <<ep.y() / 2000.0 <<") " 
             <<getTech()->getLayer(lNum)->getName() <<endl;
       }
@@ -498,23 +498,23 @@ void FlexDRWorker::initNets_searchRepair_pin2epMap(frNet* net,
       obj->getStyle(style);
       if (style.getBeginStyle() == frEndStyle(frcTruncateEndStyle) && getRouteBox().contains(bp)) {
         if (enableOutput) {
-          cout <<"query bp" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"query bp" <<endl;
         }
         // if (bp.x() == 1658879 && bp.y() == 2370048) {
-        //   cout << "bp @ (1658879, 2370048)\n";
-        //   cout << "  ep @ (" << ep.x() << ", " << ep.y() << ")\n";
-        //   cout << "lNum = " << lNum << endl;
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "bp @ (1658879, 2370048)\n";
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "  ep @ (" << ep.x() << ", " << ep.y() << ")\n";
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "lNum = " << lNum << endl;
         // }
         initNets_searchRepair_pin2epMap_helper(net, bp, lNum, pin2epMap);
       }
       if (style.getEndStyle() == frEndStyle(frcTruncateEndStyle) && getRouteBox().contains(ep)) {
         if (enableOutput) {
-          cout <<"query ep" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"query ep" <<endl;
         }
         // if (ep.x() == 1658879 && ep.y() == 2370048) {
-        //   cout << "ep @ (1658879, 2370048)\n";
-        //   cout << "  bp @ (" << bp.x() << ", " << bp.y() << ")\n";
-        //   cout << "lNum = " << lNum << endl;
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "ep @ (1658879, 2370048)\n";
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "  bp @ (" << bp.x() << ", " << bp.y() << ")\n";
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "lNum = " << lNum << endl;
         // }
         initNets_searchRepair_pin2epMap_helper(net, ep, lNum, pin2epMap);
       }
@@ -524,29 +524,29 @@ void FlexDRWorker::initNets_searchRepair_pin2epMap(frNet* net,
       auto l1Num = obj->getViaDef()->getLayer1Num();
       auto l2Num = obj->getViaDef()->getLayer2Num();
       if (enableOutput) {
-        cout <<"bp (" <<bp.x() / 2000.0 <<" ," <<bp.y() / 2000.0 <<") "
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"bp (" <<bp.x() / 2000.0 <<" ," <<bp.y() / 2000.0 <<") "
              <<getTech()->getLayer(l1Num)->getName() <<endl;
       }
       if (getRouteBox().contains(bp)) {
         // if (bp.x() == 1511039 && bp.y() == 3519744) {
-        //   cout << "bp @ (1511039, 3519740)\n";
-        //   cout << "  via\n";
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "bp @ (1511039, 3519740)\n";
+        //   cout << __FILE__ << ":" << __LINE__ << ": " << "  via\n";
         // }
         if (enableOutput) {
-          cout <<"query bp l1" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"query bp l1" <<endl;
         }
         initNets_searchRepair_pin2epMap_helper(net, bp, l1Num, pin2epMap);
         if (enableOutput) {
-          cout <<"query bp l2" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"query bp l2" <<endl;
         }
         initNets_searchRepair_pin2epMap_helper(net, bp, l2Num, pin2epMap);
       }
     } else if (connFig->typeId() == drcPatchWire) {
     } else {
-      cout <<"Error: initNets_searchRepair_pin2epMap unsupported type" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initNets_searchRepair_pin2epMap unsupported type" <<endl;
     }
   }
-  //cout <<net->getName() <<" " <<pin2epMap.size() <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<net->getName() <<" " <<pin2epMap.size() <<endl;
 }
 
 void FlexDRWorker::initNets_searchRepair_nodeMap_routeObjEnd(frNet* net, vector<unique_ptr<drConnFig> > &netRouteObjs,
@@ -562,7 +562,7 @@ void FlexDRWorker::initNets_searchRepair_nodeMap_routeObjEnd(frNet* net, vector<
       nodeMap[make_pair(bp, lNum)].insert(i);
       nodeMap[make_pair(ep, lNum)].insert(i);
       if (enableOutput) {
-        cout <<"node idx = " <<i <<", (" <<bp.x() / 2000.0 <<", " <<bp.y() / 2000.0 <<") (" 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"node idx = " <<i <<", (" <<bp.x() / 2000.0 <<", " <<bp.y() / 2000.0 <<") (" 
                                          <<ep.x() / 2000.0 <<", " <<ep.y() / 2000.0 <<") " 
              <<getTech()->getLayer(lNum)->getName() <<endl;
       }
@@ -574,7 +574,7 @@ void FlexDRWorker::initNets_searchRepair_nodeMap_routeObjEnd(frNet* net, vector<
       nodeMap[make_pair(bp, l1Num)].insert(i);
       nodeMap[make_pair(bp, l2Num)].insert(i);
       if (enableOutput) {
-        cout <<"node idx = " <<i <<", (" <<bp.x() / 2000.0 <<", " <<bp.y() / 2000.0 <<") "
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"node idx = " <<i <<", (" <<bp.x() / 2000.0 <<", " <<bp.y() / 2000.0 <<") "
              <<getTech()->getLayer(l1Num)->getName() <<" --> " <<getTech()->getLayer(l2Num)->getName() <<endl;
       }
     } else if (connFig->typeId() == drcPatchWire) {
@@ -583,11 +583,11 @@ void FlexDRWorker::initNets_searchRepair_nodeMap_routeObjEnd(frNet* net, vector<
       auto lNum = obj->getLayerNum();
       nodeMap[make_pair(bp, lNum)].insert(i);
       if (enableOutput) {
-        cout <<"node idx = " <<i <<", (" <<bp.x() / 2000.0 <<", " <<bp.y() / 2000.0 <<") "
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"node idx = " <<i <<", (" <<bp.x() / 2000.0 <<", " <<bp.y() / 2000.0 <<") "
              <<getTech()->getLayer(lNum)->getName() << endl;
       }
     } else {
-      cout <<"Error: initNets_searchRepair_nodeMap unsupported type" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initNets_searchRepair_nodeMap unsupported type" <<endl;
     }
   }
 }
@@ -706,7 +706,7 @@ void FlexDRWorker::initNets_searchRepair_nodeMap_pin(frNet* net,
     for (auto &pr: locS) {
       nodeMap[pr].insert(currCnt);
       if (enableOutput) {
-        cout <<"pin idx = " <<currCnt <<", (" <<pr.first.x() <<", " <<pr.first.y() <<") " 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"pin idx = " <<currCnt <<", (" <<pr.first.x() <<", " <<pr.first.y() <<") " 
              <<getTech()->getLayer(pr.second)->getName() <<endl;
       }
     }
@@ -742,7 +742,7 @@ void FlexDRWorker::initNets_searchRepair_connComp(frNet* net,
       for (; it2 != idxS.end(); it2++) {
         auto idx2 = *it2;
         if (enableOutput) {
-          cout <<"edge = " <<idx1 <<"/" <<idx2 <<endl <<flush;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"edge = " <<idx1 <<"/" <<idx2 <<endl <<flush;
         }
         adjVec[idx1].push_back(idx2);
         adjVec[idx2].push_back(idx1);
@@ -766,7 +766,7 @@ void FlexDRWorker::initNets_searchRepair_connComp(frNet* net,
   auto it = find(adjVisited.begin(), adjVisited.end(), false);
   while (it != adjVisited.end()) {
     if (enableOutput) {
-      cout <<"union";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"union";
     }
     priority_queue<wf> pq;
     int srcIdx = distance(adjVisited.begin(), it);
@@ -780,7 +780,7 @@ void FlexDRWorker::initNets_searchRepair_connComp(frNet* net,
       }
       adjVisited[currIdx] = true;
       if (enableOutput) {
-        cout <<" " <<currIdx;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<" " <<currIdx;
       }
       compIdx[currIdx] = currNetIdx;
       for (auto nbrIdx: adjVec[currIdx]) {
@@ -790,13 +790,13 @@ void FlexDRWorker::initNets_searchRepair_connComp(frNet* net,
       }
     }
     if (enableOutput) {
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
     it = find(adjVisited.begin(), adjVisited.end(), false);
     ++currNetIdx;
   }
   //if (currNetIdx > 1) {
-  //  cout <<"@@debug " <<net->getName() <<" union find get " <<currNetIdx <<" subnets" <<endl;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"@@debug " <<net->getName() <<" union find get " <<currNetIdx <<" subnets" <<endl;
   //}
 }
 
@@ -814,9 +814,9 @@ void FlexDRWorker::initNets_searchRepair(set<frNet*, frBlockObjectComp> &nets,
     map<pair<frPoint, frLayerNum>, set<int> > nodeMap;
     initNets_searchRepair_nodeMap(net, netRouteObjs[net], netPins, pin2epMap, nodeMap);
 
-    //cout <<"size1(pin/robj) = " <<netPins.size() <<"/" <<netRouteObjs.size() <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"size1(pin/robj) = " <<netPins.size() <<"/" <<netRouteObjs.size() <<endl;
     vector<int> compIdx((int)netPins.size() + (int)netRouteObjs[net].size(), 0);
-    //cout <<"size2(pin/robj/comp) = " <<netPins.size() <<"/" <<netRouteObjs[net].size() <<"/" <<compIdx.size() <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"size2(pin/robj/comp) = " <<netPins.size() <<"/" <<netRouteObjs[net].size() <<"/" <<compIdx.size() <<endl;
     initNets_searchRepair_connComp(net, nodeMap, compIdx);
 
     vector<vector<unique_ptr<drConnFig> > > vRouteObjs;
@@ -960,7 +960,7 @@ void FlexDRWorker::initNet_termGenAp_new(drPin* dPin) {
             }
           }
         } else {
-          cout << "Error: initNet_termGenAp_new unsupported pinFig\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Error: initNet_termGenAp_new unsupported pinFig\n";
         }
       }
       
@@ -1052,7 +1052,7 @@ void FlexDRWorker::initNet_termGenAp_new(drPin* dPin) {
             break;
           }
         } else {
-          cout << "Error: initNet_termGenAp_new unsupported pinFig\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Error: initNet_termGenAp_new unsupported pinFig\n";
         }
       }
     }
@@ -1219,7 +1219,7 @@ void FlexDRWorker::initNet_termGenAp_new(drPin* dPin) {
                     hasTempAp = true;
                     dPin->addAccessPattern(std::move(uap));
                     // if (term->getName() == string("pin128")) {
-                    //   cout << "@@@ debug @@@: pin128 temp AP loc (" << xLoc / 2000.0 << ", " << yLoc / 2000.0 << ")\n";
+                    //   cout << __FILE__ << ":" << __LINE__ << ": " << "@@@ debug @@@: pin128 temp AP loc (" << xLoc / 2000.0 << ", " << yLoc / 2000.0 << ")\n";
                     // }
                     // break;
                   }
@@ -1233,7 +1233,7 @@ void FlexDRWorker::initNet_termGenAp_new(drPin* dPin) {
 
           }
         } else {
-          cout << "Error: initNet_termGenAp_new unsupported pinFig\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Error: initNet_termGenAp_new unsupported pinFig\n";
         }
       }
       
@@ -1293,13 +1293,13 @@ void FlexDRWorker::initNet_termGenAp_new(drPin* dPin) {
               break;
             }
           } else {
-            cout << "Error: initNet_termGenAp_new unsupported pinFig\n";
+            cout << __FILE__ << ":" << __LINE__ << ": " << "Error: initNet_termGenAp_new unsupported pinFig\n";
           }
         }
       }
     }
   } else {
-    cout << "Error: initNet_termGenAp_new unexpected type\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: initNet_termGenAp_new unexpected type\n";
   }
 }
 
@@ -1364,7 +1364,7 @@ void FlexDRWorker::initNet_term_new(drNet* dNet, vector<frBlockObject*> &terms) 
       name = string("PIN/") + trueTerm->getName();
     }
     if (enableOutput) {
-      cout <<"pin " <<name;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"pin " <<name;
     }
     int pinIdx = 0;
     int pinAccessIdx = (inst) ? inst->getPinAccessIdx() : -1;
@@ -1383,7 +1383,7 @@ void FlexDRWorker::initNet_term_new(drNet* dNet, vector<frBlockObject*> &terms) 
         frPoint bp;
         ap->getPoint(bp);
         if (enableOutput) {
-          cout <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
                       <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") origin";
         }
         auto bNum = ap->getLayerNum();
@@ -1415,25 +1415,25 @@ void FlexDRWorker::initNet_term_new(drNet* dNet, vector<frBlockObject*> &terms) 
         if (getRouteBox().contains(bp)) {
           if (isInitDR() && getRouteBox().right() == bp.x() && getRouteBox().top() == bp.y()) {
             if (enableOutput) {
-              cout <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
                           <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") skipped";
             }
           } else if ((getRouteBox().right() == bp.x() && bLayer->getDir() == frcVertPrefRoutingDir && bLayer->getLef58RectOnlyConstraint()) || 
                      (getRouteBox().top() == bp.y() && bLayer->getDir() == frcHorzPrefRoutingDir && bLayer->getLef58RectOnlyConstraint())) {
             if (enableOutput) {
-              cout <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
                           <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") skipped";
             }
           } else {
             dPin->addAccessPattern(std::move(dAp));
             if (enableOutput) {
-              cout <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+              cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
                           <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") added";
             }
           }
         } else {
           if (enableOutput) {
-            cout <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
                         <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") skipped";
           }
         }
@@ -1443,35 +1443,35 @@ void FlexDRWorker::initNet_term_new(drNet* dNet, vector<frBlockObject*> &terms) 
 
 
     if (enableOutput) {
-       cout <<endl;
-       cout <<"ap size = " <<dPin->getAccessPatterns().size() <<endl;
+       cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
+       cout << __FILE__ << ":" << __LINE__ << ": " <<"ap size = " <<dPin->getAccessPatterns().size() <<endl;
     }
 
     if (dPin->getAccessPatterns().empty()) {
       if (enableOutput) {
-        cout <<"Warning: pin " <<name <<" does not have pre-calculated ap, gen temp ap ";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: pin " <<name <<" does not have pre-calculated ap, gen temp ap ";
         //for (auto &[bp, bNum]: pts) {
-        //  cout <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+        //  cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
         //              <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") ";
         //}
-        //cout <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
       }
       initNet_termGenAp_new(dPin.get());
       if (dPin->getAccessPatterns().empty()) {
-        cout <<endl <<"Error: pin " <<name <<" still does not have temp ap" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"Error: pin " <<name <<" still does not have temp ap" <<endl;
         exit(1);
       } else {
         if (enableOutput) {
           for (auto &ap: dPin->getAccessPatterns()) {
             frPoint bp;
             ap->getPoint(bp);
-            cout <<" temp ap (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" temp ap (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
                         <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") ";
           }
-          cout <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
         }
         // if (dNet->getFrNet()->getName() == string("iopin242")) {
-        //   cout <<"@@@@@debug ";
+        //   cout << __FILE__ << ":" << __LINE__ << ": " <<"@@@@@debug ";
         //   if (term->typeId() == frcInstTerm) {
         //     auto inst = static_cast<frInstTerm*>(term)->getInst();
         //     auto trueTerm = static_cast<frInstTerm*>(term)->getTerm();
@@ -1483,10 +1483,10 @@ void FlexDRWorker::initNet_term_new(drNet* dNet, vector<frBlockObject*> &terms) 
         //   for (auto &ap: dPin->getAccessPatterns()) {
         //     frPoint bp;
         //     ap->getPoint(bp);
-        //       cout <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
+        //       cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
         //                   <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") ";
         //   }
-        //   cout <<endl;
+        //   cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
         // }
       }
     }
@@ -1503,7 +1503,7 @@ void FlexDRWorker::initNet_boundary(drNet* dNet,
   //if (!isInitDR() && dNet->getFrNet()->getName() == string("net14488")) {
   //if (!isInitDR() && dNet->getFrNet()->getName() == string("net100629")) {
   //  enableOutput = true;
-  //  cout <<"here" <<endl;
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"here" <<endl;
   //}
   auto gridBBox = getRouteBox();
   // location to area
@@ -1521,7 +1521,7 @@ void FlexDRWorker::initNet_boundary(drNet* dNet,
         if (begin.x() == end.x() && begin.x() >= gridBBox.left() && end.x() <= gridBBox.right()) {
           if (begin.y() == gridBBox.top()) {
             if (enableOutput) {
-              cout << "top bound (" 
+              cout << __FILE__ << ":" << __LINE__ << ": " << "top bound (" 
                    << begin.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                    << begin.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") - (" 
                    << end.x()   * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()<< ", " 
@@ -1532,7 +1532,7 @@ void FlexDRWorker::initNet_boundary(drNet* dNet,
           }
           if (end.y() == gridBBox.bottom()) {
             if (enableOutput) {
-              cout << "bottom bound ("
+              cout << __FILE__ << ":" << __LINE__ << ": " << "bottom bound ("
                    << begin.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                    << begin.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") - (" 
                    << end.x()   * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()<< ", " 
@@ -1545,7 +1545,7 @@ void FlexDRWorker::initNet_boundary(drNet* dNet,
         } else if (begin.y() == end.y() && begin.y() >= gridBBox.bottom() && end.y() <= gridBBox.top()) {
           if (begin.x() == gridBBox.right()) {
             if (enableOutput) {
-              cout << "right bound ("
+              cout << __FILE__ << ":" << __LINE__ << ": " << "right bound ("
                    << begin.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                    << begin.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") - (" 
                    << end.x()   * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()<< ", " 
@@ -1556,7 +1556,7 @@ void FlexDRWorker::initNet_boundary(drNet* dNet,
           }
           if (end.x() == gridBBox.left()) {
             if (enableOutput) {
-              cout << "left bound (" 
+              cout << __FILE__ << ":" << __LINE__ << ": " << "left bound (" 
                    << begin.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                    << begin.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") - (" 
                    << end.x()   * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()<< ", " 
@@ -1571,9 +1571,9 @@ void FlexDRWorker::initNet_boundary(drNet* dNet,
   // initDR
   } else {
     auto it = boundaryPin.find(dNet->getFrNet());
-    //cout <<string(dNet->getFrNet() == nullptr ? "null" : dNet->getFrNet()->getName()) <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<string(dNet->getFrNet() == nullptr ? "null" : dNet->getFrNet()->getName()) <<endl;
     if (it != boundaryPin.end()) {
-      //cout <<"here" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"here" <<endl;
       //extBounds = it->second;
       transform(it->second.begin(), it->second.end(), inserter(extBounds, extBounds.end()), 
                 [](const pair<frPoint, frLayerNum> &pr) {
@@ -1581,7 +1581,7 @@ void FlexDRWorker::initNet_boundary(drNet* dNet,
                 });
       if (enableOutput) {
         for (auto &[pt, lNum]: it->second) {
-          cout << "init bound (" 
+          cout << __FILE__ << ":" << __LINE__ << ": " << "init bound (" 
                << pt.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ", " 
                << pt.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() << ") " 
                << getTech()->getLayer(lNum)->getName() <<"\n";
@@ -1860,7 +1860,7 @@ void FlexDRWorker::initTrackCoords_route(drNet* net,
           } else if (lNum - 2 >= getTech()->getBottomLayerNum()) {
             xMap[bp.x()][lNum - 2] = nullptr;
           } else {
-            cout <<"Error: initTrackCoords cannot add non-pref track" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initTrackCoords cannot add non-pref track" <<endl;
           }
           // add bp, ep
           yMap[bp.y()][lNum] = nullptr;
@@ -1876,7 +1876,7 @@ void FlexDRWorker::initTrackCoords_route(drNet* net,
             yMap[bp.y()][lNum - 2] = nullptr;
             yMap[ep.y()][lNum - 2] = nullptr;
           } else {
-            cout <<"Error: initTrackCoords cannot add non-pref track" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initTrackCoords cannot add non-pref track" <<endl;
           }
         }
       // horizontal
@@ -1888,7 +1888,7 @@ void FlexDRWorker::initTrackCoords_route(drNet* net,
           } else if (lNum - 2 >= getTech()->getBottomLayerNum()) {
             yMap[bp.y()][lNum - 2] = nullptr;
           } else {
-            cout <<"Error: initTrackCoords cannot add non-pref track" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initTrackCoords cannot add non-pref track" <<endl;
           }
           // add bp, ep
           xMap[bp.x()][lNum] = nullptr;
@@ -1903,7 +1903,7 @@ void FlexDRWorker::initTrackCoords_route(drNet* net,
             xMap[bp.x()][lNum - 2] = nullptr;
             xMap[ep.x()][lNum - 2] = nullptr;
           } else {
-            cout <<"Error: initTrackCoords cannot add non-pref track" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initTrackCoords cannot add non-pref track" <<endl;
           }
         }
       }
@@ -1928,7 +1928,7 @@ void FlexDRWorker::initTrackCoords_route(drNet* net,
     } else if (uConnFig->typeId() == drcPatchWire) {
 
     } else {
-      cout <<"Error: initTrackCoords unsupported type" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initTrackCoords unsupported type" <<endl;
     }
   }
 }
@@ -1948,14 +1948,14 @@ void FlexDRWorker::initTrackCoords_pin(drNet* net,
       } else if (lNum - 2 >= getTech()->getBottomLayerNum()) {
         lNum2 = lNum - 2;
       } else {
-        cout <<"Error: initTrackCoords cannot add non-pref track" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initTrackCoords cannot add non-pref track" <<endl;
       }
       //if (net->getFrNet() && net->getFrNet()->getName() == string("sa13_1_")) {
       //  if (pin->getFrTerm() && pin->getFrTerm()->typeId() == frcInstTerm) {
       //    frInstTerm* instTerm = (frInstTerm*)pin->getFrTerm();
       //    // if (instTerm->getInst()->getRefBlock()->getName() == "DFFSQ_X1N_A10P5PP84TR_C14_mod" && instTerm->getTerm()->getName() == "Q") {
-      //    //   cout << "  initTrackCoords ap (" << pt.x() / 2000.0 << ", " << pt.y() / 2000.0 << ")\n";
-      //    //   cout << "    lNum = " << lNum << ", lNum2 = " << lNum2 << endl;
+      //    //   cout << __FILE__ << ":" << __LINE__ << ": " << "  initTrackCoords ap (" << pt.x() / 2000.0 << ", " << pt.y() / 2000.0 << ")\n";
+      //    //   cout << __FILE__ << ":" << __LINE__ << ": " << "    lNum = " << lNum << ", lNum2 = " << lNum2 << endl;
       //    // }
       //  }
       //}
@@ -2017,9 +2017,9 @@ void FlexDRWorker::initMazeIdx_connFig(drConnFig *connFig) {
       gridGraph.getMazeIdx(bi, bp, lNum);
       gridGraph.getMazeIdx(ei, ep, lNum);
       obj->setMazeIdx(bi, ei);
-      //cout <<"has idx pathseg" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"has idx pathseg" <<endl;
     } else {
-      cout <<"Error: initMazeIdx_connFig pathseg no idx (" 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initMazeIdx_connFig pathseg no idx (" 
            << bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()  <<", "
            << bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()  <<") ("
            << ep.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()  <<", "
@@ -2038,9 +2038,9 @@ void FlexDRWorker::initMazeIdx_connFig(drConnFig *connFig) {
       gridGraph.getMazeIdx(bi, bp, layer1Num);
       gridGraph.getMazeIdx(ei, bp, layer2Num);
       obj->setMazeIdx(bi, ei);
-      //cout <<"has idx via" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"has idx via" <<endl;
     } else {
-      cout <<"Error: initMazeIdx_connFig via no idx (" 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initMazeIdx_connFig via no idx (" 
            << bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()  <<", "
            << bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()  <<") "
            << getTech()->getLayer(layer1Num + 1)->getName()
@@ -2049,7 +2049,7 @@ void FlexDRWorker::initMazeIdx_connFig(drConnFig *connFig) {
   } else if (connFig->typeId() == drcPatchWire) {
 
   } else {
-    cout <<"Error: initMazeIdx_connFig unsupported type" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initMazeIdx_connFig unsupported type" <<endl;
   }
 }
 
@@ -2073,9 +2073,9 @@ void FlexDRWorker::initMazeIdx_ap(drAccessPattern *ap) {
         ap->setOnTrack(false, false);
       }
     }
-    //cout <<"has idx via" <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"has idx via" <<endl;
   } else {
-    cout <<"Error: initMazeIdx_ap no idx (" 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: initMazeIdx_ap no idx (" 
          << bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()  <<", "
          << bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU()  <<") "
          << getTech()->getLayer(lNum)->getName()
@@ -2097,7 +2097,7 @@ void FlexDRWorker::initMazeIdx_ap(drAccessPattern *ap) {
         ap->setOnTrack(false, false);
       }
     }
-    //cout <<"has idx via" <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"has idx via" <<endl;
   } else {
     ;
   }
@@ -2225,14 +2225,14 @@ void FlexDRWorker::initMazeCost_ap_helper(drNet* net, bool isAddPathCost) {
             static_cast<frInstTerm*>(term)->getInst()->getRefBlock()->getMacroClass() == MacroClassEnum::PAD_POWER ||
             static_cast<frInstTerm*>(term)->getInst()->getRefBlock()->getMacroClass() == MacroClassEnum::RING) {
           isStdCellPin = false;
-          //cout <<"curr dPin is macro pin" <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"curr dPin is macro pin" <<endl;
         } else {
-          //cout <<"curr dPin is stdcell pin" <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"curr dPin is stdcell pin" <<endl;
         }
       // IO
       } else if (term->typeId() == frcTerm) {
         isStdCellPin = false;
-        //cout <<"curr dPin is io pin" <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"curr dPin is io pin" <<endl;
       }
     } else {
       continue;
@@ -2368,7 +2368,7 @@ void FlexDRWorker::initMazeCost_ap() {
     }
   }
   if (enableOutput) {
-    cout <<"@@Test: " <<cnt <<" svia detected" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"@@Test: " <<cnt <<" svia detected" <<endl;
   }
 }
 
@@ -2396,7 +2396,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_0(const frMarker &marker) {
   mBox.bloat(bloatDist, bloatBox);
   if (enableOutput) {
     double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-    cout <<"marker @(" <<mBox.left()  / dbu <<", " <<mBox.bottom() / dbu <<") ("
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"marker @(" <<mBox.left()  / dbu <<", " <<mBox.bottom() / dbu <<") ("
                        <<mBox.right() / dbu <<", " <<mBox.top()    / dbu <<") "
          <<getDesign()->getTech()->getLayer(lNum)->getName() <<" " <<bloatDist
          <<endl;
@@ -2405,7 +2405,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_0(const frMarker &marker) {
   for (auto &[objBox, connFig]: results) {
     // for pathseg-related marker, bloat marker by half width and add marker cost planar
     if (connFig->typeId() == drcPathSeg) {
-      //cout <<"@@pathseg" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@pathseg" <<endl;
       // update marker dist
       auto dx = max(max(objBox.left(),   mBox.left())   - min(objBox.right(), mBox.right()), 0);
       auto dy = max(max(objBox.bottom(), mBox.bottom()) - min(objBox.top(),   mBox.top()),   0);
@@ -2413,7 +2413,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_0(const frMarker &marker) {
 
       connFig->getNet()->setRipup();
       if (enableOutput) {
-        cout <<"ripup pathseg from " <<connFig->getNet()->getFrNet()->getName() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"ripup pathseg from " <<connFig->getNet()->getFrNet()->getName() <<endl;
       }
       // new
       gridGraph.getIdxBox(mIdx1, mIdx2, bloatBox);
@@ -2426,7 +2426,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_0(const frMarker &marker) {
              i <= min(xDim - 1, (psMIdx2.x(), mIdx2.x() + 1)); i++) {
           gridGraph.addMarkerCostPlanar(i, psMIdx1.y(), psMIdx1.z());
           if (enableOutput) {
-            cout <<"add marker cost planar @(" <<i <<", " <<psMIdx1.y() <<", " <<psMIdx1.z() <<")" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost planar @(" <<i <<", " <<psMIdx1.y() <<", " <<psMIdx1.z() <<")" <<endl;
           }
           planarHistoryMarkers.insert(FlexMazeIdx(i, psMIdx1.y(), psMIdx1.z()));
         }
@@ -2435,7 +2435,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_0(const frMarker &marker) {
              i <= min(yDim - 1, min(psMIdx2.y(), mIdx2.y() + 1)); i++) {
           gridGraph.addMarkerCostPlanar(psMIdx1.x(), i, psMIdx1.z());
           if (enableOutput) {
-            cout <<"add marker cost planar @(" <<psMIdx1.x() <<", " <<i <<", " <<psMIdx1.z() <<")" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost planar @(" <<psMIdx1.x() <<", " <<i <<", " <<psMIdx1.z() <<")" <<endl;
           }
           planarHistoryMarkers.insert(FlexMazeIdx(psMIdx1.x(), i, psMIdx1.z()));
         }
@@ -2443,7 +2443,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_0(const frMarker &marker) {
 
     // for via-related marker, add marker cost via
     } else if (connFig->typeId() == drcVia) {
-      //cout <<"@@via" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@via" <<endl;
       if (getDesign()->getTech()->getLayer(lNum)->getType() == frLayerTypeEnum::ROUTING &&
           marker.getConstraint()->typeId() == frConstraintTypeEnum::frcShortConstraint) {
         continue;
@@ -2458,10 +2458,10 @@ void FlexDRWorker::initMazeCost_marker_fixMode_0(const frMarker &marker) {
       connFig->getNet()->setRipup();
       gridGraph.addMarkerCostVia(mIdx1.x(), mIdx1.y(), mIdx1.z());
       if (enableOutput) {
-        cout <<"ripup via from " <<connFig->getNet()->getFrNet()->getName() <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"ripup via from " <<connFig->getNet()->getFrNet()->getName() <<endl;
       }
       if (enableOutput) {
-        cout <<"add marker cost via @(" <<mIdx1.x() <<", " <<mIdx1.y() <<", " <<mIdx1.z() <<")" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost via @(" <<mIdx1.x() <<", " <<mIdx1.y() <<", " <<mIdx1.z() <<")" <<endl;
       }
       viaHistoryMarkers.insert(mIdx1);
     } else if (connFig->typeId() == drcPatchWire) {
@@ -2480,14 +2480,14 @@ void FlexDRWorker::initMazeCost_marker_fixMode_0(const frMarker &marker) {
         gridGraph.addMarkerCostPlanar(mIdx1.x(), mIdx1.y(), mIdx1.z());
         planarHistoryMarkers.insert(FlexMazeIdx(mIdx1.x(), mIdx1.y(), mIdx1.z()));
         if (enableOutput) {
-          cout <<"ripup pwire from " <<connFig->getNet()->getFrNet()->getName() <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"ripup pwire from " <<connFig->getNet()->getFrNet()->getName() <<endl;
         }
         if (enableOutput) {
-          cout <<"add marker cost pwire @(" <<mIdx1.x() <<", " <<mIdx1.y() <<", " <<mIdx1.z() <<")" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost pwire @(" <<mIdx1.x() <<", " <<mIdx1.y() <<", " <<mIdx1.z() <<")" <<endl;
         }
       }
     } else {
-      cout <<"Error: unsupported dr type" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported dr type" <<endl;
     }
   }
 }
@@ -2507,7 +2507,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
   auto lNum   = marker.getLayerNum();
   //if (enableOutput) {
   //  double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-  //  cout <<"marker @(" <<mBox.left()  / dbu <<", " <<mBox.bottom() / dbu <<") ("
+  //  cout << __FILE__ << ":" << __LINE__ << ": " <<"marker @(" <<mBox.left()  / dbu <<", " <<mBox.bottom() / dbu <<") ("
   //                     <<mBox.right() / dbu <<", " <<mBox.top()    / dbu <<") "
   //       <<getDesign()->getTech()->getLayer(lNum)->getName()
   //       <<endl;
@@ -2515,14 +2515,14 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
   // skip if marker outside of routebox, ignore drcbox here because we would like to push wire
   if (!getRouteBox().overlaps(mBox)) {
     //if (enableOutput) {
-    //  cout <<"  out of route box" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"  out of route box" <<endl;
     //}
     return;
   }
   // skip if marker not metal layer
   if (!(getDesign()->getTech()->getLayer(lNum)->getType() == frLayerTypeEnum::ROUTING)) {
     //if (enableOutput) {
-    //  cout <<"  not routing layer" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"  not routing layer" <<endl;
     //}
     return;
   }
@@ -2533,7 +2533,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
         marker.getConstraint()->typeId() == frConstraintTypeEnum::frcSpacingTablePrlConstraint ||
         marker.getConstraint()->typeId() == frConstraintTypeEnum::frcSpacingTableTwConstraint)) {
     //if (enableOutput) {
-    //  cout <<"  unknown type" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"  unknown type" <<endl;
     //}
     return;
   }
@@ -2552,7 +2552,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
   drNet* viaNet = nullptr;
   for (auto &[objBox, connFig]: results) {
     if (connFig->typeId() == drcVia) {
-      //cout <<"@@via" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@via" <<endl;
       viaNet = connFig->getNet();
       if (marker.hasDir()) { // spacing violation
         if (marker.isH() && isLayerH) {
@@ -2601,14 +2601,14 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
   // skip if no via or more than one via
   if (numVias != 1) {
     //if (enableOutput) {
-    //  cout <<"  #vias=" <<numVias <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"  #vias=" <<numVias <<endl;
     //}
     return;
   }
   // skip if no fat via
   if (!hasFatVia) {
     //if (enableOutput) {
-    //  cout <<"  not fat via or spacing dir not perp to pref dir" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<"  not fat via or spacing dir not perp to pref dir" <<endl;
     //}
     return;
   }
@@ -2624,7 +2624,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
   
   if (enableOutput) {
     double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-    cout <<"marker @(" <<mBox.left()  / dbu <<", " <<mBox.bottom() / dbu <<") ("
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"marker @(" <<mBox.left()  / dbu <<", " <<mBox.bottom() / dbu <<") ("
                        <<mBox.right() / dbu <<", " <<mBox.top()    / dbu <<") "
          <<getDesign()->getTech()->getLayer(lNum)->getName()
          <<endl;
@@ -2636,7 +2636,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
   for (auto &[objBox, connFig]: results) {
     // do not add marker cost for ps, rely on DRCCOST
     if (connFig->typeId() == drcPathSeg) {
-      //cout <<"@@pathseg" <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@pathseg" <<endl;
       auto currNet = connFig->getNet();
       // update marker dist
       auto dx = max(max(objBox.left(),   mBox.left())   - min(objBox.right(), mBox.right()), 0);
@@ -2646,7 +2646,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
         currNet->setRipup();
         if (enableOutput) {
           double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-          cout <<"ripup pathseg from " <<connFig->getNet()->getFrNet()->getName() 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"ripup pathseg from " <<connFig->getNet()->getFrNet()->getName() 
                <<", dist=" <<sqrt(dx * dx + dy * dy) / dbu <<endl;
         }
       }
@@ -2658,16 +2658,16 @@ void FlexDRWorker::initMazeCost_marker_fixMode_1(const frMarker &marker, bool ke
         obj->getMazeIdx(mIdx1, mIdx2);
         connFig->getNet()->setRipup();
         if (enableOutput) {
-          cout <<"ripup via from " <<connFig->getNet()->getFrNet()->getName() <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"ripup via from " <<connFig->getNet()->getFrNet()->getName() <<endl;
         }
         //if (enableOutput) {
-        //  cout <<"add marker cost via @(" <<mIdx1.x() <<", " <<mIdx1.y() <<", " <<mIdx1.z() <<")" <<endl;
+        //  cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost via @(" <<mIdx1.x() <<", " <<mIdx1.y() <<", " <<mIdx1.z() <<")" <<endl;
         //}
       }
     } else if (connFig->typeId() == drcPatchWire) {
       // TODO: could add marker // for now we think the other part in the violation would not be patchWire
     } else {
-      cout <<"Error: unsupported dr type" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported dr type" <<endl;
     }
   }
 }
@@ -2712,58 +2712,58 @@ void FlexDRWorker::initMazeCost_marker_route_queue_addHistoryCost(const frMarker
       // block at least two width grid points to ensure no matter where the startpoint is
       for (int i = 0; i < 5; i++) {
         if (i == 4) {
-          cout <<"Warning: marker bloat 4x width but could not find two grids to add marker cost" <<endl;
-          cout << "  marker -- src: ";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: marker bloat 4x width but could not find two grids to add marker cost" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " << "  marker -- src: ";
           for (auto src: marker.getSrcs()) {
             if (src) {
               switch (src->typeId()) {
                 case frcNet:
-                  cout << (static_cast<frNet*>(src))->getName() << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " << (static_cast<frNet*>(src))->getName() << " ";
                   break;
                 case frcInstTerm: {
                   frInstTerm* instTerm = (static_cast<frInstTerm*>(src));
-                  cout <<instTerm->getInst()->getName() <<"/" <<instTerm->getTerm()->getName() << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<instTerm->getInst()->getName() <<"/" <<instTerm->getTerm()->getName() << " ";
                   break;
                 }
                 case frcTerm: {
                   frTerm* term = (static_cast<frTerm*>(src));
-                  cout <<"PIN/" << term->getName() << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" << term->getName() << " ";
                   break;
                 }
                 case frcInstBlockage: {
                   frInstBlockage* instBlockage = (static_cast<frInstBlockage*>(src));
-                  cout <<instBlockage->getInst()->getName() <<"/OBS" << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<instBlockage->getInst()->getName() <<"/OBS" << " ";
                   break;
                 }
                 case frcBlockage: {
-                  cout << "PIN/OBS" << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " << "PIN/OBS" << " ";
                   break;
                 }
                 default:
                   ;
               }
             }
-            cout << "\n";
+            cout << __FILE__ << ":" << __LINE__ << ": " << "\n";
             // get violation bbox
             frBox bbox;
             marker.getBBox(bbox);
             double dbu = design->getTech()->getDBUPerUU();
-            cout << "    bbox = ( " << bbox.left() / dbu << ", " << bbox.bottom() / dbu << " ) - ( "
+            cout << __FILE__ << ":" << __LINE__ << ": " << "    bbox = ( " << bbox.left() / dbu << ", " << bbox.bottom() / dbu << " ) - ( "
                    << bbox.right() / dbu << ", " << bbox.top() / dbu << " ) on Layer ";
             if (getTech()->getLayer(marker.getLayerNum())->getType() == frLayerTypeEnum::CUT && 
                 marker.getLayerNum() - 1 >= getTech()->getBottomLayerNum()) {
-              cout << getTech()->getLayer(marker.getLayerNum() - 1)->getName() << "\n";
+              cout << __FILE__ << ":" << __LINE__ << ": " << getTech()->getLayer(marker.getLayerNum() - 1)->getName() << "\n";
             } else {
-              cout << getTech()->getLayer(marker.getLayerNum())->getName() << "\n";
+              cout << __FILE__ << ":" << __LINE__ << ": " << getTech()->getLayer(marker.getLayerNum())->getName() << "\n";
             }
           }
         }
         if (isH && max(objMIdx1.x(), mIdx1.x()) >= min(objMIdx2.x(), mIdx2.x())) {
           bloatBox.bloat(width, bloatBox);
-          //cout <<"i=" <<i <<" " <<width <<", " <<bloatBox <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"i=" <<i <<" " <<width <<", " <<bloatBox <<endl;
         } else if ((!isH) && max(objMIdx1.y(), mIdx1.y()) >= min(objMIdx2.y(), mIdx2.y())) {
           bloatBox.bloat(width, bloatBox);
-          //cout <<bloatBox <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<bloatBox <<endl;
         } else {
           break;
         }
@@ -2773,7 +2773,7 @@ void FlexDRWorker::initMazeCost_marker_route_queue_addHistoryCost(const frMarker
         for (int i = max(objMIdx1.x(), mIdx1.x()); i <= min(objMIdx2.x(), mIdx2.x()); i++) {
           gridGraph.addMarkerCostPlanar(i, objMIdx1.y(), objMIdx1.z());
           if (enableOutput) {
-            cout <<"add marker cost planar @(" <<i <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost planar @(" <<i <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
           }
           planarHistoryMarkers.insert(FlexMazeIdx(i, objMIdx1.y(),objMIdx1.z()));
         }
@@ -2781,7 +2781,7 @@ void FlexDRWorker::initMazeCost_marker_route_queue_addHistoryCost(const frMarker
         for (int i = max(objMIdx1.y(), mIdx1.y()); i <= min(objMIdx2.y(), mIdx2.y()); i++) {
           gridGraph.addMarkerCostPlanar(objMIdx1.x(), i, objMIdx1.z());
           if (enableOutput) {
-            cout <<"add marker cost planar @(" <<objMIdx1.x() <<", " <<i <<", " <<objMIdx1.z() <<")" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost planar @(" <<objMIdx1.x() <<", " <<i <<", " <<objMIdx1.z() <<")" <<endl;
           }
           planarHistoryMarkers.insert(FlexMazeIdx(objMIdx1.x(), i, objMIdx1.z()));
         }
@@ -2799,7 +2799,7 @@ void FlexDRWorker::initMazeCost_marker_route_queue_addHistoryCost(const frMarker
         if (viaHistoryMarkers.find(objMIdx1) == viaHistoryMarkers.end()) {
           gridGraph.addMarkerCostVia(objMIdx1.x(), objMIdx1.y(), objMIdx1.z());
           if (enableOutput) {
-            cout <<"add marker cost via @(" <<objMIdx1.x() <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost via @(" <<objMIdx1.x() <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
           }
           viaHistoryMarkers.insert(objMIdx1);
 
@@ -2918,58 +2918,58 @@ bool FlexDRWorker::initMazeCost_marker_fixMode_3_addHistoryCost(const frMarker &
       // block at least two width grid points to ensure no matter where the startpoint is
       for (int i = 0; i < 5; i++) {
         if (i == 4) {
-          cout <<"Warning: marker bloat 4x width but could not find two grids to add marker cost" <<endl;
-          cout << "  marker -- src: ";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: marker bloat 4x width but could not find two grids to add marker cost" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " << "  marker -- src: ";
           for (auto src: marker.getSrcs()) {
             if (src) {
               switch (src->typeId()) {
                 case frcNet:
-                  cout << (static_cast<frNet*>(src))->getName() << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " << (static_cast<frNet*>(src))->getName() << " ";
                   break;
                 case frcInstTerm: {
                   frInstTerm* instTerm = (static_cast<frInstTerm*>(src));
-                  cout <<instTerm->getInst()->getName() <<"/" <<instTerm->getTerm()->getName() << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<instTerm->getInst()->getName() <<"/" <<instTerm->getTerm()->getName() << " ";
                   break;
                 }
                 case frcTerm: {
                   frTerm* term = (static_cast<frTerm*>(src));
-                  cout <<"PIN/" << term->getName() << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" << term->getName() << " ";
                   break;
                 }
                 case frcInstBlockage: {
                   frInstBlockage* instBlockage = (static_cast<frInstBlockage*>(src));
-                  cout <<instBlockage->getInst()->getName() <<"/OBS" << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<instBlockage->getInst()->getName() <<"/OBS" << " ";
                   break;
                 }
                 case frcBlockage: {
-                  cout << "PIN/OBS" << " ";
+                  cout << __FILE__ << ":" << __LINE__ << ": " << "PIN/OBS" << " ";
                   break;
                 }
                 default:
                   ;
               }
             }
-            cout << "\n";
+            cout << __FILE__ << ":" << __LINE__ << ": " << "\n";
             // get violation bbox
             frBox bbox;
             marker.getBBox(bbox);
             double dbu = design->getTech()->getDBUPerUU();
-            cout << "    bbox = ( " << bbox.left() / dbu << ", " << bbox.bottom() / dbu << " ) - ( "
+            cout << __FILE__ << ":" << __LINE__ << ": " << "    bbox = ( " << bbox.left() / dbu << ", " << bbox.bottom() / dbu << " ) - ( "
                    << bbox.right() / dbu << ", " << bbox.top() / dbu << " ) on Layer ";
             if (getTech()->getLayer(marker.getLayerNum())->getType() == frLayerTypeEnum::CUT && 
                 marker.getLayerNum() - 1 >= getTech()->getBottomLayerNum()) {
-              cout << getTech()->getLayer(marker.getLayerNum() - 1)->getName() << "\n";
+              cout << __FILE__ << ":" << __LINE__ << ": " << getTech()->getLayer(marker.getLayerNum() - 1)->getName() << "\n";
             } else {
-              cout << getTech()->getLayer(marker.getLayerNum())->getName() << "\n";
+              cout << __FILE__ << ":" << __LINE__ << ": " << getTech()->getLayer(marker.getLayerNum())->getName() << "\n";
             }
           }
         }
         if (isH && max(objMIdx1.x(), mIdx1.x()) >= min(objMIdx2.x(), mIdx2.x())) {
           bloatBox.bloat(width, bloatBox);
-          //cout <<"i=" <<i <<" " <<width <<", " <<bloatBox <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<"i=" <<i <<" " <<width <<", " <<bloatBox <<endl;
         } else if ((!isH) && max(objMIdx1.y(), mIdx1.y()) >= min(objMIdx2.y(), mIdx2.y())) {
           bloatBox.bloat(width, bloatBox);
-          //cout <<bloatBox <<endl;
+          //cout << __FILE__ << ":" << __LINE__ << ": " <<bloatBox <<endl;
         } else {
           break;
         }
@@ -2979,7 +2979,7 @@ bool FlexDRWorker::initMazeCost_marker_fixMode_3_addHistoryCost(const frMarker &
         for (int i = max(objMIdx1.x(), mIdx1.x()); i <= min(objMIdx2.x(), mIdx2.x()); i++) {
           gridGraph.addMarkerCostPlanar(i, objMIdx1.y(), objMIdx1.z());
           if (enableOutput) {
-            cout <<"add marker cost planar @(" <<i <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost planar @(" <<i <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
           }
           planarHistoryMarkers.insert(FlexMazeIdx(i, objMIdx1.y(),objMIdx1.z()));
         }
@@ -2987,7 +2987,7 @@ bool FlexDRWorker::initMazeCost_marker_fixMode_3_addHistoryCost(const frMarker &
         for (int i = max(objMIdx1.y(), mIdx1.y()); i <= min(objMIdx2.y(), mIdx2.y()); i++) {
           gridGraph.addMarkerCostPlanar(objMIdx1.x(), i, objMIdx1.z());
           if (enableOutput) {
-            cout <<"add marker cost planar @(" <<objMIdx1.x() <<", " <<i <<", " <<objMIdx1.z() <<")" <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost planar @(" <<objMIdx1.x() <<", " <<i <<", " <<objMIdx1.z() <<")" <<endl;
           }
           planarHistoryMarkers.insert(FlexMazeIdx(objMIdx1.x(), i, objMIdx1.z()));
         }
@@ -3004,7 +3004,7 @@ bool FlexDRWorker::initMazeCost_marker_fixMode_3_addHistoryCost(const frMarker &
       obj->getMazeIdx(objMIdx1, objMIdx2);
       gridGraph.addMarkerCostVia(objMIdx1.x(), objMIdx1.y(), objMIdx1.z());
       if (enableOutput) {
-        cout <<"add marker cost via @(" <<objMIdx1.x() <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost via @(" <<objMIdx1.x() <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
       }
       viaHistoryMarkers.insert(objMIdx1);
     } else if (connFig->typeId() == drcPatchWire) {
@@ -3021,7 +3021,7 @@ bool FlexDRWorker::initMazeCost_marker_fixMode_3_addHistoryCost(const frMarker &
       gridGraph.addMarkerCost(objMIdx1.x(), objMIdx1.y(), objMIdx1.z(), frDirEnum::U); // always block upper via in case stack via
       gridGraph.addMarkerCost(objMIdx1.x(), objMIdx1.y(), objMIdx1.z(), frDirEnum::D); // always block upper via in case stack via
       if (enableOutput) {
-        cout <<"add marker cost patchwire @(" <<objMIdx1.x() <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"add marker cost patchwire @(" <<objMIdx1.x() <<", " <<objMIdx1.y() <<", " <<objMIdx1.z() <<")" <<endl;
       }
       planarHistoryMarkers.insert(objMIdx1);
     }
@@ -3046,7 +3046,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_3_ripupNets(const frMarker &marke
   mBox.bloat(bloatDist, bloatBox);
   if (enableOutput) {
     double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-    cout <<"marker @(" <<mBox.left()  / dbu <<", " <<mBox.bottom() / dbu <<") ("
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"marker @(" <<mBox.left()  / dbu <<", " <<mBox.bottom() / dbu <<") ("
                        <<mBox.right() / dbu <<", " <<mBox.top()    / dbu <<") "
          <<getDesign()->getTech()->getLayer(lNum)->getName() <<" " <<bloatDist
          <<endl;
@@ -3065,7 +3065,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_3_ripupNets(const frMarker &marke
       }
       // for pathseg-related marker, bloat marker by half width and add marker cost planar
       if (connFig->typeId() == drcPathSeg) {
-        //cout <<"@@pathseg" <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@pathseg" <<endl;
         auto obj = static_cast<drPathSeg*>(connFig);
         obj->getPoints(bp, ep);
         auto dx = max(max(objBox.left(),   mBox.left())   - min(objBox.right(), mBox.right()), 0);
@@ -3074,11 +3074,11 @@ void FlexDRWorker::initMazeCost_marker_fixMode_3_ripupNets(const frMarker &marke
         connFig->getNet()->updateMarkerDist(dx * dx + dy * dy + dz * dz);
         connFig->getNet()->setRipup();
         if (enableOutput) {
-          cout <<"ripup pathseg from " <<connFig->getNet()->getFrNet()->getName() <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"ripup pathseg from " <<connFig->getNet()->getFrNet()->getName() <<endl;
         }
       // for via-related marker, add marker cost via
       } else if (connFig->typeId() == drcVia) {
-        //cout <<"@@via" <<endl;
+        //cout << __FILE__ << ":" << __LINE__ << ": " <<"@@via" <<endl;
         // update marker dist
         auto dx = max(max(objBox.left(),   mBox.left())   - min(objBox.right(), mBox.right()), 0);
         auto dy = max(max(objBox.bottom(), mBox.bottom()) - min(objBox.top(),   mBox.top()),   0);
@@ -3087,7 +3087,7 @@ void FlexDRWorker::initMazeCost_marker_fixMode_3_ripupNets(const frMarker &marke
 
         connFig->getNet()->setRipup();
         if (enableOutput) {
-          cout <<"ripup via from " <<connFig->getNet()->getFrNet()->getName() <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"ripup via from " <<connFig->getNet()->getFrNet()->getName() <<endl;
         }
       } else if (connFig->typeId() == drcPatchWire) {
         // update marker dist
@@ -3098,10 +3098,10 @@ void FlexDRWorker::initMazeCost_marker_fixMode_3_ripupNets(const frMarker &marke
 
         connFig->getNet()->setRipup();
         if (enableOutput) {
-          cout <<"ripup pwire from " <<connFig->getNet()->getFrNet()->getName() <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"ripup pwire from " <<connFig->getNet()->getFrNet()->getName() <<endl;
         }
       } else {
-        cout <<"Error: unsupported dr type" <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported dr type" <<endl;
       }
     }
   // }
@@ -3206,9 +3206,9 @@ void FlexDRWorker::route_queue_init_queue(queue<RouteQueueEntry> &rerouteQueue) 
     // sort nets
     mazeIterInit_sortRerouteNets(0, ripupNets);
     // if (routeBox.left() == 462000 && routeBox.bottom() == 81100) {
-    //   cout << "@@@ debug nets:\n";
+    //   cout << __FILE__ << ":" << __LINE__ << ": " << "@@@ debug nets:\n";
     //   for (auto &net: ripupNets) {
-    //     cout << net->getFrNet()->getName() << "\n";
+    //     cout << __FILE__ << ":" << __LINE__ << ": " << net->getFrNet()->getName() << "\n";
     //   }
     // }
     for (auto &net: ripupNets) {
@@ -3218,7 +3218,7 @@ void FlexDRWorker::route_queue_init_queue(queue<RouteQueueEntry> &rerouteQueue) 
       // no need to clear the net because route objs are not pushed to the net (See FlexDRWorker::initNet)
     }
   } else {
-    cout << "Error: unsupported ripup mode\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Error: unsupported ripup mode\n";
   }
   route_queue_update_queue(checks, routes, rerouteQueue);
 }
@@ -3288,7 +3288,7 @@ void FlexDRWorker::route_queue_update_from_marker(frMarker *marker,
             uniqueAggressors.insert(fNet);
             uniqueAggressorOwners.push_back(fNet);
           }
-          // cout << "push route1: " << dNet->getFrNet()->getName() << "(subNetIdx " << subNetIdx << "), NumReroutes = " << dNet->getNumReroutes() <<  "\n";
+          // cout << __FILE__ << ":" << __LINE__ << ": " << "push route1: " << dNet->getFrNet()->getName() << "(subNetIdx " << subNetIdx << "), NumReroutes = " << dNet->getNumReroutes() <<  "\n";
           hasRerouteNet = true;
         }
       }
@@ -3335,7 +3335,7 @@ void FlexDRWorker::route_queue_update_from_marker(frMarker *marker,
                 uniqueAggressors.insert(fNet);
                 uniqueAggressorOwners.push_back(fNet);
               }
-              // cout << "push route2: " << dNet->getFrNet()->getName() << "(subNetIdx " << subNetIdx << "), NumReroutes = " << dNet->getNumReroutes() <<  "\n";
+              // cout << __FILE__ << ":" << __LINE__ << ": " << "push route2: " << dNet->getFrNet()->getName() << "(subNetIdx " << subNetIdx << "), NumReroutes = " << dNet->getNumReroutes() <<  "\n";
               routeOwners.insert(owner);
               hasRerouteNet = true;
             }
@@ -3480,7 +3480,7 @@ void FlexDRWorker::initMazeCost_guide_helper(drNet* net, bool isAdd) {
       gridGraph.setGuide(mIdx1.x(), mIdx1.y(), mIdx2.x(), mIdx2.y(), z);
       if (enableOutput) {
         double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-        cout <<"add guide for " <<net->getFrNet()->getName() <<": (" 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"add guide for " <<net->getFrNet()->getName() <<": (" 
              <<box.left()  / dbu <<", " <<box.bottom() / dbu<<") ("
              <<box.right() / dbu <<", " <<box.top()    / dbu <<") ("
              <<mIdx1.x() <<", " <<mIdx1.y() <<", " <<z <<") ("
@@ -3492,7 +3492,7 @@ void FlexDRWorker::initMazeCost_guide_helper(drNet* net, bool isAdd) {
       gridGraph.resetGuide(mIdx1.x(), mIdx1.y(), mIdx2.x(), mIdx2.y(), z);
       if (enableOutput) {
         double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-        cout <<"sub guide for " <<net->getFrNet()->getName() <<": (" 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"sub guide for " <<net->getFrNet()->getName() <<": (" 
              <<box.left()  / dbu <<", " <<box.bottom() / dbu <<") ("
              <<box.right() / dbu <<", " <<box.top()    / dbu <<") ("
              <<mIdx1.x() <<", " <<mIdx1.y() <<", " <<z <<") ("
@@ -3557,7 +3557,7 @@ void FlexDRWorker::initMazeCost_fixedObj() {
     for (auto &[box, obj]: result) {
       if (obj->typeId() == frcBlockage) {
         if (QUICKDRCTEST) {
-          cout <<"  initMazeCost_blockage block" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  initMazeCost_blockage block" <<endl;
         }
         if (isRoutingLayer) {
           // assume only routing layer
@@ -3576,7 +3576,7 @@ void FlexDRWorker::initMazeCost_fixedObj() {
       } else if (obj->typeId() == frcInstBlockage) {
         if (QUICKDRCTEST) {
           auto blk = static_cast<frInstBlockage*>(obj);
-          cout <<"  initMazeCost_instBlockage " <<blk->getInst()->getName() <<"/OBS" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  initMazeCost_instBlockage " <<blk->getInst()->getName() <<"/OBS" <<endl;
         }
 
         if (isRoutingLayer) {
@@ -3617,7 +3617,7 @@ void FlexDRWorker::initMazeCost_fixedObj() {
       } else if (obj->typeId() == frcPathSeg) {
         auto ps = static_cast<frPathSeg*>(obj);
         if (QUICKDRCTEST) {
-          cout <<"  initMazeCost_snet " <<ps->getNet()->getName() <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  initMazeCost_snet " <<ps->getNet()->getName() <<endl;
         }
         // assume only routing layer
         modMinSpacingCostPlaner(box, zIdx, 3);
@@ -3633,7 +3633,7 @@ void FlexDRWorker::initMazeCost_fixedObj() {
       } else if (obj->typeId() == frcVia) {
         if (QUICKDRCTEST) {
           auto via = static_cast<frVia*>(obj);
-          cout <<"  initMazeCost_snet " <<via->getNet()->getName() <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  initMazeCost_snet " <<via->getNet()->getName() <<endl;
         }
         if (isRoutingLayer) {
           // assume only routing layer
@@ -3657,7 +3657,7 @@ void FlexDRWorker::initMazeCost_fixedObj() {
   for (auto &[net, objs]: frNet2Terms) {
     // to remove once verify error will not be triggered
     if (owner2nets.find(net) == owner2nets.end()) {
-      // cout << "Error: frNet with term(s) does not exist in owner2nets\n";
+      // cout << __FILE__ << ":" << __LINE__ << ": " << "Error: frNet with term(s) does not exist in owner2nets\n";
       // continue;
     } else {
       for (auto dNet: owner2nets[net]) {
@@ -3717,7 +3717,7 @@ void FlexDRWorker::initMazeCost_terms(const set<frBlockObject*> &objs, bool isAd
               modInterLayerCutSpacingCost(box, zIdx, type, false);
             }
           } else {
-            cout << "Error: initMazeCost_terms unsupported pinFig\n";
+            cout << __FILE__ << ":" << __LINE__ << ": " << "Error: initMazeCost_terms unsupported pinFig\n";
           }
         }
       }
@@ -3783,12 +3783,12 @@ void FlexDRWorker::initMazeCost_terms(const set<frBlockObject*> &objs, bool isAd
               modMinimumcutCostVia(box, zIdx, type, false);
             }
           } else {
-            cout << "Error: initMazeCost_terms unsupported pinFig\n";
+            cout << __FILE__ << ":" << __LINE__ << ": " << "Error: initMazeCost_terms unsupported pinFig\n";
           }
         }
       }
     } else {
-      cout << "Error: unexpected obj type in initMazeCost_terms\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Error: unexpected obj type in initMazeCost_terms\n";
     }
   }
 }
@@ -3833,20 +3833,20 @@ void FlexDRWorker::initMazeCost_connFig() {
   for (auto &net: nets) {
     for (auto &connFig: net->getExtConnFigs()) {
       if (QUICKDRCTEST) {
-        cout <<"  initMazeCost_connFig " <<net->getFrNet()->getName() <<" extConnFigs";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  initMazeCost_connFig " <<net->getFrNet()->getName() <<" extConnFigs";
       }
       addPathCost(connFig.get());
       cnt++;
     }
     for (auto &connFig: net->getRouteConnFigs()) {
       if (QUICKDRCTEST) {
-        cout <<"  initMazeCost_connFig " <<net->getFrNet()->getName() <<" routeConnFigs";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"  initMazeCost_connFig " <<net->getFrNet()->getName() <<" routeConnFigs";
       }
       addPathCost(connFig.get());
       cnt++;
     }
   }
-  //cout <<"init " <<cnt <<" connfig costs" <<endl;
+  //cout << __FILE__ << ":" << __LINE__ << ": " <<"init " <<cnt <<" connfig costs" <<endl;
 }
 
 void FlexDRWorker::initMazeCost_via_helper(drNet* net, bool isAddPathCost) {
@@ -3899,7 +3899,7 @@ void FlexDRWorker::initMazeCost_via_helper(drNet* net, bool isAddPathCost) {
     FlexMazeIdx bi, ei;
     via->getMazeIdx(bi, ei);
     if (QUICKDRCTEST) {
-      cout <<"  initMazeCost_via_helper @(" 
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  initMazeCost_via_helper @(" 
            <<bp.x() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<", "
            <<bp.y() * 1.0 / getDesign()->getTopBlock()->getDBUPerUU() <<") "
            <<getTech()->getLayer(lNum)->getName() <<" " 
@@ -3919,7 +3919,7 @@ void FlexDRWorker::initMazeCost_minCut_helper(drNet *net, bool isAddPathCost) {
   int modType = isAddPathCost ? 1 : 0;
   for (auto &connFig: net->getExtConnFigs()) {
     if (QUICKDRCTEST) {
-      cout << "  initMazeCost_minCut_helper " << net->getFrNet()->getName();
+      cout << __FILE__ << ":" << __LINE__ << ": " << "  initMazeCost_minCut_helper " << net->getFrNet()->getName();
     }
     if (connFig->typeId() == drcVia) {
       auto via = static_cast<drVia*>(connFig.get());
@@ -3948,7 +3948,7 @@ void FlexDRWorker::initMazeCost_boundary_helper(drNet* net, bool isAddPathCost) 
   // do not check same-net rules between ext and route objs to avoid pessimism
   for (auto &connFig: net->getExtConnFigs()) {
     if (QUICKDRCTEST) {
-      cout <<"  initMazeCost_boundary_helper " <<net->getFrNet()->getName();
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"  initMazeCost_boundary_helper " <<net->getFrNet()->getName();
     }
     if (isAddPathCost) {
       addPathCost(connFig.get());
@@ -3964,7 +3964,7 @@ void FlexDRWorker::initFixedObjs() {
   double dbu = getTech()->getDBUPerUU();
   auto &extBox = getExtBox();
   if (enableOutput) {
-    cout << "  extBox (" << extBox.left()  / dbu << ", " << extBox.bottom() / dbu
+    cout << __FILE__ << ":" << __LINE__ << ": " << "  extBox (" << extBox.left()  / dbu << ", " << extBox.bottom() / dbu
          << ") -- ("     << extBox.right() / dbu << ", " << extBox.top()    / dbu << "):\n";
   }
   box_t queryBox(point_t(extBox.left(), extBox.bottom()), point_t(extBox.right(), extBox.top()));
@@ -3985,7 +3985,7 @@ void FlexDRWorker::initFixedObjs() {
     }
   }
   if (enableOutput) {
-    cout << "#fixed obj = " << fixedObjs.size() << "\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "#fixed obj = " << fixedObjs.size() << "\n";
   }
 }
 

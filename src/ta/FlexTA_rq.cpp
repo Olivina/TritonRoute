@@ -72,7 +72,7 @@ void FlexTAWorkerRegionQuery::add(taPinFig* fig) {
     box = frBox(bp, bp);
     impl->shapes.at(obj->getViaDef()->getCutLayerNum()).insert(make_pair(box, obj));
   } else {
-    cout <<"Error: unsupported region query add" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
   }
 }
 
@@ -90,7 +90,7 @@ void FlexTAWorkerRegionQuery::remove(taPinFig* fig) {
     box = frBox(bp, bp);
     impl->shapes.at(obj->getViaDef()->getCutLayerNum()).remove(make_pair(box, obj));
   } else {
-    cout <<"Error: unsupported region query add" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unsupported region query add" <<endl;
   }
 }
 

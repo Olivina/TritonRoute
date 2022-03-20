@@ -113,7 +113,7 @@ frCoord FlexGCWorker::Impl::checkMetalSpacing_getMaxSpcVal(frLayerNum layerNum) 
         maxSpcVal = static_cast<frSpacingTablePrlConstraint*>(con)->findMax();
         break;
       default:
-        std::cout << "Warning: Unsupported metSpc rule\n";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: Unsupported metSpc rule\n";
     }
   }
   return maxSpcVal;
@@ -172,8 +172,8 @@ box_t FlexGCWorker::Impl::checkMetalCornerSpacing_getQueryBox(gcCorner* corner, 
       ury += maxSpcValY;
       break;
     default:
-      cout << "prevEdge dir = " << int(corner->getPrevEdge()->getDir()) << ", nextEdge dir = " << int(corner->getNextEdge()->getDir()) << endl;
-      cout << "Error: UNKNOWN corner dir\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "prevEdge dir = " << int(corner->getPrevEdge()->getDir()) << ", nextEdge dir = " << int(corner->getNextEdge()->getDir()) << endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Error: UNKNOWN corner dir\n";
   }
 
   bg::set<bg::min_corner, 0>(queryBox, llx);
@@ -246,7 +246,7 @@ frCoord FlexGCWorker::Impl::checkMetalSpacing_prl_getReqSpcVal(gcRect* rect1, gc
         }
         break;
       default:
-        std::cout << "Warning: Unsupported metSpc rule\n";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: Unsupported metSpc rule\n";
     }
   }
   return reqSpcVal;
@@ -407,49 +407,49 @@ void FlexGCWorker::Impl::checkMetalSpacing_prl(gcRect* rect1, gcRect* rect2, con
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"MetSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"MetSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                         <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net1->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<" ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
       owner = net2->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -550,7 +550,7 @@ void FlexGCWorker::Impl::checkMetalSpacing_short(gcRect* rect1, gcRect* rect2, c
     auto &workerRegionQuery = getWorkerRegionQuery();
     vector<rq_box_value_t<gcRect*> > result;
     workerRegionQuery.queryMaxRectangle(queryBox, layerNum, result);
-    //cout <<"3rd obj" <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"3rd obj" <<endl;
     for (auto &[objBox, objPtr]: result) {
       if (objPtr == rect1 || objPtr == rect2) {
         continue;
@@ -602,53 +602,53 @@ void FlexGCWorker::Impl::checkMetalSpacing_short(gcRect* rect1, gcRect* rect2, c
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
       if (net1 == net2) {
-        cout <<"NSMetal@(";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"NSMetal@(";
       } else {
-        cout <<"Short@(";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Short@(";
       }
-      cout <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
            <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net1->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<" ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
       owner = net2->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -698,37 +698,37 @@ void FlexGCWorker::Impl::checkMetalSpacing_main(gcRect* rect) {
   myBloat(*rect, maxSpcVal, queryBox);
   if (enableOutput) {
     double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-    cout <<"checkMetalPrl maxRect ";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"checkMetalPrl maxRect ";
     if (rect->isFixed()) {
-      cout <<"FIXED";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"FIXED";
     } else {
-      cout <<"ROUTE";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"ROUTE";
     }
-    cout <<" (" <<gtl::xl(*rect) / dbu <<", " <<gtl::yl(*rect) / dbu <<") (" 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<gtl::xl(*rect) / dbu <<", " <<gtl::yl(*rect) / dbu <<") (" 
                 <<gtl::xh(*rect) / dbu <<", " <<gtl::yh(*rect) / dbu <<") "
          <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
-    cout <<"bloat maxSpcVal@" <<maxSpcVal / dbu <<" (" <<queryBox.min_corner().x() / dbu <<", " <<queryBox.min_corner().x() / dbu <<") (" 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"bloat maxSpcVal@" <<maxSpcVal / dbu <<" (" <<queryBox.min_corner().x() / dbu <<", " <<queryBox.min_corner().x() / dbu <<") (" 
                       <<queryBox.max_corner().x() / dbu <<", " <<queryBox.max_corner().x() / dbu <<") ";
     auto owner = rect->getNet()->getOwner();
     if (owner == nullptr) {
-      cout <<" FLOATING";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" FLOATING";
     } else {
       if (owner->typeId() == frcNet) {
-        cout <<static_cast<frNet*>(owner)->getName();
+        cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
       } else if (owner->typeId() == frcInstTerm) {
-        cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
              <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
       } else if (owner->typeId() == frcTerm) {
-        cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
       } else if (owner->typeId() == frcInstBlockage) {
-        cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
       } else if (owner->typeId() == frcBlockage) {
-        cout <<"PIN/OBS";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
       } else {
-        cout <<"UNKNOWN";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
       }
     }
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
 
   auto &workerRegionQuery = getWorkerRegionQuery();
@@ -903,49 +903,49 @@ void FlexGCWorker::Impl::checkMetalCornerSpacing_main(gcCorner* corner, gcRect* 
       if (addMarker(std::move(marker))) {
         if (enableOutput) {
           double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-          cout <<"CornerSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"CornerSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                             <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
                <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
           auto owner = net->getOwner();
           if (owner == nullptr) {
-            cout <<"FLOATING";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
           } else {
             if (owner->typeId() == frcNet) {
-              cout <<static_cast<frNet*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
             } else if (owner->typeId() == frcInstTerm) {
-              cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                    <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
             } else if (owner->typeId() == frcTerm) {
-              cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
             } else if (owner->typeId() == frcInstBlockage) {
-              cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
             } else if (owner->typeId() == frcBlockage) {
-              cout <<"PIN/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
             } else {
-              cout <<"UNKNOWN";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
             }
           }
-          cout <<" ";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
           owner = rect->getNet()->getOwner();
           if (owner == nullptr) {
-            cout <<"FLOATING";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
           } else {
             if (owner->typeId() == frcNet) {
-              cout <<static_cast<frNet*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
             } else if (owner->typeId() == frcInstTerm) {
-              cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                    <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
             } else if (owner->typeId() == frcTerm) {
-              cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
             } else if (owner->typeId() == frcInstBlockage) {
-              cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
             } else if (owner->typeId() == frcBlockage) {
-              cout <<"PIN/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
             } else {
-              cout <<"UNKNOWN";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
             }
           }
-          cout <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
         }
       }
       return;
@@ -1043,49 +1043,49 @@ void FlexGCWorker::Impl::checkMetalCornerSpacing_main(gcCorner* corner, gcSegmen
       if (addMarker(std::move(marker))) {
         if (enableOutput) {
           double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-          cout <<"CornerSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"CornerSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                             <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
                <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
           auto owner = net->getOwner();
           if (owner == nullptr) {
-            cout <<"FLOATING";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
           } else {
             if (owner->typeId() == frcNet) {
-              cout <<static_cast<frNet*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
             } else if (owner->typeId() == frcInstTerm) {
-              cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                    <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
             } else if (owner->typeId() == frcTerm) {
-              cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
             } else if (owner->typeId() == frcInstBlockage) {
-              cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
             } else if (owner->typeId() == frcBlockage) {
-              cout <<"PIN/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
             } else {
-              cout <<"UNKNOWN";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
             }
           }
-          cout <<" ";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
           owner = segNet->getOwner();
           if (owner == nullptr) {
-            cout <<"FLOATING";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
           } else {
             if (owner->typeId() == frcNet) {
-              cout <<static_cast<frNet*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
             } else if (owner->typeId() == frcInstTerm) {
-              cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                    <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
             } else if (owner->typeId() == frcTerm) {
-              cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
             } else if (owner->typeId() == frcInstBlockage) {
-              cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
             } else if (owner->typeId() == frcBlockage) {
-              cout <<"PIN/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
             } else {
-              cout <<"UNKNOWN";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
             }
           }
-          cout <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
         }
       }
     } else {
@@ -1188,30 +1188,30 @@ void FlexGCWorker::Impl::checkMetalShape_minWidth(const gtl::rectangle_data<frCo
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"MinWid@(";
-      cout <<gtl::xl(rect) / dbu <<", " <<gtl::yl(rect) / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"MinWid@(";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<gtl::xl(rect) / dbu <<", " <<gtl::yl(rect) / dbu <<") ("
            <<gtl::xh(rect) / dbu <<", " <<gtl::yh(rect) / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -1274,30 +1274,30 @@ void FlexGCWorker::Impl::checkMetalShape_minStep_helper(const frBox &markerBox, 
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"MinStp@(";
-      cout <<markerBox.left()  / dbu <<", " <<markerBox.bottom() / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"MinStp@(";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<markerBox.left()  / dbu <<", " <<markerBox.bottom() / dbu <<") ("
            <<markerBox.right() / dbu <<", " <<markerBox.top()    / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -1372,30 +1372,30 @@ void FlexGCWorker::Impl::checkMetalShape_minArea(gcPin* pin) {
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"MinArea@(";
-      cout <<markerBox.left()  / dbu <<", " <<markerBox.bottom() / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"MinArea@(";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<markerBox.left()  / dbu <<", " <<markerBox.bottom() / dbu <<") ("
            <<markerBox.right() / dbu <<", " <<markerBox.top()    / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -1480,30 +1480,30 @@ void FlexGCWorker::Impl::checkMetalShape_lef58MinStep_noBetweenEol(gcPin* pin, f
       // true marker
       if (enableOutput) {
         double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-        cout <<"Lef58MinStp@(";
-        cout <<markerBox.left()  / dbu <<", " <<markerBox.bottom() / dbu <<") ("
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"Lef58MinStp@(";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<markerBox.left()  / dbu <<", " <<markerBox.bottom() / dbu <<") ("
              <<markerBox.right() / dbu <<", " <<markerBox.top()    / dbu <<") "
              <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
         auto owner = net->getOwner();
         if (owner == nullptr) {
-          cout <<"FLOATING";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
         } else {
           if (owner->typeId() == frcNet) {
-            cout <<static_cast<frNet*>(owner)->getName();
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
           } else if (owner->typeId() == frcInstTerm) {
-            cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                  <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
           } else if (owner->typeId() == frcTerm) {
-            cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
           } else if (owner->typeId() == frcInstBlockage) {
-            cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
           } else if (owner->typeId() == frcBlockage) {
-            cout <<"PIN/OBS";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
           } else {
-            cout <<"UNKNOWN";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
           }
         }
-        cout <<endl;
+        cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
       }
     }
   }
@@ -1687,26 +1687,26 @@ void FlexGCWorker::Impl::checkMetalShape_rectOnly(gcPin* pin) {
           // true marker
           if (enableOutput) {
             double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-            cout <<"RectOnly@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"RectOnly@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                                 <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
                  <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
             auto owner = net->getOwner();
             if (owner == nullptr) {
-              cout <<"FLOATING";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
             } else {
               if (owner->typeId() == frcNet) {
-                cout <<static_cast<frNet*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
               } else if (owner->typeId() == frcInstTerm) {
-                cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                      <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
               } else if (owner->typeId() == frcTerm) {
-                cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
               } else if (owner->typeId() == frcInstBlockage) {
-                cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
               } else if (owner->typeId() == frcBlockage) {
-                cout <<"PIN/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
               } else {
-                cout <<"UNKNOWN";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
               }
             }
           }
@@ -1751,30 +1751,30 @@ void FlexGCWorker::Impl::checkMetalShape_offGrid(gcPin* pin) {
         if (enableOutput) {
           double dbu = getDesign()->getTopBlock()->getDBUPerUU();
           
-          cout << "OffGrid@(";
-          cout <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+          cout << __FILE__ << ":" << __LINE__ << ": " << "OffGrid@(";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
                <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
           auto owner = net->getOwner();
           if (owner == nullptr) {
-            cout <<"FLOATING";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
           } else {
             if (owner->typeId() == frcNet) {
-              cout <<static_cast<frNet*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
             } else if (owner->typeId() == frcInstTerm) {
-              cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                    <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
             } else if (owner->typeId() == frcTerm) {
-              cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
             } else if (owner->typeId() == frcInstBlockage) {
-              cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
             } else if (owner->typeId() == frcBlockage) {
-              cout <<"PIN/OBS";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
             } else {
-              cout <<"UNKNOWN";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
             }
           }
-          cout << endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " << endl;
         }
       }
     }
@@ -1814,30 +1814,30 @@ void FlexGCWorker::Impl::checkMetalShape_minEnclosedArea(gcPin* pin) {
             if (enableOutput) {
               double dbu = getDesign()->getTopBlock()->getDBUPerUU();
               
-              cout << "MinHole@(";
-              cout <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+              cout << __FILE__ << ":" << __LINE__ << ": " << "MinHole@(";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                    <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
                    <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
               auto owner = net->getOwner();
               if (owner == nullptr) {
-                cout <<"FLOATING";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
               } else {
                 if (owner->typeId() == frcNet) {
-                  cout <<static_cast<frNet*>(owner)->getName();
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
                 } else if (owner->typeId() == frcInstTerm) {
-                  cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                        <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
                 } else if (owner->typeId() == frcTerm) {
-                  cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
                 } else if (owner->typeId() == frcInstBlockage) {
-                  cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
                 } else if (owner->typeId() == frcBlockage) {
-                  cout <<"PIN/OBS";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
                 } else {
-                  cout <<"UNKNOWN";
+                  cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
                 }
               }
-              cout << endl;
+              cout << __FILE__ << ":" << __LINE__ << ": " << endl;
             }
           }
         }
@@ -2170,49 +2170,49 @@ void FlexGCWorker::Impl::checkMetalEndOfLine_eol_hasEol_helper(gcSegment *edge1,
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"EOLSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"EOLSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                         <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net1->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<" ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
       owner = net2->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 
@@ -2420,50 +2420,50 @@ void FlexGCWorker::Impl::checkCutSpacing_short(gcRect* rect1, gcRect* rect2, con
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"CShort@(";
-      cout <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"CShort@(";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
            <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net1->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<" ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
       owner = net2->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -2565,49 +2565,49 @@ void FlexGCWorker::Impl::checkCutSpacing_spc(gcRect* rect1, gcRect* rect2, const
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                         <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net1->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<" ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
       owner = net2->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -2670,49 +2670,49 @@ void FlexGCWorker::Impl::checkCutSpacing_spc_diff_layer(gcRect* rect1, gcRect* r
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                         <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net1->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<" ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
       owner = net2->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 }
@@ -2737,7 +2737,7 @@ void FlexGCWorker::Impl::checkLef58CutSpacing_main(gcRect* rect1, gcRect* rect2,
   } else if (con->hasAdjacentCuts()) {
     checkLef58CutSpacing_spc_adjCut(rect1, rect2, markerRect, con);
   } else {
-    cout << "Warning: Unsupported LEF58_SPACING rule for cut layer, skipped...\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: Unsupported LEF58_SPACING rule for cut layer, skipped...\n";
   }
 }
 
@@ -2884,35 +2884,35 @@ void FlexGCWorker::Impl::checkLef58CutSpacing_spc_adjCut(gcRect* rect1,
   }
 
   if (con->hasExactAligned()) {
-    cout << "Warning: unsupported branch EXACTALIGNED in checkLef58CutSpacing_spc_adjCut\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch EXACTALIGNED in checkLef58CutSpacing_spc_adjCut\n";
     return;
   }
   if (con->isExceptSamePGNet()) {
-    cout << "Warning: unsupported branch EXCEPTSAMEPGNET in checkLef58CutSpacing_spc_adjCut\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch EXCEPTSAMEPGNET in checkLef58CutSpacing_spc_adjCut\n";
     return;
   }
   if (con->hasExceptAllWithin()) {
-    cout << "Warning: unsupported branch EXCEPTALLWITHIN in checkLef58CutSpacing_spc_adjCut\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch EXCEPTALLWITHIN in checkLef58CutSpacing_spc_adjCut\n";
     return;
   }
   if (con->isToAll()) {
-    cout << "Warning: unsupported branch TO ALL in checkLef58CutSpacing_spc_adjCut\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch TO ALL in checkLef58CutSpacing_spc_adjCut\n";
     return;
   }
   if (con->isNoPrl()) {
-    cout << "Warning: unsupported branch NOPRL in checkLef58CutSpacing_spc_adjCut\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch NOPRL in checkLef58CutSpacing_spc_adjCut\n";
     return;
   }
   if (con->hasEnclosure()) {
-    cout << "Warning: unsupported branch ENCLOSURE in checkLef58CutSpacing_spc_adjCut\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch ENCLOSURE in checkLef58CutSpacing_spc_adjCut\n";
     return;
   }
   if (con->isSideParallelOverlap()) {
-    cout << "Warning: unsupported branch SIDEPARALLELOVERLAP in checkLef58CutSpacing_spc_adjCut\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch SIDEPARALLELOVERLAP in checkLef58CutSpacing_spc_adjCut\n";
     return;
   }
   if (con->isSameMask()) {
-    cout << "Warning: unsupported branch SAMEMASK in checkLef58CutSpacing_spc_adjCut\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch SAMEMASK in checkLef58CutSpacing_spc_adjCut\n";
     return;
   }
 
@@ -2973,49 +2973,49 @@ void FlexGCWorker::Impl::checkLef58CutSpacing_spc_adjCut(gcRect* rect1,
     // true marker
     if (enableOutput) {
       double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-      cout <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                         <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
            <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
       auto owner = net1->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<" ";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
       owner = net2->getOwner();
       if (owner == nullptr) {
-        cout <<"FLOATING";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
       } else {
         if (owner->typeId() == frcNet) {
-          cout <<static_cast<frNet*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
         } else if (owner->typeId() == frcInstTerm) {
-          cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
         } else if (owner->typeId() == frcTerm) {
-          cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
         } else if (owner->typeId() == frcInstBlockage) {
-          cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
         } else if (owner->typeId() == frcBlockage) {
-          cout <<"PIN/OBS";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
         } else {
-          cout <<"UNKNOWN";
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
         }
       }
-      cout <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
     }
   }
 
@@ -3037,34 +3037,34 @@ void FlexGCWorker::Impl::checkLef58CutSpacing_spc_layer(gcRect* rect1,
 
   // skip unsupported rule branch
   if (con->isStack()) {
-    cout << "Warning: unsupported branch STACK in checkLef58CutSpacing_spc_layer\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch STACK in checkLef58CutSpacing_spc_layer\n";
     return;
   } else if (con->hasOrthogonalSpacing()) {
-    cout << "Warning: unsupported branch ORTHOGONALSPACING in checkLef58CutSpacing_spc_layer\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch ORTHOGONALSPACING in checkLef58CutSpacing_spc_layer\n";
     return;
   } else if (con->hasCutClass()) {
       ;
     if (con->isShortEdgeOnly()) {
-      cout << "Warning: unsupported branch SHORTEDGEONLY in checkLef58CutSpacing_spc_layer\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch SHORTEDGEONLY in checkLef58CutSpacing_spc_layer\n";
       return;
     } else if (con->isConcaveCorner()) {
       if (con->hasWidth()) {
-        cout << "Warning: unsupported branch WIDTH in checkLef58CutSpacing_spc_layer\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch WIDTH in checkLef58CutSpacing_spc_layer\n";
       } else if (con->hasParallel()) {
-        cout << "Warning: unsupported branch PARALLEL in checkLef58CutSpacing_spc_layer\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch PARALLEL in checkLef58CutSpacing_spc_layer\n";
       } else if (con->hasEdgeLength()) {
-        cout << "Warning: unsupported branch EDGELENGTH in checkLef58CutSpacing_spc_layer\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch EDGELENGTH in checkLef58CutSpacing_spc_layer\n";
       }
     } else if (con->hasExtension()) {
-      cout << "Warning: unsupported branch EXTENSION in checkLef58CutSpacing_spc_layer\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch EXTENSION in checkLef58CutSpacing_spc_layer\n";
     } else if (con->hasNonEolConvexCorner()) {
       ;
     } else if (con->hasAboveWidth()) {
-      cout << "Warning: unsupported branch ABOVEWIDTH in checkLef58CutSpacing_spc_layer\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch ABOVEWIDTH in checkLef58CutSpacing_spc_layer\n";
     } else if (con->isMaskOverlap()) {
-      cout << "Warning: unsupported branch MASKOVERLAP in checkLef58CutSpacing_spc_layer\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch MASKOVERLAP in checkLef58CutSpacing_spc_layer\n";
     } else if (con->isWrongDirection()) {
-      cout << "Warning: unsupported branch WRONGDIRECTION in checkLef58CutSpacing_spc_layer\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: unsupported branch WRONGDIRECTION in checkLef58CutSpacing_spc_layer\n";
     }
   }
 
@@ -3138,49 +3138,49 @@ void FlexGCWorker::Impl::checkLef58CutSpacing_spc_layer(gcRect* rect1,
         if (addMarker(std::move(marker))) {
           if (enableOutput) {
             double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-            cout <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                               <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
                  <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
             auto owner = net1->getOwner();
             if (owner == nullptr) {
-              cout <<"FLOATING";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
             } else {
               if (owner->typeId() == frcNet) {
-                cout <<static_cast<frNet*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
               } else if (owner->typeId() == frcInstTerm) {
-                cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                      <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
               } else if (owner->typeId() == frcTerm) {
-                cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
               } else if (owner->typeId() == frcInstBlockage) {
-                cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
               } else if (owner->typeId() == frcBlockage) {
-                cout <<"PIN/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
               } else {
-                cout <<"UNKNOWN";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
               }
             }
-            cout <<" ";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
             owner = net2->getOwner();
             if (owner == nullptr) {
-              cout <<"FLOATING";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
             } else {
               if (owner->typeId() == frcNet) {
-                cout <<static_cast<frNet*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
               } else if (owner->typeId() == frcInstTerm) {
-                cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                      <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
               } else if (owner->typeId() == frcTerm) {
-                cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
               } else if (owner->typeId() == frcInstBlockage) {
-                cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
               } else if (owner->typeId() == frcBlockage) {
-                cout <<"PIN/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
               } else {
-                cout <<"UNKNOWN";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
               }
             }
-            cout <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
           }
         }
       }
@@ -3289,49 +3289,49 @@ void FlexGCWorker::Impl::checkLef58CutSpacing_spc_layer(gcRect* rect1,
         if (addMarker(std::move(marker))) {
           if (enableOutput) {
             double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-            cout <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
+            cout << __FILE__ << ":" << __LINE__ << ": " <<"CutSpc@(" <<gtl::xl(markerRect) / dbu <<", " <<gtl::yl(markerRect) / dbu <<") ("
                               <<gtl::xh(markerRect) / dbu <<", " <<gtl::yh(markerRect) / dbu <<") "
                  <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
             auto owner = net1->getOwner();
             if (owner == nullptr) {
-              cout <<"FLOATING";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
             } else {
               if (owner->typeId() == frcNet) {
-                cout <<static_cast<frNet*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
               } else if (owner->typeId() == frcInstTerm) {
-                cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                      <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
               } else if (owner->typeId() == frcTerm) {
-                cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
               } else if (owner->typeId() == frcInstBlockage) {
-                cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
               } else if (owner->typeId() == frcBlockage) {
-                cout <<"PIN/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
               } else {
-                cout <<"UNKNOWN";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
               }
             }
-            cout <<" ";
+            cout << __FILE__ << ":" << __LINE__ << ": " <<" ";
             owner = net2->getOwner();
             if (owner == nullptr) {
-              cout <<"FLOATING";
+              cout << __FILE__ << ":" << __LINE__ << ": " <<"FLOATING";
             } else {
               if (owner->typeId() == frcNet) {
-                cout <<static_cast<frNet*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
               } else if (owner->typeId() == frcInstTerm) {
-                cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
                      <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
               } else if (owner->typeId() == frcTerm) {
-                cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
               } else if (owner->typeId() == frcInstBlockage) {
-                cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
               } else if (owner->typeId() == frcBlockage) {
-                cout <<"PIN/OBS";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
               } else {
-                cout <<"UNKNOWN";
+                cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
               }
             }
-            cout <<endl;
+            cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
           }
         }
       }
@@ -3486,37 +3486,37 @@ void FlexGCWorker::Impl::checkCutSpacing_main(gcRect* rect, frCutSpacingConstrai
   myBloat(*rect, maxSpcVal, queryBox);
   if (enableOutput) {
     double dbu = getDesign()->getTopBlock()->getDBUPerUU();
-    cout <<"checkCutSpacing maxRect ";
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"checkCutSpacing maxRect ";
     if (rect->isFixed()) {
-      cout <<"FIXED";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"FIXED";
     } else {
-      cout <<"ROUTE";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"ROUTE";
     }
-    cout <<" (" <<gtl::xl(*rect) / dbu <<", " <<gtl::yl(*rect) / dbu <<") (" 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<" (" <<gtl::xl(*rect) / dbu <<", " <<gtl::yl(*rect) / dbu <<") (" 
                 <<gtl::xh(*rect) / dbu <<", " <<gtl::yh(*rect) / dbu <<") "
          <<getDesign()->getTech()->getLayer(layerNum)->getName() <<" ";
-    cout <<"bloat maxSpcVal@" <<maxSpcVal / dbu <<" (" <<queryBox.min_corner().x() / dbu <<", " <<queryBox.min_corner().x() / dbu <<") (" 
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"bloat maxSpcVal@" <<maxSpcVal / dbu <<" (" <<queryBox.min_corner().x() / dbu <<", " <<queryBox.min_corner().x() / dbu <<") (" 
                       <<queryBox.max_corner().x() / dbu <<", " <<queryBox.max_corner().x() / dbu <<") ";
     auto owner = rect->getNet()->getOwner();
     if (owner == nullptr) {
-      cout <<" FLOATING";
+      cout << __FILE__ << ":" << __LINE__ << ": " <<" FLOATING";
     } else {
       if (owner->typeId() == frcNet) {
-        cout <<static_cast<frNet*>(owner)->getName();
+        cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frNet*>(owner)->getName();
       } else if (owner->typeId() == frcInstTerm) {
-        cout <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
+        cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstTerm*>(owner)->getInst()->getName() <<"/" 
              <<static_cast<frInstTerm*>(owner)->getTerm()->getName();
       } else if (owner->typeId() == frcTerm) {
-        cout <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/" <<static_cast<frTerm*>(owner)->getName();
       } else if (owner->typeId() == frcInstBlockage) {
-        cout <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<static_cast<frInstBlockage*>(owner)->getInst()->getName() <<"/OBS";
       } else if (owner->typeId() == frcBlockage) {
-        cout <<"PIN/OBS";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"PIN/OBS";
       } else {
-        cout <<"UNKNOWN";
+        cout << __FILE__ << ":" << __LINE__ << ": " <<"UNKNOWN";
       }
     }
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
 
   // skip if adjcut not satisfied
@@ -3606,7 +3606,7 @@ void FlexGCWorker::Impl::checkCutSpacing() {
       for (auto &net: getNets()) {
         for (auto &pin: net->getPins(i)) {
           for (auto &maxrect: pin->getMaxRectangles()) {
-            //cout <<"from " <<maxrect.get() <<endl;
+            //cout << __FILE__ << ":" << __LINE__ << ": " <<"from " <<maxrect.get() <<endl;
             checkCutSpacing_main(maxrect.get());
           }
         }
@@ -3688,7 +3688,7 @@ void FlexGCWorker::Impl::patchMetalShape_helper() {
     patch->addToNet(net);
 
     if (!net) {
-      cout << "Warning: attempting to add patch with no drNet\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: attempting to add patch with no drNet\n";
     }
 
     pwires.push_back(std::move(patch));

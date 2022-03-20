@@ -180,7 +180,7 @@ namespace fr {
 
     void printCutClasses() {
       for (auto &[name, idx]: name2CutClassIdxMap) {
-        std::cout << "cutClass name: " << name << ", idx: " << idx << "\n";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "cutClass name: " << name << ", idx: " << idx << "\n";
       }
     }
 
@@ -216,26 +216,26 @@ namespace fr {
     }
     void setMinSpacing(frConstraint* in) {
       if (minSpc != nullptr) {
-        std::cout <<"Warning: override minspacing rule, ";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: override minspacing rule, ";
         if (minSpc->typeId() == frConstraintTypeEnum::frcSpacingConstraint) {
-          std::cout <<"original type is SPACING, ";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"original type is SPACING, ";
         } else if (minSpc->typeId() == frConstraintTypeEnum::frcSpacingTablePrlConstraint) {
-          std::cout <<"original type is SPACINGTABLE PARALLELRUNLENGTH, ";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"original type is SPACINGTABLE PARALLELRUNLENGTH, ";
         } else if (minSpc->typeId() == frConstraintTypeEnum::frcSpacingTableTwConstraint) {
-          std::cout <<"original type is SPACINGTABLE TWOWIDTHS, ";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"original type is SPACINGTABLE TWOWIDTHS, ";
         } else {
-          std::cout <<"original type is UNKNWON, ";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"original type is UNKNWON, ";
         }
         if (in->typeId() == frConstraintTypeEnum::frcSpacingConstraint) {
-          std::cout <<"new type is SPACING";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"new type is SPACING";
         } else if (in->typeId() == frConstraintTypeEnum::frcSpacingTablePrlConstraint) {
-          std::cout <<"new type is SPACINGTABLE PARALLELRUNLENGTH";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"new type is SPACINGTABLE PARALLELRUNLENGTH";
         } else if (in->typeId() == frConstraintTypeEnum::frcSpacingTableTwConstraint) {
-          std::cout <<"new type is SPACINGTABLE TWOWIDTHS";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"new type is SPACINGTABLE TWOWIDTHS";
         } else {
-          std::cout <<"new type is UNKNWON";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"new type is UNKNWON";
         }
-        std::cout <<std::endl;
+        std::cout << __FILE__ << ":" << __LINE__ << ": " <<std::endl;
       }
       minSpc = in;
     }
@@ -289,13 +289,13 @@ namespace fr {
       } else {
         if (!(in->hasSameNet())) {
           if (interLayerCutSpacingConstraintsMap.find(in->getSecondLayerName()) != interLayerCutSpacingConstraintsMap.end()) {
-            std::cout << "Error: Up to one diff-net inter-layer cut spacing rule can be specified for one layer pair. Rule ignored\n";
+            std::cout << __FILE__ << ":" << __LINE__ << ": " << "Error: Up to one diff-net inter-layer cut spacing rule can be specified for one layer pair. Rule ignored\n";
           } else {
             interLayerCutSpacingConstraintsMap[in->getSecondLayerName()] = in;
           }
         } else {
           if (interLayerCutSpacingSamenetConstraintsMap.find(in->getSecondLayerName()) != interLayerCutSpacingSamenetConstraintsMap.end()) {
-            std::cout << "Error: Up to one same-net inter-layer cut spacing rule can be specified for one layer pair. Rule ignored\n";
+            std::cout << __FILE__ << ":" << __LINE__ << ": " << "Error: Up to one same-net inter-layer cut spacing rule can be specified for one layer pair. Rule ignored\n";
           } else {
             interLayerCutSpacingSamenetConstraintsMap[in->getSecondLayerName()] = in;
           }

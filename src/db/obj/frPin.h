@@ -53,7 +53,7 @@ namespace fr {
           std::unique_ptr<frPinFig> tmp = std::make_unique<frPolygon>(*static_cast<frPolygon*>(pinFig));
           addPinFig(std::move(tmp));
         } else {
-          std::cout <<"Unsupported pinFig in copy constructor" <<std::endl;
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Unsupported pinFig in copy constructor" <<std::endl;
           exit(1);
         }
       }
@@ -70,7 +70,7 @@ namespace fr {
           tmp->move(xform);
           addPinFig(std::move(tmp));
         } else {
-          std::cout <<"Unsupported pinFig in copy constructor" <<std::endl;
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Unsupported pinFig in copy constructor" <<std::endl;
           exit(1);
         }
       }

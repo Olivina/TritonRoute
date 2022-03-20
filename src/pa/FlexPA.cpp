@@ -59,8 +59,8 @@ void FlexPA::prep() {
 
   duration<double> time_span1 = duration_cast<duration<double>>(t1 - t0);
   duration<double> time_span2 = duration_cast<duration<double>>(t3 - t2);
-  cout << "Expt1 runtime (pin-level access point gen): " << time_span1.count() << endl;
-  cout << "Expt2 runtime (design-level access pattern gen): " << time_span2.count() << endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " << "Expt1 runtime (pin-level access point gen): " << time_span1.count() << endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " << "Expt2 runtime (design-level access pattern gen): " << time_span2.count() << endl;
 }
 
 int FlexPA::main() {
@@ -69,7 +69,7 @@ int FlexPA::main() {
   //bool enableOutput = true;
   frTime t;
   if (VERBOSE > 0) {
-    cout <<endl <<endl <<"start pin access" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<endl <<"start pin access" <<endl;
   }
 
   init();
@@ -91,24 +91,24 @@ int FlexPA::main() {
   }
 
   if (VERBOSE > 0) {
-    cout <<"#scanned instances     = " <<inst2unique.size()     <<endl;
-    cout <<"#unique  instances     = " <<uniqueInstances.size() <<endl;
-    cout <<"#stdCellGenAp          = " <<stdCellPinGenApCnt           <<endl;
-    cout <<"#stdCellValidPlanarAp  = " <<stdCellPinValidPlanarApCnt   <<endl;
-    cout <<"#stdCellValidViaAp     = " <<stdCellPinValidViaApCnt      <<endl;
-    cout <<"#stdCellPinNoAp        = " <<stdCellPinNoApCnt            <<endl;
-    cout <<"#stdCellPinCnt         = " <<stdCellPinCnt                <<endl;
-    cout <<"#instTermValidViaApCnt = " <<instTermValidViaApCnt        <<endl;
-    cout <<"#macroGenAp            = " <<macroCellPinGenApCnt         <<endl;
-    cout <<"#macroValidPlanarAp    = " <<macroCellPinValidPlanarApCnt <<endl;
-    cout <<"#macroValidViaAp       = " <<macroCellPinValidViaApCnt    <<endl;
-    cout <<"#macroNoAp             = " <<macroCellPinNoApCnt          <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#scanned instances     = " <<inst2unique.size()     <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#unique  instances     = " <<uniqueInstances.size() <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#stdCellGenAp          = " <<stdCellPinGenApCnt           <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#stdCellValidPlanarAp  = " <<stdCellPinValidPlanarApCnt   <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#stdCellValidViaAp     = " <<stdCellPinValidViaApCnt      <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#stdCellPinNoAp        = " <<stdCellPinNoApCnt            <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#stdCellPinCnt         = " <<stdCellPinCnt                <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#instTermValidViaApCnt = " <<instTermValidViaApCnt        <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#macroGenAp            = " <<macroCellPinGenApCnt         <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#macroValidPlanarAp    = " <<macroCellPinValidPlanarApCnt <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#macroValidViaAp       = " <<macroCellPinValidViaApCnt    <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"#macroNoAp             = " <<macroCellPinNoApCnt          <<endl;
   }
 
   if (VERBOSE > 0) {
-    cout <<endl <<"complete pin access" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"complete pin access" <<endl;
     t.print();
-    cout <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl;
   }
   return 0;
 }

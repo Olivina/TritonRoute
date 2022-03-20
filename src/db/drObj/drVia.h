@@ -270,7 +270,7 @@ namespace fr {
       boxIn.set(xl,yl,xh,yh);
       frTransform xform;
       xform.set(origin);
-      //cout <<"origin " <<origin.x() <<" " <<origin.y() <<endl;
+      //cout << __FILE__ << ":" << __LINE__ << ": " <<"origin " <<origin.x() <<" " <<origin.y() <<endl;
       boxIn.transform(xform);
     }
     

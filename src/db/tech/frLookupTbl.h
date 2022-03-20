@@ -196,7 +196,7 @@ namespace fr {
       valClass retVal;
       frUInt4 rowIdx = getRowIdx(rowVal);
       frUInt4 colIdx = getColIdx(colVal);
-      //std::cout << "rowIdx = " << rowIdx << ", colIdx = " << colIdx << std::endl <<std::flush;
+      //std::cout << __FILE__ << ":" << __LINE__ << ": " << "rowIdx = " << rowIdx << ", colIdx = " << colIdx << std::endl <<std::flush;
       retVal = vals[rowIdx][colIdx];
       return retVal;
     }
@@ -209,20 +209,20 @@ namespace fr {
 
     // debug
     void printTbl() const {
-      std::cout << "rowName: " << rowName << std::endl;
+      std::cout << __FILE__ << ":" << __LINE__ << ": " << "rowName: " << rowName << std::endl;
       for (auto &m : rows) {
-        std::cout << m << " ";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << m << " ";
       }
-      std::cout << "\n colName: " << colName << std::endl;
+      std::cout << __FILE__ << ":" << __LINE__ << ": " << "\n colName: " << colName << std::endl;
       for (auto &m : cols) {
-        std::cout << m << " ";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << m << " ";
       }
-      std::cout << "\n vals: " << std::endl;
+      std::cout << __FILE__ << ":" << __LINE__ << ": " << "\n vals: " << std::endl;
       for (auto &m : vals) {
         for (auto &n : m) {
-          std::cout << n << " ";
+          std::cout << __FILE__ << ":" << __LINE__ << ": " << n << " ";
         }
-        std::cout << std::endl;
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << std::endl;
       }
     }
 

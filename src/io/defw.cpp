@@ -346,7 +346,7 @@ int netf(defrCallbackType_e c, defiNet* net, defiUserData ud) {
 
   if (true) {
     if (userData->connFigs.find(net->name()) == userData->connFigs.end()) {
-      //std::cout <<"Warning: no routes for " <<net->name() <<std::endl;
+      //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Warning: no routes for " <<net->name() <<std::endl;
     } else {
       for (auto &connFig: userData->connFigs.at(net->name())) {
         if (cnt == 0) {
@@ -355,7 +355,7 @@ int netf(defrCallbackType_e c, defiNet* net, defiUserData ud) {
           fprintf(fout, "    NEW ");
         }
         if (connFig->typeId() == frcPathSeg) {
-          //std::cout <<"here" <<std::endl;
+          //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"here" <<std::endl;
           auto pathSeg = std::dynamic_pointer_cast<frPathSeg>(connFig);
           auto layerName = userData->getTech()->getLayer(pathSeg->getLayerNum())->getName();
           //frCoord defaultWidth = userData->getTech()->getLayer(pathSeg->getLayerNum())->getWidth();
@@ -367,14 +367,14 @@ int netf(defrCallbackType_e c, defiNet* net, defiUserData ud) {
           //if (begin.x() == end.x() && end.y() - begin.y() < defaultWidth) {
           //  fprintf(fout, " ( %d %d ) RECT ( %d %d %d %d )", begin.x(), begin.y(),
           //      -defaultWidth/2, -defaultWidth/2, defaultWidth/2, defaultWidth/2 + end.y() - begin.y());
-          //  //std::cout <<"here1" <<std::endl;
+          //  //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"here1" <<std::endl;
           //// horizontal rect
           //} else if (begin.y() == end.y() && end.x() - begin.x() < defaultWidth) {
           //  fprintf(fout, " ( %d %d ) RECT ( %d %d %d %d )", begin.x(), begin.y(),
           //      -defaultWidth/2, -defaultWidth/2, defaultWidth/2 + end.x() - begin.x(), defaultWidth/2);
-          //  //std::cout <<"here2" <<std::endl;
+          //  //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"here2" <<std::endl;
           //} else {
-            //std::cout <<"here3" <<std::endl;
+            //std::cout << __FILE__ << ":" << __LINE__ << ": " <<"here3" <<std::endl;
             pathSeg->getStyle(segStyle);
             if (segStyle.getBeginStyle() == frEndStyle(frcExtendEndStyle)) {
               fprintf(fout, " ( %d %d )", begin.x(), begin.y());
@@ -417,7 +417,7 @@ int netf(defrCallbackType_e c, defiNet* net, defiUserData ud) {
                   origin.x(), origin.y(),
                   offsetBox.left(), offsetBox.bottom(), offsetBox.right(), offsetBox.top());
         } else {
-          std::cout <<"Error: unknown drt type" <<std::endl;
+          std::cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: unknown drt type" <<std::endl;
           exit(2);
         }
         cnt++;

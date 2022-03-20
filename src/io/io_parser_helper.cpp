@@ -67,7 +67,7 @@ void io::Parser::initDefaultVias() {
       tech->getLayer(layerNum)->setDefaultViaDef(defaultSingleCutVia);
     } else {
       if (layerNum >= BOTTOM_ROUTING_LAYER) {
-        std::cout << "Error: " << tech->getLayer(layerNum)->getName() << " does not have single-cut via\n";
+        std::cout << __FILE__ << ":" << __LINE__ << ": " << "Error: " << tech->getLayer(layerNum)->getName() << " does not have single-cut via\n";
         exit(1);
       }
     }
@@ -98,7 +98,7 @@ void io::Parser::initDefaultVias() {
         REF_OUT_FILE = OUT_FILE + string(".ref");
         string viaDefName = tech->getLayer(techDefautlViaDef->getCutLayerNum())->getName();
         viaDefName += string("_FR");
-        cout << "Warning: " << tech->getLayer(layer1Num)->getName() << " does not have viaDef align with layer direction, generating new viaDef " << viaDefName << "...\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: " << tech->getLayer(layer1Num)->getName() << " does not have viaDef align with layer direction, generating new viaDef " << viaDefName << "...\n";
         // routing layer shape
         // rotate if needed
         if (isLayer1EncHorz != isLayer1Horz) {
@@ -152,12 +152,12 @@ void io::Parser::initConstraintLayerIdx() {
     for (auto &[secondLayerName, con]: layer->getInterLayerCutSpacingConstraintMap(false)) {
       auto secondLayer = design->getTech()->getLayer(secondLayerName);
       if (secondLayer == nullptr) {
-        cout << "Error: second layer " << secondLayerName << " does not exist\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Error: second layer " << secondLayerName << " does not exist\n";
         continue;
       }
       auto secondLayerNum = design->getTech()->getLayer(secondLayerName)->getLayerNum();
       con->setSecondLayerNum(secondLayerNum);
-      cout << "  updating diff-net cut spacing rule between " << design->getTech()->getLayer(layerNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " << "  updating diff-net cut spacing rule between " << design->getTech()->getLayer(layerNum)->getName()
            << " and " << design->getTech()->getLayer(secondLayerNum)->getName() << "\n";
       interLayerCutSpacingConstraints[secondLayerNum] = con;
     }
@@ -169,19 +169,19 @@ void io::Parser::initConstraintLayerIdx() {
     for (auto &[secondLayerName, con]: layer->getInterLayerCutSpacingConstraintMap(true)) {
       auto secondLayer = design->getTech()->getLayer(secondLayerName);
       if (secondLayer == nullptr) {
-        cout << "Error: second layer " << secondLayerName << " does not exist\n";
+        cout << __FILE__ << ":" << __LINE__ << ": " << "Error: second layer " << secondLayerName << " does not exist\n";
         continue;
       }
       auto secondLayerNum = design->getTech()->getLayer(secondLayerName)->getLayerNum();
       con->setSecondLayerNum(secondLayerNum);
-      cout << "  updating same-net cut spacing rule between " << design->getTech()->getLayer(layerNum)->getName()
+      cout << __FILE__ << ":" << __LINE__ << ": " << "  updating same-net cut spacing rule between " << design->getTech()->getLayer(layerNum)->getName()
            << " and " << design->getTech()->getLayer(secondLayerNum)->getName() << "\n";
       interLayerCutSpacingSamenetConstraints[secondLayerNum] = con;
     }
     // reset same-net if diff-net does not exist
     for (int i = 0; i < (int)interLayerCutSpacingConstraints.size(); i++) {
       if (interLayerCutSpacingConstraints[i] == nullptr) {
-        // cout << i << endl << flush; 
+        // cout << __FILE__ << ":" << __LINE__ << ": " << i << endl << flush; 
         interLayerCutSpacingSamenetConstraints[i] = nullptr;
       } else {
         interLayerCutSpacingConstraints[i]->setSameNetConstraint(interLayerCutSpacingSamenetConstraints[i]);
@@ -203,7 +203,7 @@ void io::Parser::initConstraintLayerIdx() {
       }
     }
   }
-  cout << "done initConstraintLayerIdx\n" << flush;
+  cout << __FILE__ << ":" << __LINE__ << ": " << "done initConstraintLayerIdx\n" << flush;
 }
 
 // initialize cut layer width for cut OBS DRC check if not specified in LEF
@@ -220,7 +220,7 @@ void io::Parser::initCutLayerWidth() {
       if (viaDef) {
         auto cutFig = viaDef->getCutFigs()[0].get();
         if (cutFig->typeId() != frcRect) {
-          cout << "Error: non-rect shape in via definition\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Error: non-rect shape in via definition\n";
           exit(1);
         }
         auto cutRect = static_cast<frRect*>(cutFig);
@@ -228,14 +228,14 @@ void io::Parser::initCutLayerWidth() {
         layer->setWidth(viaWidth);
         if (viaDef->getNumCut() == 1) {
           if (cutRect->width() != cutRect->length()) {
-            cout << "Warning: CUT layer " << layer->getName() << " does not have square single-cut via, cut layer width may be set incorrectly\n";
+            cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: CUT layer " << layer->getName() << " does not have square single-cut via, cut layer width may be set incorrectly\n";
           }
         } else {
-          cout << "Warning: CUT layer " << layer->getName() << " does not have single-cut via as default via, cut layer width may be set incorrectly\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: CUT layer " << layer->getName() << " does not have single-cut via as default via, cut layer width may be set incorrectly\n";
         }
       } else {
         if (layerNum >= BOTTOM_ROUTING_LAYER) {
-          cout << "Error: CUT layer " << layer->getName() << " does not have default via\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Error: CUT layer " << layer->getName() << " does not have default via\n";
           exit(1);
         }
       }
@@ -245,13 +245,13 @@ void io::Parser::initCutLayerWidth() {
       if (viaDef) {
         auto cutFig = viaDef->getCutFigs()[0].get();
         if (cutFig->typeId() != frcRect) {
-          cout << "Error: non-rect shape in via definition\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Error: non-rect shape in via definition\n";
           exit(1);
         }
         auto cutRect = static_cast<frRect*>(cutFig);
         int viaWidth = cutRect->width();
         if (cutLayerWidth < viaWidth) {
-          cout << "Warning: CUT layer " << layer->getName() << " has smaller width defined in LEF compared to default via\n";
+          cout << __FILE__ << ":" << __LINE__ << ": " << "Warning: CUT layer " << layer->getName() << " has smaller width defined in LEF compared to default via\n";
         }
       }
     }
@@ -549,16 +549,16 @@ void io::Parser::writeRefDef() {
   }
 
   if (REF_OUT_FILE != DEF_FILE) {
-    cout << "Writing reference output def...\n";
+    cout << __FILE__ << ":" << __LINE__ << ": " << "Writing reference output def...\n";
     bool hasVia = false;
     ifstream fin(DEF_FILE);
     ofstream fout(REF_OUT_FILE);
     if (!fin.is_open()) {
-      cout << "Error: cannot open input DEF\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Error: cannot open input DEF\n";
       exit(1);
     }
     if (!fout.is_open()) {
-      cout << "Error: cannot open reference output DEF\n";
+      cout << __FILE__ << ":" << __LINE__ << ": " << "Error: cannot open reference output DEF\n";
       exit(1);
     }
     string line;
@@ -665,7 +665,7 @@ void io::Parser::postProcess() {
   instAnalysis();
 
   // init region query
-  cout <<endl <<"init region query ..." <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"init region query ..." <<endl;
   design->getRegionQuery()->init(design->getTech()->getLayers().size());
   design->getRegionQuery()->print();
   design->getRegionQuery()->initDRObj(design->getTech()->getLayers().size()); // second init from FlexDR.cpp
@@ -674,7 +674,7 @@ void io::Parser::postProcess() {
 void io::Parser::postProcessGuide() {
   ProfileTask profile("IO:postProcessGuide");
   if (VERBOSE > 0) {
-    cout <<endl <<"post process guides ..." <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"post process guides ..." <<endl;
   }
   buildGCellPatterns();
   
@@ -682,7 +682,7 @@ void io::Parser::postProcessGuide() {
   int cnt = 0;
   //for (auto &[netName, rects]:tmpGuides) {
   //  if (design->getTopBlock()->name2net.find(netName) == design->getTopBlock()->name2net.end()) {
-  //    cout <<"Error: postProcessGuide cannot find net" <<endl;
+  //    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: postProcessGuide cannot find net" <<endl;
   //    exit(1);
   //  }
   for (auto &[net, rects]:tmpGuides) {
@@ -691,11 +691,11 @@ void io::Parser::postProcessGuide() {
     if (VERBOSE > 0) {
       if (cnt < 100000) {
         if (cnt % 10000 == 0) {
-          cout <<"  complete " <<cnt <<" nets" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" nets" <<endl;
         }
       } else {
         if (cnt % 100000 == 0) {
-          cout <<"  complete " <<cnt <<" nets" <<endl;
+          cout << __FILE__ << ":" << __LINE__ << ": " <<"  complete " <<cnt <<" nets" <<endl;
         }
       }
     }
@@ -710,19 +710,19 @@ void io::Parser::postProcessGuide() {
     }
   }
 
-  cout <<endl <<"init guide query ..." <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"init guide query ..." <<endl;
   design->getRegionQuery()->initGuide(design->getTech()->getLayers().size());
   design->getRegionQuery()->printGuide();
-  cout <<endl <<"init gr pin query ..." <<endl;
+  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"init gr pin query ..." <<endl;
   design->getRegionQuery()->initGRPin(tmpGRPins);
 
   if (OUTGUIDE_FILE == string("")) {
     if (VERBOSE > 0) {
-      cout <<"Waring: no output guide specified, skipped writing guide" <<endl;
+      cout << __FILE__ << ":" << __LINE__ << ": " <<"Waring: no output guide specified, skipped writing guide" <<endl;
     }
   } else {
     //if (VERBOSE > 0) {
-    //  cout <<endl <<"start writing output guide" <<endl;
+    //  cout << __FILE__ << ":" << __LINE__ << ": " <<endl <<"start writing output guide" <<endl;
     //}
     writeGuideFile();
   }
@@ -767,7 +767,7 @@ void io::Parser::buildGCellPatterns_getWidth(frCoord &GCELLGRIDX, frCoord &GCELL
       tmpGCELLGRIDXCnt = cnt;
       tmpGCELLGRIDX = mapIt->first;
     }
-    //cout <<"X width=" <<mapIt->first <<"/" <<mapIt->second <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"X width=" <<mapIt->first <<"/" <<mapIt->second <<endl;
   }
   for (auto mapIt = guideGridYMap.begin(); mapIt != guideGridYMap.end(); ++mapIt) {
     auto cnt = mapIt->second;
@@ -775,18 +775,18 @@ void io::Parser::buildGCellPatterns_getWidth(frCoord &GCELLGRIDX, frCoord &GCELL
       tmpGCELLGRIDYCnt = cnt;
       tmpGCELLGRIDY = mapIt->first;
     }
-    //cout <<"Y width=" <<mapIt->first <<"/" <<mapIt->second <<endl;
+    //cout << __FILE__ << ":" << __LINE__ << ": " <<"Y width=" <<mapIt->first <<"/" <<mapIt->second <<endl;
   }
   if (tmpGCELLGRIDX != -1) {
     GCELLGRIDX = tmpGCELLGRIDX;
   } else {
-    cout <<"Error: no GCELLGRIDX" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no GCELLGRIDX" <<endl;
     exit(1);
   }
   if (tmpGCELLGRIDY != -1) {
     GCELLGRIDY = tmpGCELLGRIDY;
   } else {
-    cout <<"Error: no GCELLGRIDY" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no GCELLGRIDY" <<endl;
     exit(1);
   }
 }
@@ -837,13 +837,13 @@ void io::Parser::buildGCellPatterns_getOffset(frCoord GCELLGRIDX, frCoord GCELLG
   if (tmpGCELLOFFSETX != -1) {
     GCELLOFFSETX = tmpGCELLOFFSETX;
   } else {
-    cout <<"Error: no GCELLGRIDX" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no GCELLGRIDX" <<endl;
     exit(1);
   } 
   if (tmpGCELLOFFSETY != -1) {
     GCELLOFFSETY = tmpGCELLOFFSETY;
   } else {
-    cout <<"Error: no GCELLGRIDX" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: no GCELLGRIDX" <<endl;
     exit(1);
   }
 }
@@ -866,7 +866,7 @@ void io::Parser::buildGCellPatterns() {
   xgp.setStartCoord(startCoordX);
   xgp.setSpacing(GCELLGRIDX);
   if ((dieBox.right() - (frCoord)GCELLOFFSETX) / (frCoord)GCELLGRIDX < 1) {
-    cout <<"Error: gcell cnt < 1" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: gcell cnt < 1" <<endl;
     exit(1);
   }
   xgp.setCount((dieBox.right() - (frCoord)startCoordX) / (frCoord)GCELLGRIDX);
@@ -881,14 +881,14 @@ void io::Parser::buildGCellPatterns() {
   ygp.setStartCoord(startCoordY);
   ygp.setSpacing(GCELLGRIDY);
   if ((dieBox.top() - (frCoord)GCELLOFFSETY) / (frCoord)GCELLGRIDY < 1) {
-    cout <<"Error: gcell cnt < 1" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"Error: gcell cnt < 1" <<endl;
     exit(1);
   }
   ygp.setCount((dieBox.top() - startCoordY) / (frCoord)GCELLGRIDY);
 
   if (VERBOSE > 0) {
-    cout <<"GCELLGRID X " <<ygp.getStartCoord() <<" DO " <<ygp.getCount() <<" STEP " <<ygp.getSpacing() <<" ;" <<endl;
-    cout <<"GCELLGRID Y " <<xgp.getStartCoord() <<" DO " <<xgp.getCount() <<" STEP " <<xgp.getSpacing() <<" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"GCELLGRID X " <<ygp.getStartCoord() <<" DO " <<ygp.getCount() <<" STEP " <<ygp.getSpacing() <<" ;" <<endl;
+    cout << __FILE__ << ":" << __LINE__ << ": " <<"GCELLGRID Y " <<xgp.getStartCoord() <<" DO " <<xgp.getCount() <<" STEP " <<xgp.getSpacing() <<" ;" <<endl;
   }
 
   design->getTopBlock()->setGCellPatterns({xgp, ygp});
