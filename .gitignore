@@ -7,3 +7,5 @@ Makefile
 !**/golden/*.log
 
 module/def/5.8-p029/def.output
+.vscode
+.DS_Store
