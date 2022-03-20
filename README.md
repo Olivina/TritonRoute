@@ -31,7 +31,7 @@ $ make
 
 To run TritonRoute: 
 ```
-$ ./TritonRoute -lef <LEF_FILE> -def <DEF_FILE> -guide <GUIDE_FILE> -output <OUTPUT_DEF> --threads <#threads>
+$ ./TritonRoute -lef <LEF_FILE> -def <DEF_FILE> -guide <GUIDE_FILE> -output <OUTPUT_DEF> -threads <#threads>
 ```
 
 ## Supported Technologies ##
