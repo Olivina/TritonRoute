@@ -1,6 +1,8 @@
 *.o
 
-build
+._.*
+
+build*
 build/*.*
 Makefile
 *.log
@@ -9,3 +11,5 @@ Makefile
 module/def/5.8-p029/def.output
 .vscode
 .DS_Store
+.cache
+bin
